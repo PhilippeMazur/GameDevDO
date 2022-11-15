@@ -6,6 +6,7 @@ using Slime.Input;
 using Slime.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,20 +18,24 @@ namespace Slime.Characters
         Texture2D heroTexture;
         IInputreader inputReader;
         private Vector2 position = new Vector2(500f, 200f);
-        Animation animationIdle = new Animation();
+        Animation animation = new Animation();
         Animation animationRunning = new Animation();
         Animation animationJumping = new Animation();
+        private Vector2 snelheid = new Vector2(4, 4);
+        
 
         public Hero(Texture2D heroTexture, IInputreader inputReader)
         {
             this.heroTexture = heroTexture;
             this.inputReader = inputReader;
-            animationIdle.AddFrame(new AnimationFrame(new Rectangle(0, 0, 50, 50)));
-            animationIdle.AddFrame(new AnimationFrame(new Rectangle(50, 0, 50, 50)));
-            animationRunning.AddFrame(new AnimationFrame(new Rectangle(0, 50, 50, 50)));
-            animationRunning.AddFrame(new AnimationFrame(new Rectangle(50, 50, 50, 50)));
-            animationJumping.AddFrame(new AnimationFrame(new Rectangle(0, 100, 50, 50)));
-            animationJumping.AddFrame(new AnimationFrame(new Rectangle(50, 100, 50, 50)));
+            
+            animation.AddFrame(new AnimationFrame(new Rectangle(0, 0, 50, 50)));
+            animation.AddFrame(new AnimationFrame(new Rectangle(50, 0, 50, 50)));
+            animation.AddFrame(new AnimationFrame(new Rectangle(0, 50, 50, 50)));
+            animation.AddFrame(new AnimationFrame(new Rectangle(50, 50, 50, 50)));
+            animation.AddFrame(new AnimationFrame(new Rectangle(0, 100, 50, 50)));
+            animation.AddFrame(new AnimationFrame(new Rectangle(50, 100, 50, 50)));
+            
 
 
         }
@@ -40,20 +45,26 @@ namespace Slime.Characters
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(heroTexture, position, animationIdle.CurrentFrame.sourceRectangle, Color.White);
+            if(!animation.goingLeft)
+            {
+                spriteBatch.Draw(heroTexture, position, animation.CurrentFrame.sourceRectangle, Color.White);
+            } else
+            {
+                spriteBatch.Draw(heroTexture, position, animation.CurrentFrame.sourceRectangle, Color.White, 0, new Vector2(0, 0), new Vector2(1, 1), SpriteEffects.FlipHorizontally, 0);
+            }
         }
 
         public void Update(GameTime gameTime, KeyboardReader kb)
         {
-            if(kb.AnimationState == KeyboardReader.states.Idle)
-            {
-                animationIdle.Update(gameTime);
-            }
-            if (kb.AnimationState == KeyboardReader.states.RunningRight)
-            {
-                animationRunning.Update(gameTime);
-                
-            }
+            Move();
+            animation.Update(gameTime, kb);
+
+        }
+        private void Move()
+        {
+            Vector2 direction = inputReader.ReadInput(position, 100);
+            direction *= snelheid;
+            position += direction;
         }
     }
 }
