@@ -10,20 +10,19 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Slime.Characters
 {
     internal class Hero : IGameObject
     {
-        Texture2D heroTexture;
+        public Texture2D heroTexture;
         IInputreader inputReader;
-        private Vector2 position = new Vector2(500f, 200f);
+        public Vector2 position = new Vector2(500f, 200f);
         Animation animation = new Animation();
-        Animation animationRunning = new Animation();
-        Animation animationJumping = new Animation();
         private Vector2 snelheid = new Vector2(4, 4);
-        
-
+        public Vector2 floorTile = new Vector2(0, 540);
+        public Rectangle hitbox;        
         public Hero(Texture2D heroTexture, IInputreader inputReader)
         {
             this.heroTexture = heroTexture;
@@ -42,6 +41,7 @@ namespace Slime.Characters
         public void LoadContent(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
         {
             spriteBatch = new SpriteBatch(graphicsDevice);
+            hitbox = new Rectangle((int)position.X, (int)position.Y, 75, 75);
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -58,13 +58,14 @@ namespace Slime.Characters
         {
             Move();
             animation.Update(gameTime, kb);
-
         }
         private void Move()
         {
-            Vector2 direction = inputReader.ReadInput(position, 100);
+            Vector2 direction = inputReader.ReadInput(position, 100, this);
             direction *= snelheid;
             position += direction;
+            hitbox.X = (int)position.X;
+            hitbox.Y = (int)position.Y;
         }
     }
 }

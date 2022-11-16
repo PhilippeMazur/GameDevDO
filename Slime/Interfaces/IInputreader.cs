@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Slime.Characters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace Slime.Interfaces
 {
     internal interface IInputreader
     {
-        public Vector2 ReadInput(Vector2 pos, int width);
+        public Vector2 ReadInput(Vector2 pos, int width, Hero hero);
     }
 }

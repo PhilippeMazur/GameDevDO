@@ -14,14 +14,12 @@ namespace Project1.Animations
     {
         public AnimationFrame CurrentFrame { get; set; }
         private List<AnimationFrame> frames;
-        private List<AnimationFrame> framesRun;
         private int counter;
         private int counter2 = 2;
         private int counter3 = 4;
         static Random r = new Random();
         private double secondCounter = 0;
         private int fps = 2;
-        private int fps2 = 15;
         public bool goingLeft = false;
         public Animation()
         {
@@ -40,8 +38,7 @@ namespace Project1.Animations
 
             if (kb.AnimationState == KeyboardReader.states.Idle)
             {
-                goingLeft = false;
-                Debug.WriteLine("Idle");
+                goingLeft = false;               
                 if (secondCounter >= 1000d / fps)
                 {
                     secondCounter = 0;
@@ -52,13 +49,10 @@ namespace Project1.Animations
                         counter = 0;
                     }
                 }
-
             }
             if (kb.AnimationState == KeyboardReader.states.RunningRight)
             {
-                goingLeft = false;
-                Debug.WriteLine("RunningRight");
-
+                goingLeft = false;                
                 if (secondCounter >= 1000d / fps)
                 {
                     secondCounter = 0;
@@ -69,12 +63,11 @@ namespace Project1.Animations
                         counter2 = 2;
                     }
                 }
-
             }
             if(kb.AnimationState == KeyboardReader.states.RunningLeft)
             {
                 goingLeft = true;
-                Debug.WriteLine("RunningLeft");
+                
 
                 if (secondCounter >= 1000d / fps)
                 {
@@ -89,8 +82,7 @@ namespace Project1.Animations
             }
             if (kb.AnimationState == KeyboardReader.states.Jumping)
             {
-                goingLeft = false;
-                Debug.WriteLine("Jumping");
+                goingLeft = false;                
                 if (secondCounter >= 1000d / fps)
                 {
                     secondCounter = 0;
@@ -101,14 +93,10 @@ namespace Project1.Animations
                         counter3 = 4;
                     }
                 }
-
             }     
         }
         public void Update(GameTime gameTime)
         {
-
-           
-
             secondCounter += gameTime.ElapsedGameTime.TotalMilliseconds;
 
             if (secondCounter >= 1000d / fps)
