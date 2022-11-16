@@ -1,0 +1,1 @@
+-Collision detection klasse maken waar ik mijn collission controle in de game klasse naartoe ga brengen.
