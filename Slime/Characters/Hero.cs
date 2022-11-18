@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Project1.Animations;
+using SharpDX.Direct2D1;
 using SharpDX.Direct3D9;
 using Slime.Input;
 using Slime.Interfaces;
@@ -11,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 
 namespace Slime.Characters
 {
@@ -18,11 +20,14 @@ namespace Slime.Characters
     {
         public Texture2D heroTexture;
         IInputreader inputReader;
-        public Vector2 position = new Vector2(500f, 200f);
+        public Vector2 position = new Vector2(100, 500f);
         Animation animation = new Animation();
         private Vector2 snelheid = new Vector2(4, 4);
         public Vector2 floorTile = new Vector2(0, 540);
-        public Rectangle hitbox;        
+        public Rectangle hitbox;
+        public Rectangle hitboxBody;
+        private Texture2D hitboxTexture;
+        public bool buttonHitbox = false;
         public Hero(Texture2D heroTexture, IInputreader inputReader)
         {
             this.heroTexture = heroTexture;
@@ -41,11 +46,17 @@ namespace Slime.Characters
         public void LoadContent(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
         {
             spriteBatch = new SpriteBatch(graphicsDevice);
-            hitbox = new Rectangle((int)position.X, (int)position.Y, 75, 75);
+            hitbox = new Rectangle((int)position.X, (int)position.Y, 50, 50);
+            hitboxBody = new Rectangle((int)position.X, (int)position.Y, 50, 40);
+            hitboxTexture = new Texture2D(graphicsDevice, 1, 1);
+            hitboxTexture.SetData(new[] { Color.White });
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            if(!animation.goingLeft)
+
+            drawHitbox(spriteBatch, buttonHitbox);
+
+            if (!animation.goingLeft)
             {
                 spriteBatch.Draw(heroTexture, position, animation.CurrentFrame.sourceRectangle, Color.White);
             } else
@@ -66,6 +77,16 @@ namespace Slime.Characters
             position += direction;
             hitbox.X = (int)position.X;
             hitbox.Y = (int)position.Y;
+            hitboxBody.X = (int)position.X;
+            hitboxBody.Y = (int)position.Y;
+        }
+        public void drawHitbox(SpriteBatch spriteBatch,bool b)
+        {
+            if(b)
+            {
+                spriteBatch.Draw(hitboxTexture, hitbox, Color.Red);
+                spriteBatch.Draw(hitboxTexture, hitboxBody, Color.Yellow);
+            }
         }
     }
 }

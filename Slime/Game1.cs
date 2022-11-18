@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Slime.Characters;
+using Slime.Collision;
 using Slime.Input;
 using Slime.Map;
 using System.Diagnostics;
@@ -20,6 +21,7 @@ namespace Slime
         TileMap map = new TileMap();
         KeyboardReader kb = new KeyboardReader();
         private int touchCounter = 0;
+        CollisionHandler collisionHandler = new CollisionHandler();
         
 
         public Game1()
@@ -63,19 +65,7 @@ namespace Slime
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            Debug.WriteLine(hero.hitbox);
-            // TODO: Add your update logic here
-            foreach (var item in map.allTiles)
-            {
-                
-                if (item.myType == Block.typeBlock.FLOOR2 && item.recPos.Intersects(hero.hitbox))
-                {
-                    touchCounter++;
-                    Debug.WriteLine("Touched " + touchCounter);
-                    hero.floorTile.X = item.recPos.X;
-                    hero.floorTile.Y = item.recPos.Y - item.textureRectangle.Height;
-                }
-            }
+            collisionHandler.Update(gameTime, map, hero, kb);
             hero.Update(gameTime, kb);
             base.Update(gameTime);
             
