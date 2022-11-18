@@ -55,7 +55,7 @@ namespace Slime.Input
             {
                 
                 AnimationState = states.Jumping;
-                hero.position.Y -= 0.1f * i;
+                hero.position.Y -= 0.4f * i;
                 direction.Y += -5f * i;
                 hasJumped = true;
                 
@@ -65,10 +65,10 @@ namespace Slime.Input
             if (hasJumped == true)
             {
                 isFalling = true;
-                direction.Y += 0.25f * i;
+                direction.Y += 0.15f * i;
                 AnimationState = states.Jumping;
             }
-            if (hero.position.Y >= hero.floorTile.Y)
+            if (hero.position.Y >= hero.currentFloorTile.Y)
             {
                 isFalling = false;
                 hasJumped = false;
@@ -77,7 +77,7 @@ namespace Slime.Input
             if (hasJumped == false)
             {
                 isFalling = false;
-                if (hero.position.Y <= hero.floorTile.Y)
+                if (hero.position.Y <= hero.currentFloorTile.Y)
                 {
                     isFalling = true;
                     direction.Y = 1;

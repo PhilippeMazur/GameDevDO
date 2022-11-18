@@ -3,11 +3,6 @@ using Slime.Characters;
 using Slime.Input;
 using Slime.Map;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Slime.Collision
 {
@@ -22,11 +17,13 @@ namespace Slime.Collision
 
         public void Update(GameTime gametime, TileMap map, Hero hero, KeyboardReader kb)
         {
+            hero.floorTileDifference = hero.previousFloorTile.Y - hero.currentFloorTile.Y;
             foreach (var item in map.allTiles)
             {
                 
-                if (item.recPos.Intersects(hero.hitbox) && (item.myType is Block.typeBlock.FLOOR || item.myType is Block.typeBlock.FLOOR2 || item.myType is Block.typeBlock.SPIKE || item.myType is Block.typeBlock.SPIKE2))
+                if (item.recPos.Intersects(hero.hitbox) && (item.myType is Block.typeBlock.FLOOR || item.myType is Block.typeBlock.FLOOR2 || item.myType is Block.typeBlock.SPIKE || item.myType is Block.typeBlock.SPIKE2 || item.myType is Block.typeBlock.CLOUD || item.myType is Block.typeBlock.CLOUD2))
                 {
+                    
                     
                     if (hero.position.X >= item.recPos.X || hero.position.X <= item.recPos.X + 50 && hero.position.Y >= item.recPos.Y + 50)
                     {
@@ -36,6 +33,7 @@ namespace Slime.Collision
                         
                         kb.isFalling = false;
                         kb.hasJumped = false;
+                        hero.previousFloorTile = hero.currentFloorTile;
                     }
 
                     if(item.recPos.Intersects(hero.hitboxBody))
@@ -47,17 +45,22 @@ namespace Slime.Collision
                     
 
 
-                    if (hero.position.Y < item.recPos.Bottom && hero.position.Y < hero.floorTile.Y)
+                    if (hero.position.Y < item.recPos.Bottom && hero.position.Y < hero.currentFloorTile.Y)
                     {
-                        hero.floorTile.X = item.recPos.X;
-                        hero.floorTile.Y = item.recPos.Y - item.textureRectangle.Height;
+                        hero.currentFloorTile.X = item.recPos.X;
+                        hero.currentFloorTile.Y = item.recPos.Y - item.textureRectangle.Height;
                     }
                     
                 }
                 
                 if (item.recPos.Intersects(hero.hitbox) && (item.myType == Block.typeBlock.SKY)) {
-                    hero.floorTile.X = item.recPos.X; 
-                    hero.floorTile.Y = item.recPos.Y - item.textureRectangle.Height + 50;
+                    
+                    hero.currentFloorTile.X = item.recPos.X; 
+                    hero.currentFloorTile.Y = item.recPos.Y - item.textureRectangle.Height + 50;
+                    if(hero.floorTileDifference > 75)
+                    {
+                        hero.position.Y = hero.previousFloorTile.Y;
+                    }
                 }
             }
             
