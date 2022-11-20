@@ -10,6 +10,6 @@ namespace Slime.Interfaces
 {
     internal interface IInputreader
     {
-        public Vector2 ReadInput(Vector2 pos, int width, Hero hero);
+        public Vector2 ReadInput(Vector2 pos, Hero hero);
     }
 }

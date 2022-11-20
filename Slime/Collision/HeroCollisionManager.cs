@@ -6,11 +6,11 @@ using System;
 
 namespace Slime.Collision
 {
-    internal class CollisionHandler
+    internal class HeroCollisionManager
     {
 
         Random r = new Random();
-        public CollisionHandler()
+        public HeroCollisionManager()
         {
 
         }
@@ -27,13 +27,13 @@ namespace Slime.Collision
                     
                     if (hero.position.X >= item.recPos.X || hero.position.X <= item.recPos.X + 50 && hero.position.Y >= item.recPos.Y + 50)
                     {
-                        
+                        hero.previousFloorTile = hero.currentFloorTile;
+
                         hero.position.Y = item.recPos.Y - 50;
 
                         
                         kb.isFalling = false;
                         kb.hasJumped = false;
-                        hero.previousFloorTile = hero.currentFloorTile;
                     }
 
                     if(item.recPos.Intersects(hero.hitboxBody))

@@ -37,3 +37,4 @@ D:\school\gamedev\Slime\Slime\obj\Debug\net6.0-windows\Slime.genruntimeconfig.ca
 D:\school\gamedev\Slime\Slime\obj\Debug\net6.0-windows\ref\Slime.dll
 D:\school\gamedev\Slime\Slime\bin\Debug\net6.0-windows\Content\SlimeHero.xnb
 D:\school\gamedev\Slime\Slime\bin\Debug\net6.0-windows\Content\MapTiles.xnb
+D:\school\gamedev\Slime\Slime\bin\Debug\net6.0-windows\Content\SlimeEnemy.xnb

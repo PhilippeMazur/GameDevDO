@@ -29,7 +29,7 @@ namespace Slime.Characters
         public Rectangle hitbox;
         public Rectangle hitboxBody;
         private Texture2D hitboxTexture;
-        public bool buttonHitbox = true;
+        public bool showHitbox = true;
         public Hero(Texture2D heroTexture, IInputreader inputReader)
         {
             this.heroTexture = heroTexture;
@@ -47,7 +47,6 @@ namespace Slime.Characters
         }
         public void LoadContent(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
         {
-            spriteBatch = new SpriteBatch(graphicsDevice);
             hitbox = new Rectangle((int)position.X, (int)position.Y, 50, 50);
             hitboxBody = new Rectangle((int)position.X, (int)position.Y, 50, 40);
             hitboxTexture = new Texture2D(graphicsDevice, 1, 1);
@@ -56,7 +55,7 @@ namespace Slime.Characters
         public void Draw(SpriteBatch spriteBatch)
         {
 
-            drawHitbox(spriteBatch, buttonHitbox);
+            drawHitbox(spriteBatch, showHitbox);
 
             if (!animation.goingLeft)
             {
@@ -74,7 +73,7 @@ namespace Slime.Characters
         }
         private void Move()
         {
-            Vector2 direction = inputReader.ReadInput(position, 100, this);
+            Vector2 direction = inputReader.ReadInput(position, this);
             direction *= snelheid;
             position += direction;
             hitbox.X = (int)position.X;
@@ -89,6 +88,11 @@ namespace Slime.Characters
                 spriteBatch.Draw(hitboxTexture, hitbox, Color.Red);
                 spriteBatch.Draw(hitboxTexture, hitboxBody, Color.Yellow);
             }
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -95,6 +95,7 @@ namespace Project1.Animations
                 }
             }     
         }
+        
         public void Update(GameTime gameTime)
         {
             secondCounter += gameTime.ElapsedGameTime.TotalMilliseconds;

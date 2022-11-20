@@ -21,8 +21,10 @@ namespace Slime
         TileMap map = new TileMap();
         KeyboardReader kb = new KeyboardReader();
         private int touchCounter = 0;
-        CollisionHandler collisionHandler = new CollisionHandler();
-        
+        HeroCollisionManager heroCollisionManager = new HeroCollisionManager();
+
+        Enemy enemy1;
+        private Texture2D _enemyTexture; 
 
         public Game1()
         {
@@ -34,8 +36,8 @@ namespace Slime
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            graphics.PreferredBackBufferWidth = 800;  // set this value to the desired width of your window
-            graphics.PreferredBackBufferHeight = 600;   // set this value to the desired height of your window
+            graphics.PreferredBackBufferWidth = 1000;  // set this value to the desired width of your window
+            graphics.PreferredBackBufferHeight = 700;   // set this value to the desired height of your window
             graphics.ApplyChanges();
             base.Initialize();
         }
@@ -47,9 +49,15 @@ namespace Slime
             // TODO: use this.Content to load your game content here
             _heroTexture = Content.Load<Texture2D>("SlimeHero");
             hero = new Hero(_heroTexture, kb);
+
+            _enemyTexture = Content.Load<Texture2D>("SlimeEnemy");
+            enemy1 = new Enemy(_enemyTexture, new Vector2(500, 550));
+            enemy1.LoadContent(GraphicsDevice, _spriteBatch);
+
             hero.LoadContent(GraphicsDevice, _spriteBatch);
             _mapTexture = Content.Load<Texture2D>("MapTiles");
 
+            /*
             foreach (var item in map.allTiles)
             {
                 if (item.myType == Block.typeBlock.FLOOR2)
@@ -58,6 +66,7 @@ namespace Slime
                     Debug.WriteLine(item.recPos);
                 }
             }
+            */
 
         }
 
@@ -65,8 +74,11 @@ namespace Slime
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            collisionHandler.Update(gameTime, map, hero, kb);
+            heroCollisionManager.Update(gameTime, map, hero, kb);
             hero.Update(gameTime, kb);
+
+            enemy1.Update(gameTime);
+
             base.Update(gameTime);
             
         }
@@ -79,6 +91,9 @@ namespace Slime
             _spriteBatch.Begin();
             map.Draw(_spriteBatch, _mapTexture);
             hero.Draw(_spriteBatch);
+
+            enemy1.Draw(_spriteBatch);
+
             base.Draw(gameTime);
             _spriteBatch.End(); 
         }

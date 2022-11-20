@@ -31,7 +31,7 @@ namespace Slime.Input
         public bool isGrounded = false;
         public int speed = 1;
         
-        public Vector2 ReadInput(Vector2 pos, int width, Hero hero)
+        public Vector2 ReadInput(Vector2 pos, Hero hero)
         {
             AnimationState = states.Idle;
             Vector2 direction = Vector2.Zero;
@@ -88,5 +88,6 @@ namespace Slime.Input
             return direction;
             
         }
+        
     }
 }
