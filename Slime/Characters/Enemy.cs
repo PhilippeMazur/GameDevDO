@@ -21,11 +21,12 @@ namespace Slime.Characters
         public int startPosition;
         private int maxMoveDinstance = 150;
         private int speed = 1;
-        private bool isAlive;
+        public bool isAlive;
         public Rectangle hitbox;
         private Texture2D hitboxTexture;
         private bool showHitbox = true;
         private Animation animation = new Animation();
+        
 
 
 
@@ -52,16 +53,20 @@ namespace Slime.Characters
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            drawHitbox(spriteBatch, showHitbox);
+            if(isAlive)
+            {
+                drawHitbox(spriteBatch, showHitbox);
 
-            if (!animation.goingLeft)
-            {
-                spriteBatch.Draw(texture, position, animation.CurrentFrame.sourceRectangle, Color.White);
+                if (!animation.goingLeft)
+                {
+                    spriteBatch.Draw(texture, position, animation.CurrentFrame.sourceRectangle, Color.White);
+                }
+                else
+                {
+                    spriteBatch.Draw(texture, position, animation.CurrentFrame.sourceRectangle, Color.White, 0, new Vector2(0, 0), new Vector2(1, 1), SpriteEffects.FlipHorizontally, 0);
+                }
             }
-            else
-            {
-                spriteBatch.Draw(texture, position, animation.CurrentFrame.sourceRectangle, Color.White, 0, new Vector2(0, 0), new Vector2(1, 1), SpriteEffects.FlipHorizontally, 0);
-            }
+            
         }
 
         public void drawHitbox(SpriteBatch spriteBatch, bool b)

@@ -3,6 +3,8 @@ using Slime.Characters;
 using Slime.Input;
 using Slime.Map;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Slime.Collision
 {
@@ -15,7 +17,7 @@ namespace Slime.Collision
 
         }
 
-        public void Update(GameTime gametime, TileMap map, Hero hero, KeyboardReader kb)
+        public void Update(GameTime gametime, TileMap map, List<Enemy> enemies, Hero hero, KeyboardReader kb)
         {
             hero.floorTileDifference = hero.previousFloorTile.Y - hero.currentFloorTile.Y;
             foreach (var item in map.allTiles)
@@ -61,6 +63,15 @@ namespace Slime.Collision
                     {
                         hero.position.Y = hero.previousFloorTile.Y;
                     }
+                }
+            }
+            foreach (var item in enemies)
+            {
+                if(hero.hitbox.Intersects(item.hitbox) && hero.position.Y  <= item.position.Y - 40)
+                {
+                    Debug.WriteLine("dead");
+                    item.isAlive = false;
+
                 }
             }
             

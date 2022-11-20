@@ -5,6 +5,7 @@ using Slime.Characters;
 using Slime.Collision;
 using Slime.Input;
 using Slime.Map;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using Color = Microsoft.Xna.Framework.Color;
@@ -22,6 +23,7 @@ namespace Slime
         KeyboardReader kb = new KeyboardReader();
         private int touchCounter = 0;
         HeroCollisionManager heroCollisionManager = new HeroCollisionManager();
+        private List<Enemy> enemyList = new List<Enemy>();
 
         Enemy enemy1;
         private Texture2D _enemyTexture; 
@@ -51,7 +53,8 @@ namespace Slime
             hero = new Hero(_heroTexture, kb);
 
             _enemyTexture = Content.Load<Texture2D>("SlimeEnemy");
-            enemy1 = new Enemy(_enemyTexture, new Vector2(500, 550));
+            enemy1 = new Enemy(_enemyTexture, new Vector2(500, 604));
+            enemyList.Add(enemy1);
             enemy1.LoadContent(GraphicsDevice, _spriteBatch);
 
             hero.LoadContent(GraphicsDevice, _spriteBatch);
@@ -74,7 +77,7 @@ namespace Slime
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            heroCollisionManager.Update(gameTime, map, hero, kb);
+            heroCollisionManager.Update(gameTime, map, enemyList, hero, kb);
             hero.Update(gameTime, kb);
 
             enemy1.Update(gameTime);
