@@ -30,6 +30,7 @@ namespace Slime.Characters
         public Rectangle hitboxBody;
         private Texture2D hitboxTexture;
         public bool showHitbox = true;
+        
         public Hero(Texture2D heroTexture, IInputreader inputReader)
         {
             this.heroTexture = heroTexture;
@@ -48,7 +49,7 @@ namespace Slime.Characters
         public void LoadContent(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
         {
             hitbox = new Rectangle((int)position.X, (int)position.Y, 50, 50);
-            hitboxBody = new Rectangle((int)position.X, (int)position.Y, 50, 40);
+            hitboxBody = new Rectangle((int)position.X + 30, (int)position.Y, 30, 40);
             hitboxTexture = new Texture2D(graphicsDevice, 1, 1);
             hitboxTexture.SetData(new[] { Color.White });
         }
@@ -76,8 +77,9 @@ namespace Slime.Characters
             Vector2 direction = inputReader.ReadInput(position, this);
             direction *= snelheid;
             position += direction;
-            hitbox.X = (int)position.X;
+            hitbox.X = (int)position.X + 30;
             hitbox.Y = (int)position.Y;
+            
             hitboxBody.X = (int)position.X;
             hitboxBody.Y = (int)position.Y;
         }
