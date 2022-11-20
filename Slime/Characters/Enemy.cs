@@ -18,6 +18,9 @@ namespace Slime.Characters
     {
         private Texture2D texture;
         public Vector2 position;
+        public int startPosition;
+        private int maxMoveDinstance = 150;
+        private int speed = 1;
         private bool isAlive;
         public Rectangle hitbox;
         private Texture2D hitboxTexture;
@@ -25,10 +28,12 @@ namespace Slime.Characters
         private Animation animation = new Animation();
 
 
+
         public Enemy(Texture2D texturein, Vector2 posin)
         {
             texture = texturein;
             position = posin;
+            startPosition = (int)posin.X;
             isAlive = true;
 
             animation.AddFrame(new AnimationFrame(new Rectangle(0, 0, 50, 50)));
@@ -76,10 +81,24 @@ namespace Slime.Characters
 
         public void Update(GameTime gameTime)
         {
+            Move();
             animation.Update(gameTime);
             hitbox.X = (int)position.X;
             hitbox.Y = (int)position.Y;
             
+        }
+
+        public void Move()
+        {
+            position.X -= speed;
+            if(position.X == startPosition - maxMoveDinstance)
+            {
+                speed *= -1;
+            }
+            if(position.X == startPosition + maxMoveDinstance)
+            {
+                speed *= -1;
+            }
         }
     }
 }
