@@ -38,11 +38,13 @@ namespace Slime.Collision
                         kb.hasJumped = false;
                     }
 
-                    if(item.recPos.Intersects(hero.hitboxBody))
+                    if(item.recPos.Intersects(hero.hitboxBody) && hero.position.X >= item.recPos.X)
+                    {                      
+                        kb.speedLeft = 0;
+                    }
+                    if(item.recPos.Intersects(hero.hitboxBody) && hero.position.X <= item.recPos.X)
                     {
-                        
-                        
-                        kb.speed = 0;
+                        kb.speedRight = 0;
                     }
 
                     if(item.myType == Block.typeBlock.SPIKE)

@@ -30,6 +30,9 @@ namespace Slime.Input
         public bool isFalling = true;
         public bool isGrounded = false;
         public int speed = 1;
+
+        public int speedLeft = 1;
+        public int speedRight = 1;
         
         public Vector2 ReadInput(Vector2 pos, Hero hero)
         {
@@ -40,12 +43,12 @@ namespace Slime.Input
             if(kbState.IsKeyDown(Keys.Left))
             {
                 
-                direction.X = -1 * speed;
+                direction.X = -1 * speedLeft;
                 AnimationState = states.RunningLeft;
             }
             if (kbState.IsKeyDown(Keys.Right))
             {
-                direction.X = 1 * speed;
+                direction.X = 1 * speedRight;
                 AnimationState = states.RunningRight;
             }
 
@@ -85,6 +88,8 @@ namespace Slime.Input
                 }
             }
             speed = 1;
+            speedLeft = 1;
+            speedRight = 1;
             return direction;
             
         }

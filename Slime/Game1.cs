@@ -30,7 +30,7 @@ namespace Slime
         Enemy enemy1;
         private Texture2D _enemyTexture;
         private Texture2D _HealthTexture;
-        private Health health;
+        private HealthBar health;
 
         public Game1()
         {
@@ -62,7 +62,7 @@ namespace Slime
             hero.LoadContent(GraphicsDevice, _spriteBatch);
             _mapTexture = Content.Load<Texture2D>("MapTiles");
 
-            health = new Health();
+            health = new HealthBar();
             _HealthTexture = Content.Load<Texture2D>("HealthHeart");
         }
 

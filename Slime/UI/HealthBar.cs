@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace Slime.UI
 {
-    internal class Health 
+    internal class HealthBar 
     {
         private Vector2 position = new Vector2(0, 0);
         
 
-        public Health()
+        public HealthBar()
         {
         }
 
