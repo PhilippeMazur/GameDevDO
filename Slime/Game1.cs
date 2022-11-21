@@ -1,14 +1,17 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SharpDX.Direct2D1;
 using Slime.Characters;
 using Slime.Collision;
 using Slime.Input;
 using Slime.Map;
+using Slime.UI;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using Color = Microsoft.Xna.Framework.Color;
+using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 
 namespace Slime
 {
@@ -24,9 +27,10 @@ namespace Slime
         private int touchCounter = 0;
         HeroCollisionManager heroCollisionManager = new HeroCollisionManager();
         private List<Enemy> enemyList = new List<Enemy>();
-
         Enemy enemy1;
-        private Texture2D _enemyTexture; 
+        private Texture2D _enemyTexture;
+        private Texture2D _HealthTexture;
+        private Health health;
 
         public Game1()
         {
@@ -51,26 +55,15 @@ namespace Slime
             // TODO: use this.Content to load your game content here
             _heroTexture = Content.Load<Texture2D>("SlimeHero");
             hero = new Hero(_heroTexture, kb);
-
             _enemyTexture = Content.Load<Texture2D>("SlimeEnemy");
             enemy1 = new Enemy(_enemyTexture, new Vector2(500, 604));
             enemyList.Add(enemy1);
             enemy1.LoadContent(GraphicsDevice, _spriteBatch);
-
             hero.LoadContent(GraphicsDevice, _spriteBatch);
             _mapTexture = Content.Load<Texture2D>("MapTiles");
 
-            /*
-            foreach (var item in map.allTiles)
-            {
-                if (item.myType == Block.typeBlock.FLOOR2)
-                {
-                    
-                    Debug.WriteLine(item.recPos);
-                }
-            }
-            */
-
+            health = new Health();
+            _HealthTexture = Content.Load<Texture2D>("HealthHeart");
         }
 
         protected override void Update(GameTime gameTime)
@@ -79,8 +72,9 @@ namespace Slime
                 Exit();
             heroCollisionManager.Update(gameTime, map, enemyList, hero, kb);
             hero.Update(gameTime, kb);
-
+            
             enemy1.Update(gameTime);
+
 
             base.Update(gameTime);
             
@@ -94,8 +88,12 @@ namespace Slime
             _spriteBatch.Begin();
             map.Draw(_spriteBatch, _mapTexture);
             hero.Draw(_spriteBatch);
-
             enemy1.Draw(_spriteBatch);
+
+            health.Draw(_spriteBatch, _HealthTexture, hero);
+
+
+
 
             base.Draw(gameTime);
             _spriteBatch.End(); 

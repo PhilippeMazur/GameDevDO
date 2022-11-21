@@ -44,6 +44,12 @@ namespace Slime.Collision
                         
                         kb.speed = 0;
                     }
+
+                    if(item.myType == Block.typeBlock.SPIKE)
+                    {
+                        hero.position.X -= 100;
+                        hero.health -= 1;
+                    }
                     
 
 
@@ -69,7 +75,6 @@ namespace Slime.Collision
             {
                 if(hero.hitbox.Intersects(item.hitbox) && hero.position.Y  <= item.position.Y - 40)
                 {
-                    Debug.WriteLine("dead");
                     item.isAlive = false;
 
                 } else if(hero.hitbox.Intersects(item.hitbox) && hero.position.Y >= item.position.Y - 40 && item.isAlive)

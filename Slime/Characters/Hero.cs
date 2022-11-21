@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -30,9 +31,9 @@ namespace Slime.Characters
         public Rectangle hitboxBody;
         private Texture2D hitboxTexture;
         public bool showHitbox = true;
-        public int health = 3;
+        public int health = 5;
         private bool isAlive = true;
-        
+
         public Hero(Texture2D heroTexture, IInputreader inputReader)
         {
             this.heroTexture = heroTexture;
