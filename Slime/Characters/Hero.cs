@@ -30,6 +30,8 @@ namespace Slime.Characters
         public Rectangle hitboxBody;
         private Texture2D hitboxTexture;
         public bool showHitbox = true;
+        public int health = 3;
+        private bool isAlive = true;
         
         public Hero(Texture2D heroTexture, IInputreader inputReader)
         {
@@ -56,19 +58,26 @@ namespace Slime.Characters
         public void Draw(SpriteBatch spriteBatch)
         {
 
-            drawHitbox(spriteBatch, showHitbox);
+            if(isAlive)
+            {
+                drawHitbox(spriteBatch, showHitbox);
 
-            if (!animation.goingLeft)
-            {
-                spriteBatch.Draw(heroTexture, position, animation.CurrentFrame.sourceRectangle, Color.White);
-            } else
-            {
-                spriteBatch.Draw(heroTexture, position, animation.CurrentFrame.sourceRectangle, Color.White, 0, new Vector2(0, 0), new Vector2(1, 1), SpriteEffects.FlipHorizontally, 0);
+                if (!animation.goingLeft)
+                {
+                    spriteBatch.Draw(heroTexture, position, animation.CurrentFrame.sourceRectangle, Color.White);
+                }
+                else
+                {
+                    spriteBatch.Draw(heroTexture, position, animation.CurrentFrame.sourceRectangle, Color.White, 0, new Vector2(0, 0), new Vector2(1, 1), SpriteEffects.FlipHorizontally, 0);
+                }
             }
+
+            
         }
 
         public void Update(GameTime gameTime, KeyboardReader kb)
         {
+            CheckHealth();
             Move();
             animation.Update(gameTime, kb);
         }
@@ -95,6 +104,13 @@ namespace Slime.Characters
         public void Update(GameTime gameTime)
         {
             throw new NotImplementedException();
+        }
+        private void CheckHealth()
+        {
+            if(health <= 0)
+            {
+                isAlive = false;
+            }
         }
     }
 }

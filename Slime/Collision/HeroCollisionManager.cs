@@ -75,7 +75,7 @@ namespace Slime.Collision
                 } else if(hero.hitbox.Intersects(item.hitbox) && hero.position.Y >= item.position.Y - 40 && item.isAlive)
                 {
                     hero.position.X -= 100;
-                    //hero.health -= 1;
+                    hero.health -= 1;
                 }
             }
             
