@@ -1,3 +1,4 @@
 -Collision detection klasse maken waar ik mijn collission controle in de game klasse naartoe ga brengen. DONE
 -Animatie bijwerken zodat ik met states kan werken bij mijn enemies.
 -jumping bug fixen
+-test

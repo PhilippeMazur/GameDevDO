@@ -49,7 +49,7 @@ namespace Slime.Characters
         public void LoadContent(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
         {
             hitbox = new Rectangle((int)position.X, (int)position.Y, 50, 50);
-            hitboxBody = new Rectangle((int)position.X + 30, (int)position.Y, 30, 40);
+            hitboxBody = new Rectangle((int)position.X, (int)position.Y, 27, 30);
             hitboxTexture = new Texture2D(graphicsDevice, 1, 1);
             hitboxTexture.SetData(new[] { Color.White });
         }
@@ -77,11 +77,11 @@ namespace Slime.Characters
             Vector2 direction = inputReader.ReadInput(position, this);
             direction *= snelheid;
             position += direction;
-            hitbox.X = (int)position.X + 30;
+            hitbox.X = (int)position.X;
             hitbox.Y = (int)position.Y;
             
-            hitboxBody.X = (int)position.X;
-            hitboxBody.Y = (int)position.Y;
+            hitboxBody.X = (int)position.X + 10;
+            hitboxBody.Y = (int)position.Y + 15;
         }
         public void drawHitbox(SpriteBatch spriteBatch,bool b)
         {
