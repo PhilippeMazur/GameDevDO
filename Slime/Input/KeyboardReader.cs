@@ -73,13 +73,13 @@ namespace Slime.Input
             }
             if (hero.position.Y >= hero.currentFloorTile.Y)
             {
-                isFalling = false;
+                //isFalling = false;
                 hasJumped = false;
+                
             }
 
             if (hasJumped == false)
             {
-                isFalling = false;
                 if (hero.position.Y <= hero.currentFloorTile.Y)
                 {
                     isFalling = true;

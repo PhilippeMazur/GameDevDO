@@ -27,9 +27,10 @@ namespace Slime.Collision
                 {
                     
                     
-                    if (hero.position.X >= item.recPos.X || hero.position.X <= item.recPos.X + 50 && hero.position.Y >= item.recPos.Y + 50)
+                    if (hero.position.X >= item.recPos.X || hero.position.X <= item.recPos.X && hero.position.Y >= item.recPos.Y + 50)
                     {
                         hero.previousFloorTile = hero.currentFloorTile;
+                        
 
                         hero.position.Y = item.recPos.Y - 50;
 

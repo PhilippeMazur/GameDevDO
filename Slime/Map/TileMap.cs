@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Slime.Game1;
 
 namespace Slime.Map
 {
@@ -30,7 +31,7 @@ namespace Slime.Map
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,6,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
             {2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
             {1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -43,15 +44,16 @@ namespace Slime.Map
 
         public void Draw(SpriteBatch spriteBatch, Texture2D texture)
         {
+            spriteBatch.Draw(_levelBackground, new Rectangle(0,0,1000,700), Color.White);
             foreach (var item in blocks)
             {
-                spriteBatch.Draw(texture, item.pos, item.textureRectangle, Color.White);
-
-                if(item.myType == Block.typeBlock.FLOOR2)
+                if(item.myType != Block.typeBlock.SKY)
                 {
-                    //spriteBatch.Draw(texture, item.pos, item.recPosV2, Color.Blue);
+                    spriteBatch.Draw(texture, item.pos, item.textureRectangle, Color.White);
 
                 }
+
+
             }
 
         }
