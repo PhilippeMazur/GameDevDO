@@ -97,7 +97,7 @@ namespace Slime.Characters
         {
             if(b)
             {
-                spriteBatch.Draw(hitboxTexture, hitbox, Color.Red);
+                spriteBatch.Draw(hitboxTexture, hitbox, Color.Pink);
                 spriteBatch.Draw(hitboxTexture, hitboxBody, Color.Yellow);
             }
         }

@@ -6,6 +6,7 @@ using Slime.Input;
 using Slime.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,7 +27,13 @@ namespace Slime.Characters
         private Texture2D hitboxTexture;
         private bool showHitbox = true;
         private Animation animation = new Animation();
-        
+        public enum AnimationState
+        {
+            runningLeft,
+            runningRight
+        }
+        public AnimationState animationState;
+        public Rectangle hitboxBody;
 
 
 
@@ -48,6 +55,7 @@ namespace Slime.Characters
         public void LoadContent(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
         {
             hitbox = new Rectangle((int)position.X, (int)position.Y, 50, 50);
+            hitboxBody = new Rectangle((int)position.X, (int)position.Y, 27, 30);
             hitboxTexture = new Texture2D(graphicsDevice, 1, 1);
             hitboxTexture.SetData(new[] { Color.White });
         }
@@ -73,7 +81,9 @@ namespace Slime.Characters
         {
             if (b)
             {
-                spriteBatch.Draw(hitboxTexture, hitbox, Color.Yellow);
+                spriteBatch.Draw(hitboxTexture, hitbox, Color.Pink);
+                spriteBatch.Draw(hitboxTexture, hitboxBody, Color.Yellow);
+
             }
         }
 
@@ -86,11 +96,15 @@ namespace Slime.Characters
 
         public void Update(GameTime gameTime)
         {
+            animation.UpdateEnemy(gameTime ,this);
             Move();
-            animation.Update(gameTime);
+            //animation.Update(gameTime);
             hitbox.X = (int)position.X;
             hitbox.Y = (int)position.Y;
-            
+
+            hitboxBody.X = (int)position.X + 10;
+            hitboxBody.Y = (int)position.Y + 15;
+
         }
 
         public void Move()
@@ -99,10 +113,12 @@ namespace Slime.Characters
             if(position.X == startPosition - maxMoveDinstance)
             {
                 speed *= -1;
+                animationState = AnimationState.runningRight;
             }
             if(position.X == startPosition + maxMoveDinstance)
             {
                 speed *= -1;
+                animationState = AnimationState.runningLeft;
             }
         }
     }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Slime;
+using Slime.Characters;
 using Slime.Input;
 using System;
 using System.Collections.Generic;
@@ -110,6 +111,40 @@ namespace Project1.Animations
                     counter = 0;
                 }
             }
+        }
+        public void UpdateEnemy(GameTime gameTime ,Enemy enemy)
+        {
+            secondCounter += gameTime.ElapsedGameTime.TotalMilliseconds;
+
+            if (enemy.animationState == Enemy.AnimationState.runningLeft)
+            {
+                if (secondCounter >= 1000d / fps)
+                {
+                    secondCounter = 0;
+                    CurrentFrame = frames[counter2];
+                    counter2++;
+                    if (counter2 > 3)
+                    {
+                        counter2 = 2;
+                    }
+                }
+                Debug.WriteLine("goin left");
+                goingLeft = true;
+            } else
+            {
+                if (secondCounter >= 1000d / fps)
+                {
+                    secondCounter = 0;
+                    CurrentFrame = frames[counter2];
+                    counter2++;
+                    if (counter2 > 3)
+                    {
+                        counter2 = 2;
+                    }
+                }
+                goingLeft = false;
+            }
+            
         }
 
     }
