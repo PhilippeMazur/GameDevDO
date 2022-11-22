@@ -83,8 +83,6 @@ namespace Slime
             startButton = new Button(new Rectangle(0, 0, 500, 20), new Vector2(250, 450), _startButton);
             _levelBackground = Content.Load<Texture2D>("LevelBackground");
             currentState = GameStates.StartScreen;
-
-            //sceneManager = new GameSceneManager();
         }
 
         protected override void Update(GameTime gameTime)
@@ -96,19 +94,16 @@ namespace Slime
             hero.Update(gameTime, kb);
            GameSceneManager.Update(gameTime, startButton, hero, enemy1);         
             enemy1.Update(gameTime);
-            base.Update(gameTime);
-            
+            base.Update(gameTime);           
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
-            GameSceneManager.Draw(hero, enemy1, startButton, map, health);
-            
+            GameSceneManager.Draw(hero, enemy1, startButton, map, health);     
             base.Draw(gameTime);
             _spriteBatch.End(); 
             
