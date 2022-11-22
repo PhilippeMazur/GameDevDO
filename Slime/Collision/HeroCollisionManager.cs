@@ -95,11 +95,11 @@ namespace Slime.Collision
             }
             foreach (var item in enemies)
             {
-                if(hero.hitbox.Intersects(item.hitbox) && hero.position.Y  <= item.position.Y - 40)
+                if(hero.hitboxBody.Intersects(item.hitbox) && hero.position.Y  <= item.position.Y)
                 {
                     item.isAlive = false;
 
-                } else if(hero.hitbox.Intersects(item.hitbox) && hero.position.Y >= item.position.Y - 40 && item.isAlive)
+                } else if(hero.hitboxBody.Intersects(item.hitbox) && hero.position.Y >= item.position.Y && item.isAlive)
                 {
                     hero.position.X -= 100;
                     hero.health -= 1;
