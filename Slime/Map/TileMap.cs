@@ -23,22 +23,22 @@ namespace Slime.Map
             
         }
 
-        int[,] tiles = new int[,]
+        int[,] level1 = new int[,]
         {
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-            {2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-            {1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-            {2,2,2,2,1,2,2,2,2,2,2,2,2,2,3,2,2,2,2,2}
+            {0,0,0,0,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,2,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+            {2,2,2,1,1,0,0,0,0,0,0,0,0,2,2,2,2,2,2,2},
+            {1,1,1,1,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0,2,0,0,0,2,2,2,0,0,0},
+            {0,0,0,0,0,0,0,2,2,0,0,0,0,2,1,0,0,0,0,0},
+            {0,0,0,0,2,0,0,0,0,0,0,0,2,1,1,0,0,0,0,0},
+            {0,0,0,2,1,0,0,0,0,0,0,2,1,1,1,0,0,0,0,0},
+            {2,2,2,1,1,3,3,3,2,2,2,1,1,1,1,2,2,2,2,2}
 
         };
 
@@ -60,45 +60,45 @@ namespace Slime.Map
 
         private void CreateBlocks()
         {
-            for (int l = 0; l < tiles.GetLength(0); l++)
+            for (int l = 0; l < level1.GetLength(0); l++)
             {
 
-                for (int c = 0; c < tiles.GetLength(1); c++)
+                for (int c = 0; c < level1.GetLength(1); c++)
                 {
-                    if (tiles[l, c] == 0)
+                    if (level1[l, c] == 0)
                     {
                         blocks.Add(new Block(Block.typeBlock.SKY, new Vector2(c * 50, l * 50)));
                         allTiles.Add(new Block(Block.typeBlock.SKY, new Vector2(c * 50, l * 50)));
                     }
-                    else if(tiles[l, c] == 1)
+                    else if(level1[l, c] == 1)
                     {
                         blocks.Add(new Block(Block.typeBlock.FLOOR, new Vector2(c * 50, l * 50)));
                         allTiles.Add(new Block(Block.typeBlock.FLOOR, new Vector2(c * 50, l * 50)));
                     }
-                    else if (tiles[l, c] == 2)
+                    else if (level1[l, c] == 2)
                     {
                         blocks.Add(new Block(Block.typeBlock.FLOOR2, new Vector2(c * 50, l * 50)));
                         allTiles.Add(new Block(Block.typeBlock.FLOOR2, new Vector2(c * 50, l * 50)));
                     }
-                    else if (tiles[l, c] == 3)
+                    else if (level1[l, c] == 3)
                     {
                         blocks.Add(new Block(Block.typeBlock.SPIKE, new Vector2(c * 50, l * 50)));
                         allTiles.Add(new Block(Block.typeBlock.SPIKE, new Vector2(c * 50, l * 50)));
 
                     }
-                    else if (tiles[l, c] == 4)
+                    else if (level1[l, c] == 4)
                     {
                         blocks.Add(new Block(Block.typeBlock.SPIKE2, new Vector2(c * 50, l * 50)));
                         allTiles.Add(new Block(Block.typeBlock.SPIKE2, new Vector2(c * 50, l * 50)));
 
                     }
-                    else if (tiles[l, c] == 5)
+                    else if (level1[l, c] == 5)
                     {
                         blocks.Add(new Block(Block.typeBlock.CLOUD, new Vector2(c * 50, l * 50)));
                         allTiles.Add(new Block(Block.typeBlock.CLOUD, new Vector2(c * 50, l * 50)));
 
                     }
-                    else if (tiles[l, c] == 6)
+                    else if (level1[l, c] == 6)
                     {
                         blocks.Add(new Block(Block.typeBlock.CLOUD2, new Vector2(c * 50, l * 50)));
                         allTiles.Add(new Block(Block.typeBlock.CLOUD2, new Vector2(c * 50, l * 50)));

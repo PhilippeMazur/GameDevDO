@@ -21,12 +21,12 @@ namespace Slime.Characters
         private Texture2D texture;
         public Vector2 position;
         public Vector2 startPosition;
-        private int maxMoveDinstance = 150;
+        private int maxMoveDinstance;
         private int speed = 1;
         public bool isAlive = true;
         public Rectangle hitbox;
         private Texture2D hitboxTexture;
-        private bool showHitbox = true;
+        private bool showHitbox = false;
         private Animation animation = new Animation();
         public enum AnimationState
         {
@@ -38,13 +38,14 @@ namespace Slime.Characters
 
 
 
-        public Enemy(Texture2D texturein, Vector2 posin)
+        public Enemy(Texture2D texturein, Vector2 posin, int maxDistance)
         {
             texture = texturein;
             position = posin;
             startPosition.X = (int)posin.X;
             startPosition.Y = (int)posin.Y;
             isAlive = true;
+            maxMoveDinstance = maxDistance;
 
             animation.AddFrame(new AnimationFrame(new Rectangle(0, 0, 50, 50)));
             animation.AddFrame(new AnimationFrame(new Rectangle(50, 0, 50, 50)));

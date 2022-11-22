@@ -43,3 +43,5 @@ D:\school\gamedev\Slime\Slime\bin\Debug\net6.0-windows\Content\SlimeHero.xnb
 D:\school\gamedev\Slime\Slime\bin\Debug\net6.0-windows\Content\StartButton.xnb
 D:\school\gamedev\Slime\Slime\bin\Debug\net6.0-windows\Content\BackgroundWithLogo.xnb
 D:\school\gamedev\Slime\Slime\bin\Debug\net6.0-windows\Content\PressStart.xnb
+D:\school\gamedev\Slime\Slime\bin\Debug\net6.0-windows\Content\CoinSpritesheet.xnb
+D:\school\gamedev\Slime\Slime\bin\Debug\net6.0-windows\Content\PortalDoor.xnb

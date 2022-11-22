@@ -1,10 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Slime.Characters;
+using Slime.GameElements;
 using Slime.Input;
 using Slime.Map;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 
 namespace Slime.Collision
 {
@@ -17,9 +19,18 @@ namespace Slime.Collision
 
         }
 
-        public void Update(GameTime gametime, TileMap map, List<Enemy> enemies, Hero hero, KeyboardReader kb)
+        public void Update(GameTime gametime, TileMap map, List<Enemy> enemies, Hero hero, KeyboardReader kb, List<Coin> coins)
         {
             hero.floorTileDifference = hero.previousFloorTile.Y - hero.currentFloorTile.Y;
+
+            if(hero.position.X > Game1.graphics.PreferredBackBufferWidth + 200)
+            {
+                hero.position.X = 0;
+            } else if(hero.position.X < 0)
+            {
+                hero.position.X = 1000;
+            }
+
             foreach (var item in map.allTiles)
             {
                 
@@ -50,7 +61,15 @@ namespace Slime.Collision
 
                     if(item.myType == Block.typeBlock.SPIKE)
                     {
-                        hero.position.X -= 100;
+                        if(hero.position.X >= item.recPos.X - 20)
+                        {
+                            hero.position.X += 100;
+
+                        } else
+                        {
+                            hero.position.X -= 100;
+
+                        }
                         hero.health -= 1;
                     }
                     
@@ -84,6 +103,16 @@ namespace Slime.Collision
                 {
                     hero.position.X -= 100;
                     hero.health -= 1;
+                }
+            }
+            foreach (var item in coins)
+            {
+                if(hero.hitbox.Intersects(item.hitbox))
+                {
+
+                    item.isCollected = true;
+                    hero.coinsLevel1+= item.value;
+                    item.value = 0;
                 }
             }
             

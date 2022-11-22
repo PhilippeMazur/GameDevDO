@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Slime;
 using Slime.Characters;
+using Slime.GameElements;
 using Slime.Input;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,8 @@ namespace Project1.Animations
         private int counter;
         private int counter2 = 2;
         private int counter3 = 4;
+        private int doorCounter = 1;
+        private int doorCounter2 = 0;
         static Random r = new Random();
         private double secondCounter = 0;
         private int fps = 2;
@@ -96,12 +99,54 @@ namespace Project1.Animations
                 }
             }     
         }
-        
+        public void Update(GameTime gameTime, NextLevelDoor door)
+        {
+            secondCounter += gameTime.ElapsedGameTime.TotalMilliseconds;
+
+            if (door.state == NextLevelDoor.AnimationState.Closed)
+            {
+                secondCounter = 0;
+                CurrentFrame = frames[doorCounter2];
+                if (counter >= frames.Count)
+                {
+                    doorCounter = 0;
+                }
+            } else
+            {
+                if (secondCounter >= 1000d / 10)
+                {
+                    secondCounter = 0;
+                    CurrentFrame = frames[doorCounter];
+                    doorCounter++;
+                    if (doorCounter > 4)
+                    {
+                        doorCounter = 1;
+                    }
+                }
+            }
+            
+        }
+
         public void Update(GameTime gameTime)
         {
             secondCounter += gameTime.ElapsedGameTime.TotalMilliseconds;
 
             if (secondCounter >= 1000d / fps)
+            {
+                secondCounter = 0;
+                CurrentFrame = frames[counter];
+                counter++;
+                if (counter >= frames.Count)
+                {
+                    counter = 0;
+                }
+            }
+        }
+        public void Update(GameTime gameTime, int framesPerSecond)
+        {
+            secondCounter += gameTime.ElapsedGameTime.TotalMilliseconds;
+
+            if (secondCounter >= 1000d / framesPerSecond)
             {
                 secondCounter = 0;
                 CurrentFrame = frames[counter];
@@ -128,7 +173,6 @@ namespace Project1.Animations
                         counter2 = 2;
                     }
                 }
-                Debug.WriteLine("goin left");
                 goingLeft = true;
             } else
             {

@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using SharpDX.Direct2D1;
 using Slime.Characters;
 using Slime.Collision;
+using Slime.GameElements;
 using Slime.Input;
 using Slime.Map;
 using Slime.UI;
@@ -18,7 +19,7 @@ namespace Slime
 {
     public class Game1 : Game
     {
-        private GraphicsDeviceManager graphics;
+        public static GraphicsDeviceManager graphics;
         public static SpriteBatch _spriteBatch;
         public static Texture2D _heroTexture;
         public static Texture2D _mapTexture;
@@ -28,6 +29,7 @@ namespace Slime
         HeroCollisionManager heroCollisionManager = new HeroCollisionManager();
         private List<Enemy> enemyList = new List<Enemy>();
         Enemy enemy1;
+        Enemy enemy2;
         public static Texture2D _enemyTexture;
         public static Texture2D _healthTexture;
         private HealthBar health;
@@ -41,11 +43,18 @@ namespace Slime
         }
         public static GameStates currentState;
         public static Texture2D _backgroundTexture;
-
         private static Texture2D _startButton;
         private Button startButton;
-
         public static Texture2D _levelBackground;
+
+        private List<Coin> coinList = new List<Coin>();
+        public static Texture2D _coinTexture;
+        private Coin coin1;
+        private Coin coin2;
+        public static Texture2D _doorTexture;
+        private NextLevelDoor doorLevel1;
+        List<NextLevelDoor> doors = new List<NextLevelDoor>();
+
 
         public Game1()
         {
@@ -71,9 +80,12 @@ namespace Slime
             _heroTexture = Content.Load<Texture2D>("SlimeHero");
             hero = new Hero(_heroTexture, kb);
             _enemyTexture = Content.Load<Texture2D>("SlimeEnemy");
-            enemy1 = new Enemy(_enemyTexture, new Vector2(500, 604));
+            enemy1 = new Enemy(_enemyTexture, new Vector2(850, 604), 100);
+            enemy2 = new Enemy(_enemyTexture, new Vector2(825, 254), 150);
             enemyList.Add(enemy1);
+            enemyList.Add(enemy2);
             enemy1.LoadContent(GraphicsDevice, _spriteBatch);
+            enemy2.LoadContent(GraphicsDevice, _spriteBatch);
             hero.LoadContent(GraphicsDevice, _spriteBatch);
             _mapTexture = Content.Load<Texture2D>("MapTiles");
             health = new HealthBar();
@@ -83,6 +95,16 @@ namespace Slime
             startButton = new Button(new Rectangle(0, 0, 500, 20), new Vector2(250, 450), _startButton);
             _levelBackground = Content.Load<Texture2D>("LevelBackground");
             currentState = GameStates.StartScreen;
+
+            _coinTexture = Content.Load<Texture2D>("CoinSpritesheet");
+            coin1 = new Coin(_coinTexture, new Vector2(750, 595));
+            coinList.Add(coin1);
+            coin2 = new Coin(_coinTexture, new Vector2(950, 245));
+            coinList.Add(coin2);
+            _doorTexture = Content.Load<Texture2D>("PortalDoor");
+
+            doorLevel1 = new NextLevelDoor(new Vector2(300, 150));
+            doors.Add(doorLevel1);
         }
 
         protected override void Update(GameTime gameTime)
@@ -90,10 +112,11 @@ namespace Slime
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             startButton.Update(gameTime);
-            heroCollisionManager.Update(gameTime, map, enemyList, hero, kb);
+            heroCollisionManager.Update(gameTime, map, enemyList, hero, kb, coinList);
             hero.Update(gameTime, kb);
-           GameSceneManager.Update(gameTime, startButton, hero, enemy1);         
-            enemy1.Update(gameTime);
+            GameSceneManager.Update(gameTime, startButton, hero, enemyList, coinList, doors);
+
+
             base.Update(gameTime);           
         }
 
@@ -103,7 +126,9 @@ namespace Slime
             GraphicsDevice.Clear(Color.CornflowerBlue);
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
-            GameSceneManager.Draw(hero, enemy1, startButton, map, health);     
+            GameSceneManager.Draw(hero, enemyList, startButton, map, health, coinList, doors);
+
+
             base.Draw(gameTime);
             _spriteBatch.End(); 
             

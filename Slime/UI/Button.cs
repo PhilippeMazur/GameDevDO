@@ -55,13 +55,12 @@ namespace Slime.UI
             if (kbState.IsKeyDown(Keys.Enter))
             {
                 //Write code here
-                Debug.WriteLine("test");
                 currentState = GameStates.Level1;
             }
 
             counter += gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            if (counter >= 500d)
+            if (counter >= 1000d)
             {
                 counter = 0;
                 recPos.X += randNumber;

@@ -23,16 +23,17 @@ namespace Slime.Characters
         IInputreader inputReader;
         public Vector2 position = new Vector2(100, 500f);
         Animation animation = new Animation();
-        private Vector2 snelheid = new Vector2(7, 4);
+        private Vector2 snelheid = new Vector2(5, 4);
         public Vector2 currentFloorTile = new Vector2(0, 540);
         public Vector2 previousFloorTile = new Vector2(0, 540);
         public float floorTileDifference;
         public Rectangle hitbox;
         public Rectangle hitboxBody;
         private Texture2D hitboxTexture;
-        public bool showHitbox = true;
+        public bool showHitbox = false;
         public int health = 5;
         public bool isAlive = true;
+        public int coinsLevel1 = 0;
 
         public Hero(Texture2D heroTexture, IInputreader inputReader)
         {
