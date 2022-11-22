@@ -32,7 +32,7 @@ namespace Slime.Characters
         private Texture2D hitboxTexture;
         public bool showHitbox = true;
         public int health = 5;
-        private bool isAlive = true;
+        public bool isAlive = true;
 
         public Hero(Texture2D heroTexture, IInputreader inputReader)
         {
@@ -71,6 +71,12 @@ namespace Slime.Characters
                 {
                     spriteBatch.Draw(heroTexture, position, animation.CurrentFrame.sourceRectangle, Color.White, 0, new Vector2(0, 0), new Vector2(1, 1), SpriteEffects.FlipHorizontally, 0);
                 }
+            } else
+            {
+                position = new Vector2(100, 500f);
+                health = 5;
+                isAlive = true;
+
             }
 
             
@@ -95,6 +101,7 @@ namespace Slime.Characters
         }
         public void drawHitbox(SpriteBatch spriteBatch,bool b)
         {
+            
             if(b)
             {
                 spriteBatch.Draw(hitboxTexture, hitbox, Color.Pink);

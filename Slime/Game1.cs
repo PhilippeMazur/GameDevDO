@@ -19,18 +19,17 @@ namespace Slime
     public class Game1 : Game
     {
         private GraphicsDeviceManager graphics;
-        private SpriteBatch _spriteBatch;
-        private Texture2D _heroTexture;
-        private Texture2D _mapTexture;
+        public static SpriteBatch _spriteBatch;
+        public static Texture2D _heroTexture;
+        public static Texture2D _mapTexture;
         Hero hero;
         TileMap map = new TileMap();
         KeyboardReader kb = new KeyboardReader();
-        private int touchCounter = 0;
         HeroCollisionManager heroCollisionManager = new HeroCollisionManager();
         private List<Enemy> enemyList = new List<Enemy>();
         Enemy enemy1;
-        public Texture2D _enemyTexture;
-        public Texture2D _healthTexture;
+        public static Texture2D _enemyTexture;
+        public static Texture2D _healthTexture;
         private HealthBar health;
         public enum GameStates
         {
@@ -41,13 +40,12 @@ namespace Slime
             GameOver
         }
         public static GameStates currentState;
-        public Texture2D _backgroundTexture;
+        public static Texture2D _backgroundTexture;
 
-        private Texture2D _startButton;
+        private static Texture2D _startButton;
         private Button startButton;
 
         public static Texture2D _levelBackground;
-        //private GameSceneManager sceneManager;
 
         public Game1()
         {
@@ -84,16 +82,19 @@ namespace Slime
             _startButton = Content.Load<Texture2D>("PressStart");
             startButton = new Button(new Rectangle(0, 0, 500, 20), new Vector2(250, 450), _startButton);
             _levelBackground = Content.Load<Texture2D>("LevelBackground");
-            //sceneManager = new GameSceneManager(_backgroundTexture, startButton, _spriteBatch, map, _mapTexture, hero, enemy1, health, _healthTexture);
             currentState = GameStates.StartScreen;
+
+            //sceneManager = new GameSceneManager();
         }
+
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             startButton.Update(gameTime);
             heroCollisionManager.Update(gameTime, map, enemyList, hero, kb);
-            hero.Update(gameTime, kb);           
+            hero.Update(gameTime, kb);
+           GameSceneManager.Update(gameTime, startButton, hero, enemy1);         
             enemy1.Update(gameTime);
             base.Update(gameTime);
             
@@ -102,24 +103,15 @@ namespace Slime
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
+            GameSceneManager.Draw(hero, enemy1, startButton, map, health);
             
-            if(currentState == GameStates.StartScreen)
-            {
-                _spriteBatch.Draw(_backgroundTexture, new Rectangle(0, 0, 1000, 700), Color.White);
-                startButton.Draw(_spriteBatch);
-
-            } else if(currentState == GameStates.Level1)
-            {
-                map.Draw(_spriteBatch, _mapTexture);
-                hero.Draw(_spriteBatch);
-                enemy1.Draw(_spriteBatch);
-                health.Draw(_spriteBatch, _healthTexture, hero);
-            }
             base.Draw(gameTime);
             _spriteBatch.End(); 
+            
         }
     }
 }

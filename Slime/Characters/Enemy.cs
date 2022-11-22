@@ -11,18 +11,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static Slime.Game1;
 using Texture2D = Microsoft.Xna.Framework.Graphics.Texture2D;
 
 namespace Slime.Characters
 {
-    internal class Enemy : IGameObject
+    internal class Enemy
     {
         private Texture2D texture;
         public Vector2 position;
-        public int startPosition;
+        public Vector2 startPosition;
         private int maxMoveDinstance = 150;
         private int speed = 1;
-        public bool isAlive;
+        public bool isAlive = true;
         public Rectangle hitbox;
         private Texture2D hitboxTexture;
         private bool showHitbox = true;
@@ -41,7 +42,8 @@ namespace Slime.Characters
         {
             texture = texturein;
             position = posin;
-            startPosition = (int)posin.X;
+            startPosition.X = (int)posin.X;
+            startPosition.Y = (int)posin.Y;
             isAlive = true;
 
             animation.AddFrame(new AnimationFrame(new Rectangle(0, 0, 50, 50)));
@@ -59,7 +61,7 @@ namespace Slime.Characters
             hitboxTexture = new Texture2D(graphicsDevice, 1, 1);
             hitboxTexture.SetData(new[] { Color.White });
         }
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, Hero hero)
         {
             if(isAlive)
             {
@@ -73,6 +75,9 @@ namespace Slime.Characters
                 {
                     spriteBatch.Draw(texture, position, animation.CurrentFrame.sourceRectangle, Color.White, 0, new Vector2(0, 0), new Vector2(1, 1), SpriteEffects.FlipHorizontally, 0);
                 }
+            } else
+            {
+                position = startPosition;
             }
             
         }
@@ -89,16 +94,10 @@ namespace Slime.Characters
 
 
 
-        public void Update(GameTime gameTime, KeyboardReader kb)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Update(GameTime gameTime)
         {
             animation.UpdateEnemy(gameTime ,this);
             Move();
-            //animation.Update(gameTime);
             hitbox.X = (int)position.X;
             hitbox.Y = (int)position.Y;
 
@@ -110,16 +109,17 @@ namespace Slime.Characters
         public void Move()
         {
             position.X -= speed;
-            if(position.X == startPosition - maxMoveDinstance)
+            if(position.X == startPosition.X - maxMoveDinstance)
             {
                 speed *= -1;
                 animationState = AnimationState.runningRight;
             }
-            if(position.X == startPosition + maxMoveDinstance)
+            if(position.X == startPosition.X + maxMoveDinstance)
             {
                 speed *= -1;
                 animationState = AnimationState.runningLeft;
             }
         }
+
     }
 }
