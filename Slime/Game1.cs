@@ -103,7 +103,7 @@ namespace Slime
             coinList.Add(coin2);
             _doorTexture = Content.Load<Texture2D>("PortalDoor");
 
-            doorLevel1 = new NextLevelDoor(new Vector2(300, 150));
+            doorLevel1 = new NextLevelDoor(new Vector2(300, 150), NextLevelDoor.DoorLevel.Level1);
             doors.Add(doorLevel1);
         }
 

@@ -23,6 +23,7 @@ namespace Slime.Collision
         {
             hero.floorTileDifference = hero.previousFloorTile.Y - hero.currentFloorTile.Y;
 
+
             if(hero.position.X > Game1.graphics.PreferredBackBufferWidth + 200)
             {
                 hero.position.X = 0;
@@ -30,68 +31,141 @@ namespace Slime.Collision
             {
                 hero.position.X = 1000;
             }
-
-            foreach (var item in map.allTiles)
+            if(Game1.currentState == Game1.GameStates.Level1)
             {
-                
-                if (item.recPos.Intersects(hero.hitbox) && (item.myType is Block.typeBlock.FLOOR || item.myType is Block.typeBlock.FLOOR2 || item.myType is Block.typeBlock.SPIKE || item.myType is Block.typeBlock.SPIKE2 || item.myType is Block.typeBlock.CLOUD || item.myType is Block.typeBlock.CLOUD2))
+                foreach (var item in map.blocks)
                 {
-                    
-                    
-                    if (hero.position.X >= item.recPos.X || hero.position.X <= item.recPos.X && hero.position.Y >= item.recPos.Y + 50)
+
+                    if (item.recPos.Intersects(hero.hitbox) && (item.myType is Block.typeBlock.FLOOR || item.myType is Block.typeBlock.FLOOR2 || item.myType is Block.typeBlock.SPIKE || item.myType is Block.typeBlock.SPIKE2 || item.myType is Block.typeBlock.CLOUD || item.myType is Block.typeBlock.CLOUD2))
                     {
-                        hero.previousFloorTile = hero.currentFloorTile;
-                        
 
-                        hero.position.Y = item.recPos.Y - 50;
 
-                        
-                        kb.isFalling = false;
-                        kb.hasJumped = false;
-                    }
-
-                    if(item.recPos.Intersects(hero.hitboxBody) && hero.position.X >= item.recPos.X)
-                    {                      
-                        kb.speedLeft = 0;
-                    }
-                    if(item.recPos.Intersects(hero.hitboxBody) && hero.position.X <= item.recPos.X)
-                    {
-                        kb.speedRight = 0;
-                    }
-
-                    if(item.myType == Block.typeBlock.SPIKE)
-                    {
-                        if(hero.position.X >= item.recPos.X - 20)
+                        if (hero.position.X >= item.recPos.X || hero.position.X <= item.recPos.X && hero.position.Y >= item.recPos.Y + 50)
                         {
-                            hero.position.X += 100;
+                            hero.previousFloorTile = hero.currentFloorTile;
 
-                        } else
-                        {
-                            hero.position.X -= 100;
 
+                            hero.position.Y = item.recPos.Y - 50;
+
+
+                            kb.isFalling = false;
+                            kb.hasJumped = false;
                         }
-                        hero.health -= 1;
+
+                        if (item.recPos.Intersects(hero.hitboxBody) && hero.position.X >= item.recPos.X)
+                        {
+                            kb.speedLeft = 0;
+                        }
+                        if (item.recPos.Intersects(hero.hitboxBody) && hero.position.X <= item.recPos.X)
+                        {
+                            kb.speedRight = 0;
+                        }
+
+                        if (item.myType == Block.typeBlock.SPIKE)
+                        {
+                            if (hero.position.X >= item.recPos.X - 20)
+                            {
+                                hero.position.X += 100;
+
+                            }
+                            else
+                            {
+                                hero.position.X -= 100;
+
+                            }
+                            hero.health -= 1;
+                        }
+
+
+
+                        if (hero.position.Y < item.recPos.Bottom && hero.position.Y < hero.currentFloorTile.Y)
+                        {
+                            hero.currentFloorTile.X = item.recPos.X;
+                            hero.currentFloorTile.Y = item.recPos.Y - item.textureRectangle.Height;
+                        }
+
                     }
-                    
 
-
-                    if (hero.position.Y < item.recPos.Bottom && hero.position.Y < hero.currentFloorTile.Y)
+                    if (item.recPos.Intersects(hero.hitbox) && (item.myType == Block.typeBlock.SKY))
                     {
+
                         hero.currentFloorTile.X = item.recPos.X;
-                        hero.currentFloorTile.Y = item.recPos.Y - item.textureRectangle.Height;
+                        hero.currentFloorTile.Y = item.recPos.Y - item.textureRectangle.Height + 50;
+                        if (hero.floorTileDifference > 75)
+                        {
+                            hero.position.Y = hero.previousFloorTile.Y;
+                        }
                     }
-                    
                 }
-                
-                if (item.recPos.Intersects(hero.hitbox) && (item.myType == Block.typeBlock.SKY)) {
-                    
-                    hero.currentFloorTile.X = item.recPos.X; 
-                    hero.currentFloorTile.Y = item.recPos.Y - item.textureRectangle.Height + 50;
-                    if(hero.floorTileDifference > 75)
+
+            }
+            if (Game1.currentState == Game1.GameStates.Level2)
+            {
+                foreach (var item in map.blocks2)
+                {
+
+                    if (item.recPos.Intersects(hero.hitbox) && (item.myType is Block.typeBlock.FLOOR || item.myType is Block.typeBlock.FLOOR2 || item.myType is Block.typeBlock.SPIKE || item.myType is Block.typeBlock.SPIKE2 || item.myType is Block.typeBlock.CLOUD || item.myType is Block.typeBlock.CLOUD2))
                     {
-                        hero.position.Y = hero.previousFloorTile.Y;
+
+
+                        if (hero.position.X >= item.recPos.X || hero.position.X <= item.recPos.X && hero.position.Y >= item.recPos.Y + 50)
+                        {
+                            hero.previousFloorTile = hero.currentFloorTile;
+
+
+                            hero.position.Y = item.recPos.Y - 50;
+
+
+                            kb.isFalling = false;
+                            kb.hasJumped = false;
+                        }
+
+                        if (item.recPos.Intersects(hero.hitboxBody) && hero.position.X >= item.recPos.X)
+                        {
+                            kb.speedLeft = 0;
+                        }
+                        if (item.recPos.Intersects(hero.hitboxBody) && hero.position.X <= item.recPos.X)
+                        {
+                            kb.speedRight = 0;
+                        }
+
+                        if (item.myType == Block.typeBlock.SPIKE)
+                        {
+                            if (hero.position.X >= item.recPos.X - 20)
+                            {
+                                hero.position.X += 100;
+
+                            }
+                            else
+                            {
+                                hero.position.X -= 100;
+
+                            }
+                            hero.health -= 1;
+                        }
+
+
+
+                        if (hero.position.Y < item.recPos.Bottom && hero.position.Y < hero.currentFloorTile.Y)
+                        {
+                            hero.currentFloorTile.X = item.recPos.X;
+                            hero.currentFloorTile.Y = item.recPos.Y - item.textureRectangle.Height;
+                        }
+
+                    }
+
+                    if (item.recPos.Intersects(hero.hitbox) && (item.myType == Block.typeBlock.SKY))
+                    {
+
+                        hero.currentFloorTile.X = item.recPos.X;
+                        hero.currentFloorTile.Y = item.recPos.Y - item.textureRectangle.Height + 50;
+                        if (hero.floorTileDifference > 75)
+                        {
+                            hero.position.Y = hero.previousFloorTile.Y;
+                        }
                     }
                 }
+
             }
             foreach (var item in enemies)
             {

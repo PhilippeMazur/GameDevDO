@@ -42,7 +42,7 @@ namespace Slime.UI
 
             }
 
-            if (currentState != GameStates.StartScreen)
+            if (currentState == GameStates.Level1)
             {
                 map.Draw(Game1._spriteBatch, Game1._mapTexture);
                 hero.Draw(Game1._spriteBatch);
@@ -58,10 +58,13 @@ namespace Slime.UI
                 }
                 foreach (var item in doors)
                 {
-                    item.Draw(_spriteBatch);
+                    if(item.level == NextLevelDoor.DoorLevel.Level1)
+                    {
+                        item.Draw(_spriteBatch);
+                    }
                 }
             }
-            /*
+            
             if(currentState == GameStates.Level2)
             {
                 
@@ -79,9 +82,12 @@ namespace Slime.UI
                 }
                 foreach (var item in doors)
                 {
-                    item.Draw(_spriteBatch);
+                    if(item.level == NextLevelDoor.DoorLevel.Level2)
+                    {
+                        item.Draw(_spriteBatch);
+                    }
                 }
-            }*/
+            }
 
         }
         public static void UpdateLevel1(Hero hero, List<Enemy> enemyList, List<Coin> coinList, List<NextLevelDoor> doors, GameTime gameTime)
@@ -96,7 +102,10 @@ namespace Slime.UI
             }
             foreach (var item in doors)
             {
-                item.Update(gameTime, hero);
+                if(item.level == NextLevelDoor.DoorLevel.Level1)
+                {
+                    item.Update(gameTime, hero);
+                }
             }
 
             if (currentState == GameStates.Level1)
@@ -130,7 +139,11 @@ namespace Slime.UI
             }
             foreach (var item in doors)
             {
-                item.Update(gameTime, hero);
+                if(item.level == NextLevelDoor.DoorLevel.Level2)
+                {
+                    item.Update(gameTime, hero);
+
+                }
             }
             foreach (var item in doors)
             {
