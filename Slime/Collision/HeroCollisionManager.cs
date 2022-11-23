@@ -19,7 +19,7 @@ namespace Slime.Collision
 
         }
 
-        public void Update(GameTime gametime, TileMap map, List<Enemy> enemies, Hero hero, KeyboardReader kb, List<Coin> coins)
+        public void Update(GameTime gametime, TileMap map, List<Enemy> enemies, Hero hero, KeyboardReader kb, List<Coin> coins, List<NextLevelDoor> doors)
         {
             hero.floorTileDifference = hero.previousFloorTile.Y - hero.currentFloorTile.Y;
 
@@ -115,6 +115,16 @@ namespace Slime.Collision
                     item.value = 0;
                 }
             }
+            foreach (var item in doors)
+            {
+
+                if (item.hitbox.Intersects(hero.hitboxBody))
+                {
+                    Game1.currentState = Game1.GameStates.Level2;
+                    Debug.WriteLine("level2");
+                }
+            }
+            
             
         }
     }

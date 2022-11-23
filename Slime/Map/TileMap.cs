@@ -13,17 +13,9 @@ namespace Slime.Map
     internal class TileMap
     {
         public List<Block> blocks = new List<Block>();
+        public List<Block> blocks2 = new List<Block>();
         public List<Block> allTiles = new List<Block>();
-
-
-        public TileMap()
-        {
-            //block.AddBlock(new Rectangle(100, 100, 224, 224));
-            CreateBlocks();
-            
-        }
-
-        int[,] level1 = new int[,]
+        int[,] level = new int[,]
         {
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -41,64 +33,92 @@ namespace Slime.Map
             {2,2,2,1,1,3,3,3,2,2,2,1,1,1,1,2,2,2,2,2}
 
         };
+        int[,] level2 = new int[,]
+        {
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,2,1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+            {2,2,2,1,1,2,0,0,0,0,0,0,0,2,2,2,2,2,2,2},
+            {1,1,1,1,0,2,0,0,0,0,0,0,2,0,0,0,0,0,0,0},
+            {0,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,2,0,0,0,0,2,0,0,0,2,2,2,0,0,0},
+            {0,0,0,0,0,2,0,2,2,0,0,0,0,2,1,0,0,0,0,0},
+            {0,0,0,0,2,2,0,0,0,0,0,0,2,1,1,0,0,0,0,0},
+            {0,0,0,2,1,2,0,0,0,0,0,2,1,1,1,0,0,0,0,0},
+            {2,2,2,1,1,3,3,3,2,2,2,1,1,1,1,2,2,2,2,2}
+
+        };
+        public TileMap()
+        {
+            CreateBlocks(level, blocks);            
+        }
+
+        
 
         public void Draw(SpriteBatch spriteBatch, Texture2D texture)
         {
             spriteBatch.Draw(_levelBackground, new Rectangle(0,0,1000,700), Color.White);
-            foreach (var item in blocks)
+            if(Game1.currentState == GameStates.Level1)
             {
-                if(item.myType != Block.typeBlock.SKY)
+                foreach (var item in blocks)
                 {
-                    spriteBatch.Draw(texture, item.pos, item.textureRectangle, Color.White);
+                    if (item.myType != Block.typeBlock.SKY)
+                    {
+                        spriteBatch.Draw(texture, item.pos, item.textureRectangle, Color.White);
 
+                    }
                 }
+            } 
 
 
-            }
+            
 
         }
-
-        private void CreateBlocks()
+        private void CreateBlocks(int[,] level, List<Block> blocks)
         {
-            for (int l = 0; l < level1.GetLength(0); l++)
+            for (int l = 0; l < level.GetLength(0); l++)
             {
 
-                for (int c = 0; c < level1.GetLength(1); c++)
+                for (int c = 0; c < level.GetLength(1); c++)
                 {
-                    if (level1[l, c] == 0)
+                    if (level[l, c] == 0)
                     {
                         blocks.Add(new Block(Block.typeBlock.SKY, new Vector2(c * 50, l * 50)));
                         allTiles.Add(new Block(Block.typeBlock.SKY, new Vector2(c * 50, l * 50)));
                     }
-                    else if(level1[l, c] == 1)
+                    else if(level[l, c] == 1)
                     {
                         blocks.Add(new Block(Block.typeBlock.FLOOR, new Vector2(c * 50, l * 50)));
                         allTiles.Add(new Block(Block.typeBlock.FLOOR, new Vector2(c * 50, l * 50)));
                     }
-                    else if (level1[l, c] == 2)
+                    else if (level[l, c] == 2)
                     {
                         blocks.Add(new Block(Block.typeBlock.FLOOR2, new Vector2(c * 50, l * 50)));
                         allTiles.Add(new Block(Block.typeBlock.FLOOR2, new Vector2(c * 50, l * 50)));
                     }
-                    else if (level1[l, c] == 3)
+                    else if (level[l, c] == 3)
                     {
                         blocks.Add(new Block(Block.typeBlock.SPIKE, new Vector2(c * 50, l * 50)));
                         allTiles.Add(new Block(Block.typeBlock.SPIKE, new Vector2(c * 50, l * 50)));
 
+
                     }
-                    else if (level1[l, c] == 4)
+                    else if (level[l, c] == 4)
                     {
                         blocks.Add(new Block(Block.typeBlock.SPIKE2, new Vector2(c * 50, l * 50)));
                         allTiles.Add(new Block(Block.typeBlock.SPIKE2, new Vector2(c * 50, l * 50)));
 
                     }
-                    else if (level1[l, c] == 5)
+                    else if (level[l, c] == 5)
                     {
                         blocks.Add(new Block(Block.typeBlock.CLOUD, new Vector2(c * 50, l * 50)));
                         allTiles.Add(new Block(Block.typeBlock.CLOUD, new Vector2(c * 50, l * 50)));
 
                     }
-                    else if (level1[l, c] == 6)
+                    else if (level[l, c] == 6)
                     {
                         blocks.Add(new Block(Block.typeBlock.CLOUD2, new Vector2(c * 50, l * 50)));
                         allTiles.Add(new Block(Block.typeBlock.CLOUD2, new Vector2(c * 50, l * 50)));

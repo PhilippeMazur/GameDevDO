@@ -28,6 +28,10 @@ namespace Slime.UI
             {
                 UpdateLevel1(hero, enemyList, coinList, doors, gameTime);
             }
+            if(currentState == GameStates.Level2)
+            {
+                UpdateLevel2(hero, enemyList, coinList, doors, gameTime);
+            }
         }
         public static void Draw(Hero hero, List<Enemy> enemyList, Button startButton, TileMap map, HealthBar health, List<Coin> coins, List<NextLevelDoor> doors)
         {
@@ -36,7 +40,9 @@ namespace Slime.UI
                 Game1._spriteBatch.Draw(Game1._backgroundTexture, new Rectangle(0, 0, 1000, 700), Color.White);
                 startButton.Draw(Game1._spriteBatch);
 
-            } else if (currentState == GameStates.Level1)
+            }
+
+            if (currentState != GameStates.StartScreen)
             {
                 map.Draw(Game1._spriteBatch, Game1._mapTexture);
                 hero.Draw(Game1._spriteBatch);
@@ -55,6 +61,27 @@ namespace Slime.UI
                     item.Draw(_spriteBatch);
                 }
             }
+            /*
+            if(currentState == GameStates.Level2)
+            {
+                
+                map.Draw(Game1._spriteBatch, Game1._mapTexture);
+                hero.Draw(Game1._spriteBatch);
+                foreach (var item in enemyList)
+                {
+                    item.Draw(Game1._spriteBatch, hero);
+                }
+                health.Draw(Game1._spriteBatch, Game1._healthTexture, hero);
+
+                foreach (var item in coins)
+                {
+                    item.Draw(_spriteBatch);
+                }
+                foreach (var item in doors)
+                {
+                    item.Draw(_spriteBatch);
+                }
+            }*/
 
         }
         public static void UpdateLevel1(Hero hero, List<Enemy> enemyList, List<Coin> coinList, List<NextLevelDoor> doors, GameTime gameTime)
@@ -91,5 +118,44 @@ namespace Slime.UI
                 }
             }
         }
+        public static void UpdateLevel2(Hero hero, List<Enemy> enemyList, List<Coin> coinList, List<NextLevelDoor> doors, GameTime gameTime)
+        {
+            foreach (var item in enemyList)
+            {
+                item.Update(gameTime);
+            }
+            foreach (var item in coinList)
+            {
+                item.update(gameTime);
+            }
+            foreach (var item in doors)
+            {
+                item.Update(gameTime, hero);
+            }
+            foreach (var item in doors)
+            {
+                item.Update(gameTime, hero);
+            }
+
+            if (currentState == GameStates.Level1)
+            {
+                if (hero.health <= 0)
+                {
+                    currentState = GameStates.StartScreen;
+                    hero.health = 5;
+                }
+                if (currentState == GameStates.StartScreen)
+                {
+
+                    foreach (var item in enemyList)
+                    {
+                        item.isAlive = true;
+                        item.Update(gameTime);
+                    }
+
+                }
+            }
+        }
+
     }
 }

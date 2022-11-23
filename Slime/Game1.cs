@@ -54,7 +54,7 @@ namespace Slime
         public static Texture2D _doorTexture;
         private NextLevelDoor doorLevel1;
         List<NextLevelDoor> doors = new List<NextLevelDoor>();
-
+        TileMap map2 = new TileMap();
 
         public Game1()
         {
@@ -112,7 +112,7 @@ namespace Slime
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             startButton.Update(gameTime);
-            heroCollisionManager.Update(gameTime, map, enemyList, hero, kb, coinList);
+            heroCollisionManager.Update(gameTime, map, enemyList, hero, kb, coinList, doors);
             hero.Update(gameTime, kb);
             GameSceneManager.Update(gameTime, startButton, hero, enemyList, coinList, doors);
 
