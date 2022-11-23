@@ -150,7 +150,7 @@ namespace Slime.UI
                 item.Update(gameTime, hero);
             }
 
-            if (currentState == GameStates.Level1)
+            if (currentState == GameStates.Level1 || currentState == GameStates.Level2)
             {
                 if (hero.health <= 0)
                 {
