@@ -19,8 +19,8 @@ namespace Project1.Animations
         private int counter;
         private int counter2 = 2;
         private int counter3 = 4;
-        private int doorCounter = 1;
-        private int doorCounter2 = 0;
+        private int doorCounter = 0;
+        private int doorCounter2 = 1;
         static Random r = new Random();
         private double secondCounter = 0;
         private int fps = 2;
@@ -103,10 +103,10 @@ namespace Project1.Animations
         {
             secondCounter += gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            if (door.state == NextLevelDoor.AnimationState.Closed)
+            if (!door.isOpened)
             {
                 secondCounter = 0;
-                CurrentFrame = frames[doorCounter2];
+                CurrentFrame = frames[doorCounter];
                 if (counter >= frames.Count)
                 {
                     doorCounter = 0;
@@ -116,11 +116,11 @@ namespace Project1.Animations
                 if (secondCounter >= 1000d / 10)
                 {
                     secondCounter = 0;
-                    CurrentFrame = frames[doorCounter];
-                    doorCounter++;
-                    if (doorCounter > 4)
+                    CurrentFrame = frames[doorCounter2];
+                    doorCounter2++;
+                    if (doorCounter2 > 4)
                     {
-                        doorCounter = 1;
+                        doorCounter2 = 1;
                     }
                 }
             }

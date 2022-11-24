@@ -81,10 +81,10 @@ namespace Slime
             _enemyTexture = Content.Load<Texture2D>("SlimeEnemy");
             enemy1 = new Enemy(_enemyTexture, new Vector2(850, 604), 100);
             enemy2 = new Enemy(_enemyTexture, new Vector2(825, 254), 150);
-            enemyList.Add(enemy1);
-            enemyList.Add(enemy2);
             enemy1.LoadContent(GraphicsDevice, _spriteBatch);
             enemy2.LoadContent(GraphicsDevice, _spriteBatch);
+            enemyList.Add(enemy1);
+            enemyList.Add(enemy2);
             hero.LoadContent(GraphicsDevice, _spriteBatch);
             _mapTexture = Content.Load<Texture2D>("MapTiles");
             health = new HealthBar();

@@ -119,6 +119,8 @@ namespace Slime.Characters
             if(health <= 0)
             {
                 isAlive = false;
+                coinsLevel1 = 0;
+                position = new Vector2(100, 500);
             }
         }
     }

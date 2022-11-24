@@ -118,6 +118,21 @@ namespace Slime.UI
                 {
                     currentState = GameStates.StartScreen;
                     hero.health = 5;
+                    foreach (var item in coinList)
+                    {
+                        item.isCollected = false;
+                    }
+                    foreach (var item in doors)
+                    {
+                        item.isOpened = false;
+                    }
+                }
+                else
+                {
+                    foreach (var item in doors)
+                    {
+                        item.CheckPlayerCoins(hero);
+                    }
                 }
                 if (currentState == GameStates.StartScreen)
                 {
@@ -160,6 +175,20 @@ namespace Slime.UI
                 {
                     currentState = GameStates.GameOver;
                     hero.health = 5;
+                    foreach (var item in coinList)
+                    {
+                        item.isCollected = false;
+                    }
+                    foreach (var item in doors)
+                    {
+                        item.isOpened = false;
+                    }
+                } else
+                {
+                    foreach (var item in doors)
+                    {
+                        item.CheckPlayerCoins(hero);
+                    }
                 }
                 if (currentState == GameStates.StartScreen)
                 {

@@ -54,11 +54,15 @@ namespace Slime.GameElements
             animation.Update(gameTime, this);
         }
 
-        private void CheckPlayerCoins(Hero hero)
+        public void CheckPlayerCoins(Hero hero)
         {
             if(hero.coinsLevel1 >= 2)
             {
-                state = AnimationState.Open;
+                isOpened = true;
+                //state = AnimationState.Open;
+            } else
+            {
+                isOpened = false;
             }
         }
     }
