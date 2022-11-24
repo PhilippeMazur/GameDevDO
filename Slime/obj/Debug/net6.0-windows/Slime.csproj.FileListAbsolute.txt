@@ -45,3 +45,4 @@ D:\school\gamedev\Slime\Slime\bin\Debug\net6.0-windows\Content\BackgroundWithLog
 D:\school\gamedev\Slime\Slime\bin\Debug\net6.0-windows\Content\PressStart.xnb
 D:\school\gamedev\Slime\Slime\bin\Debug\net6.0-windows\Content\CoinSpritesheet.xnb
 D:\school\gamedev\Slime\Slime\bin\Debug\net6.0-windows\Content\PortalDoor.xnb
+D:\school\gamedev\Slime\Slime\bin\Debug\net6.0-windows\Content\GameOverScreen500x500.xnb

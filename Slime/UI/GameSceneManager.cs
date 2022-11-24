@@ -88,6 +88,10 @@ namespace Slime.UI
                     }
                 }
             }
+            if(currentState == GameStates.GameOver)
+            {
+                //_spriteBatch.Draw(Game1._gameOverTexture, new Rectangle(0, 0, 1000, 700), Color.White);
+            }
 
         }
         public static void UpdateLevel1(Hero hero, List<Enemy> enemyList, List<Coin> coinList, List<NextLevelDoor> doors, GameTime gameTime)
@@ -154,7 +158,7 @@ namespace Slime.UI
             {
                 if (hero.health <= 0)
                 {
-                    currentState = GameStates.StartScreen;
+                    currentState = GameStates.GameOver;
                     hero.health = 5;
                 }
                 if (currentState == GameStates.StartScreen)

@@ -13,7 +13,6 @@ namespace Slime.Collision
     internal class HeroCollisionManager
     {
 
-        Random r = new Random();
         public HeroCollisionManager()
         {
 

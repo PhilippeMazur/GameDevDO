@@ -55,7 +55,6 @@ namespace Slime
         private NextLevelDoor doorLevel1;
         List<NextLevelDoor> doors = new List<NextLevelDoor>();
         TileMap map2 = new TileMap();
-
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -105,6 +104,7 @@ namespace Slime
 
             doorLevel1 = new NextLevelDoor(new Vector2(300, 150), NextLevelDoor.DoorLevel.Level1);
             doors.Add(doorLevel1);
+
         }
 
         protected override void Update(GameTime gameTime)
@@ -116,18 +116,15 @@ namespace Slime
             hero.Update(gameTime, kb);
             GameSceneManager.Update(gameTime, startButton, hero, enemyList, coinList, doors);
 
-
             base.Update(gameTime);           
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            GraphicsDevice.Clear(Color.CornflowerBlue);
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
             GameSceneManager.Draw(hero, enemyList, startButton, map, health, coinList, doors);
-
 
             base.Draw(gameTime);
             _spriteBatch.End(); 
