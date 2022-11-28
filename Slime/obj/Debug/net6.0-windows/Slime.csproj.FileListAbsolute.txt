@@ -47,3 +47,4 @@ D:\school\gamedev\Slime\Slime\bin\Debug\net6.0-windows\Content\CoinSpritesheet.x
 D:\school\gamedev\Slime\Slime\bin\Debug\net6.0-windows\Content\PortalDoor.xnb
 D:\school\gamedev\Slime\Slime\bin\Debug\net6.0-windows\Content\GameOverScreen500x500.xnb
 D:\school\gamedev\Slime\Slime\bin\Debug\net6.0-windows\Content\GameOverScreenAnimated.xnb
+D:\school\gamedev\Slime\Slime\bin\Debug\net6.0-windows\Content\Fonts\File.xnb

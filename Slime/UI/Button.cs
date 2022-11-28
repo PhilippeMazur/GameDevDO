@@ -26,8 +26,7 @@ namespace Slime.UI
         private double counter2;
         private int randNumber = 1000;
         private int xValue;
-        private int yValue;
-        
+        private int yValue;        
 
 
 

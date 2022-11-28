@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Slime.UI;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -61,7 +62,7 @@ namespace Slime.Map
 
         public void Draw(SpriteBatch spriteBatch, Texture2D texture)
         {
-            spriteBatch.Draw(_levelBackground, new Rectangle(0,0,1000,700), Color.White);
+            spriteBatch.Draw(GameSceneManager._levelBackground, new Rectangle(0,0,1000,700), Color.White);
             if(Game1.currentState == GameStates.Level1)
             {
                 foreach (var item in blocks)

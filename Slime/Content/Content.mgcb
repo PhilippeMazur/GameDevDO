@@ -37,6 +37,13 @@
 /processorParam:TextureFormat=Color
 /build:CoinSpritesheet.png
 
+#begin Fonts/File.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/File.spritefont
+
 #begin GameOverScreen500x500.png
 /importer:TextureImporter
 /processor:TextureProcessor

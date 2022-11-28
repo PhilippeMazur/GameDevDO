@@ -3,9 +3,11 @@ using Slime.Characters;
 using Slime.GameElements;
 using Slime.Input;
 using Slime.Map;
+using Slime.UI;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 
 namespace Slime.Collision
@@ -18,7 +20,7 @@ namespace Slime.Collision
 
         }
 
-        public void Update(GameTime gametime, TileMap map, List<Enemy> enemies, Hero hero, KeyboardReader kb, List<Coin> coins, List<NextLevelDoor> doors)
+        public void Update(GameTime gametime, TileMap map, Hero hero, KeyboardReader kb, List<NextLevelDoor> doors)
         {
             hero.floorTileDifference = hero.previousFloorTile.Y - hero.currentFloorTile.Y;
 
@@ -166,7 +168,7 @@ namespace Slime.Collision
                 }
 
             }
-            foreach (var item in enemies)
+            foreach (var item in GameSceneManager.enemyList)
             {
                 if(hero.hitboxBody.Intersects(item.hitbox) && hero.position.Y  <= item.position.Y - 40)
                 {
@@ -178,16 +180,32 @@ namespace Slime.Collision
                     hero.health -= 1;
                 }
             }
-            foreach (var item in coins)
+            ///Check Coin Collision 
+            if(Game1.currentState == Game1.GameStates.Level1)
             {
-                if(hero.hitbox.Intersects(item.hitbox))
+                foreach (var item in GameSceneManager.coinList)
                 {
-
-                    item.isCollected = true;
-                    hero.coinsLevel1+= item.value;
-                    item.value = 0;
+                    if (hero.hitbox.Intersects(item.hitbox) && item.level == Coin.CoinLevelType.Level1)
+                    {
+                        item.isCollected = true;
+                        hero.coinsLevel1 += item.value;
+                        item.value = 0;
+                    }
                 }
             }
+            if (Game1.currentState == Game1.GameStates.Level2)
+            {
+                foreach (var item in GameSceneManager.coinList)
+                {
+                    if (hero.hitbox.Intersects(item.hitbox) && item.level == Coin.CoinLevelType.Level2)
+                    {
+                        item.isCollected = true;
+                        hero.coinsLevel1 += item.value;
+                        item.value = 0;
+                    }
+                }
+            }
+
             foreach (var item in doors)
             {
 

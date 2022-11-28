@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Project1.Animations;
 using SharpDX.Direct2D1;
+using Slime.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,8 +19,14 @@ namespace Slime.GameElements
         public Rectangle hitbox;
         public Animation animation = new Animation();
         public int value = 1;
+        public enum CoinLevelType
+        {
+            Level1,
+            Level2
+        }
+        public CoinLevelType level;
 
-        public Coin(Texture2D texture, Vector2 position)
+        public Coin(Texture2D texture, Vector2 position, CoinLevelType level)
         {
             texture = texture;
             this.position = position;
@@ -41,14 +48,14 @@ namespace Slime.GameElements
             animation.AddFrame(new AnimationFrame(new Rectangle(192, 0, 16, 16)));
             animation.AddFrame(new AnimationFrame(new Rectangle(208, 0, 16, 16)));
             animation.AddFrame(new AnimationFrame(new Rectangle(224, 0, 16, 16)));
-
+            this.level = level;
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             if(!isCollected)
             {
-                spriteBatch.Draw(Game1._coinTexture, position, animation.CurrentFrame.sourceRectangle, Color.White, 0, new Vector2(0, 0), new Vector2(3, 3), SpriteEffects.None, 0);
+                spriteBatch.Draw(GameSceneManager._coinTexture, position, animation.CurrentFrame.sourceRectangle, Color.White, 0, new Vector2(0, 0), new Vector2(3, 3), SpriteEffects.None, 0);
             }
         }
 
