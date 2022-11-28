@@ -17,7 +17,7 @@ using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 
 namespace Slime.Characters
 {
-    internal class Hero : IGameObject
+    public class Hero
     {
         public Texture2D heroTexture;
         IInputreader inputReader;
@@ -57,7 +57,7 @@ namespace Slime.Characters
             hitboxTexture = new Texture2D(graphicsDevice, 1, 1);
             hitboxTexture.SetData(new[] { Color.White });
         }
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, Texture2D heroTexture)
         {
 
             if(isAlive)

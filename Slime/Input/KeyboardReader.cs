@@ -14,7 +14,7 @@ using Keyboard = Microsoft.Xna.Framework.Input.Keyboard;
 
 namespace Slime.Input
 {
-    internal class KeyboardReader : IInputreader
+    public class KeyboardReader : IInputreader
     {
 
         public enum states

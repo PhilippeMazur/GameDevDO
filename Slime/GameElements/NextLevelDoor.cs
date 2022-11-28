@@ -8,10 +8,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Slime.UI.GameSceneManager;
 
 namespace Slime.GameElements
 {
-    internal class NextLevelDoor
+    public class NextLevelDoor
     {
         public bool isOpened = false;
         public Vector2 position;
@@ -44,9 +45,9 @@ namespace Slime.GameElements
             this.level = level;
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, Texture2D doorTexture)
         {
-            spriteBatch.Draw(GameSceneManager._doorTexture, position, animation.CurrentFrame.sourceRectangle, Color.White);
+            spriteBatch.Draw(doorTexture, position, animation.CurrentFrame.sourceRectangle, Color.White);
 
         }
         public void Update(GameTime gameTime, Hero hero)

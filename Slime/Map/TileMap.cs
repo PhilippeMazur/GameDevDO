@@ -8,10 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static Slime.Game1;
+using static Slime.UI.GameSceneManager;
 
 namespace Slime.Map
 {
-    internal class TileMap
+    public class TileMap
     {
         public List<Block> blocks = new List<Block>();
         public List<Block> blocks2 = new List<Block>();
@@ -60,9 +61,9 @@ namespace Slime.Map
 
         
 
-        public void Draw(SpriteBatch spriteBatch, Texture2D texture)
+        public void Draw(SpriteBatch spriteBatch, Texture2D texture, Texture2D LevelBackground)
         {
-            spriteBatch.Draw(GameSceneManager._levelBackground, new Rectangle(0,0,1000,700), Color.White);
+            spriteBatch.Draw(LevelBackground, new Rectangle(0,0,1000,700), Color.White);
             if(Game1.currentState == GameStates.Level1)
             {
                 foreach (var item in blocks)

@@ -17,10 +17,10 @@ using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace Slime.UI
 {
-    internal class Button
+    public class Button
     {
         private Rectangle recPos;
-        private Texture2D texture;
+        //private Texture2D texture;
         private Vector2 position;
         private double counter;
         private double counter2;
@@ -30,16 +30,16 @@ namespace Slime.UI
 
 
 
-        public Button(Rectangle recPosIn, Vector2 positionin, Texture2D textureIn)
+        public Button(Rectangle recPosIn, Vector2 positionin)
         {
             recPos = recPosIn;
             position = positionin;
-            texture = textureIn;
+            //texture = textureIn;
             xValue = recPos.X;
             yValue = recPos.Y;
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, Texture2D texture)
         {
             if(currentState == GameStates.StartScreen)
             {

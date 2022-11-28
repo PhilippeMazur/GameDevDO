@@ -8,11 +8,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Slime.UI.GameSceneManager;
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 
 namespace Slime.GameElements
 {
-    internal class Coin
+    public class Coin
     {
         public bool isCollected = false;
         public Vector2 position;
@@ -51,11 +52,11 @@ namespace Slime.GameElements
             this.level = level;
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, Texture2D coinTexture)
         {
             if(!isCollected)
             {
-                spriteBatch.Draw(GameSceneManager._coinTexture, position, animation.CurrentFrame.sourceRectangle, Color.White, 0, new Vector2(0, 0), new Vector2(3, 3), SpriteEffects.None, 0);
+                spriteBatch.Draw(coinTexture, position, animation.CurrentFrame.sourceRectangle, Color.White, 0, new Vector2(0, 0), new Vector2(3, 3), SpriteEffects.None, 0);
             }
         }
 

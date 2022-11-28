@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Project1.Animations
 {
-    class Animation : Game1
+    public class Animation : Game1
     {
         public AnimationFrame CurrentFrame { get; set; }
         private List<AnimationFrame> frames;

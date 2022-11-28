@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Slime.Map
 {
-    internal class Block
+    public class Block
     {
         public Vector2 pos;
         public Rectangle recPos;

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Slime.Interfaces
 {
-    internal interface IInputreader
+    public interface IInputreader
     {
         public Vector2 ReadInput(Vector2 pos, Hero hero);
     }

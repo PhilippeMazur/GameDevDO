@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Project1.Animations
 {
    
-    internal class AnimationFrame
+    public class AnimationFrame
     {
         public Rectangle sourceRectangle { get; set; }
         public AnimationFrame(Rectangle sourceRectangle, Vector2 hitbox)

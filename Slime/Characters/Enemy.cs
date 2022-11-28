@@ -16,7 +16,7 @@ using Texture2D = Microsoft.Xna.Framework.Graphics.Texture2D;
 
 namespace Slime.Characters
 {
-    internal class Enemy
+    public class Enemy
     {
         private Texture2D texture;
         public Vector2 position;
