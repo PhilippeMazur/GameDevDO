@@ -191,10 +191,11 @@ namespace Slime.Collision
             foreach (var item in doors)
             {
 
-                if (item.hitbox.Intersects(hero.hitboxBody))
+                if (item.hitbox.Intersects(hero.hitboxBody) && item.isOpened)
                 {
                     Game1.currentState = Game1.GameStates.Level2;
                     Debug.WriteLine("level2");
+                    hero.coinsLevel1 = 0;
                 }
             }
             

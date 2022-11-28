@@ -55,6 +55,9 @@ namespace Slime
         private NextLevelDoor doorLevel1;
         List<NextLevelDoor> doors = new List<NextLevelDoor>();
         TileMap map2 = new TileMap();
+
+        public static Texture2D _gameOverScreenTexture;
+        private GameOverScreen gameOverScreen;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -94,28 +97,26 @@ namespace Slime
             startButton = new Button(new Rectangle(0, 0, 500, 20), new Vector2(250, 450), _startButton);
             _levelBackground = Content.Load<Texture2D>("LevelBackground");
             currentState = GameStates.StartScreen;
-
             _coinTexture = Content.Load<Texture2D>("CoinSpritesheet");
             coin1 = new Coin(_coinTexture, new Vector2(750, 595));
             coinList.Add(coin1);
             coin2 = new Coin(_coinTexture, new Vector2(950, 245));
             coinList.Add(coin2);
             _doorTexture = Content.Load<Texture2D>("PortalDoor");
-
             doorLevel1 = new NextLevelDoor(new Vector2(300, 150), NextLevelDoor.DoorLevel.Level1);
             doors.Add(doorLevel1);
-
+            _gameOverScreenTexture = Content.Load<Texture2D>("GameOverScreenAnimated");
+            gameOverScreen = new GameOverScreen();
         }
 
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            startButton.Update(gameTime);
+            startButton.Update(gameTime, hero);
             heroCollisionManager.Update(gameTime, map, enemyList, hero, kb, coinList, doors);
             hero.Update(gameTime, kb);
-            GameSceneManager.Update(gameTime, startButton, hero, enemyList, coinList, doors);
-
+            GameSceneManager.Update(gameTime, startButton, hero, enemyList, coinList, doors, gameOverScreen);
             base.Update(gameTime);           
         }
 
@@ -124,8 +125,7 @@ namespace Slime
             GraphicsDevice.Clear(Color.CornflowerBlue);
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
-            GameSceneManager.Draw(hero, enemyList, startButton, map, health, coinList, doors);
-
+            GameSceneManager.Draw(hero, enemyList, startButton, map, health, coinList, doors, gameOverScreen);
             base.Draw(gameTime);
             _spriteBatch.End(); 
             

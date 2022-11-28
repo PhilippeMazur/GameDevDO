@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using SharpDX.Direct3D9;
 using SharpDX.MediaFoundation;
 using SharpDX.Win32;
+using Slime.Characters;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -48,14 +49,22 @@ namespace Slime.UI
             }
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, Hero hero)
         {
             KeyboardState kbState = Keyboard.GetState();
 
             if (kbState.IsKeyDown(Keys.Enter))
             {
-                //Write code here
+                
                 currentState = GameStates.Level1;
+            }
+            if(kbState.IsKeyDown(Keys.P))
+            {
+                hero.coinsLevel1--;
+            }
+            if(kbState.IsKeyDown(Keys.O))
+            {
+                hero.coinsLevel1++;
             }
 
             counter += gameTime.ElapsedGameTime.TotalMilliseconds;

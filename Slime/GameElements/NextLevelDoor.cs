@@ -59,7 +59,6 @@ namespace Slime.GameElements
             if(hero.coinsLevel1 >= 2)
             {
                 isOpened = true;
-                //state = AnimationState.Open;
             } else
             {
                 isOpened = false;

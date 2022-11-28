@@ -14,15 +14,15 @@ namespace Slime.UI
 
         public GameOverScreen()
         {
-            animation.AddFrame(new AnimationFrame(new Rectangle(0, 0, 500, 500)));
-            animation.AddFrame(new AnimationFrame(new Rectangle(500, 0, 500, 500)));
+            animation.AddFrame(new AnimationFrame(new Rectangle(0, 0, 1000, 700)));
+            animation.AddFrame(new AnimationFrame(new Rectangle(1000, 0, 1000, 700)));
         }
-        public void Draw(GameTime gameTime)
+        public void Draw()
         {
-            //Game1._spriteBatch.Draw(Game1._gameOverTexture, new Vector2(0,0), animation.CurrentFrame.sourceRectangle, Color.White, 0, new Vector2(0,0),new Vector2(2,2), Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 0);
-
+            //Game1._spriteBatch.Draw(Game1._gameOverScreenTexture, new Vector2(0,0), animation.CurrentFrame.sourceRectangle, Color.White, 0, new Vector2(0,0),new Vector2(0,0), Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 0);
+            Game1._spriteBatch.Draw(Game1._gameOverScreenTexture, new Vector2(0, 0), animation.CurrentFrame.sourceRectangle, Color.White);
         }
-        public void update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
             animation.Update(gameTime, 3);
         }

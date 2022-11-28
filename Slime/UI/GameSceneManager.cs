@@ -18,11 +18,11 @@ namespace Slime.UI
       static class GameSceneManager
     {
 
-        public static void Update(GameTime gameTime ,Button startButton, Hero hero, List<Enemy> enemyList, List<Coin> coinList, List<NextLevelDoor> doors)
+        public static void Update(GameTime gameTime ,Button startButton, Hero hero, List<Enemy> enemyList, List<Coin> coinList, List<NextLevelDoor> doors, GameOverScreen gameOverScreen)
         {
             if(currentState == GameStates.StartScreen)
             {
-                startButton.Update(gameTime);
+                startButton.Update(gameTime, hero);
             }
             if(currentState == GameStates.Level1)
             {
@@ -32,8 +32,13 @@ namespace Slime.UI
             {
                 UpdateLevel2(hero, enemyList, coinList, doors, gameTime);
             }
+            if(currentState == GameStates.GameOver)
+            {
+                UpdateGameOver(hero, enemyList, coinList, doors, gameTime, gameOverScreen);
+                //gameOverScreen.Update(gameTime);
+            }
         }
-        public static void Draw(Hero hero, List<Enemy> enemyList, Button startButton, TileMap map, HealthBar health, List<Coin> coins, List<NextLevelDoor> doors)
+        public static void Draw(Hero hero, List<Enemy> enemyList, Button startButton, TileMap map, HealthBar health, List<Coin> coins, List<NextLevelDoor> doors, GameOverScreen gameOverScreen)
         {
             if(currentState == GameStates.StartScreen)
             {
@@ -90,7 +95,7 @@ namespace Slime.UI
             }
             if(currentState == GameStates.GameOver)
             {
-                //_spriteBatch.Draw(Game1._gameOverTexture, new Rectangle(0, 0, 1000, 700), Color.White);
+                gameOverScreen.Draw();
             }
 
         }
@@ -121,11 +126,9 @@ namespace Slime.UI
                     foreach (var item in coinList)
                     {
                         item.isCollected = false;
+                        item.value = 1;
                     }
-                    foreach (var item in doors)
-                    {
-                        item.isOpened = false;
-                    }
+
                 }
                 else
                 {
@@ -178,11 +181,10 @@ namespace Slime.UI
                     foreach (var item in coinList)
                     {
                         item.isCollected = false;
+                        item.value = 1;
+
                     }
-                    foreach (var item in doors)
-                    {
-                        item.isOpened = false;
-                    }
+
                 } else
                 {
                     foreach (var item in doors)
@@ -203,5 +205,57 @@ namespace Slime.UI
             }
         }
 
+        public static void UpdateGameOver(Hero hero, List<Enemy> enemyList, List<Coin> coinList, List<NextLevelDoor> doors, GameTime gameTime, GameOverScreen gameOverScreen)
+        {
+            gameOverScreen.Update(gameTime);
+
+            foreach (var item in enemyList)
+            {
+                item.Update(gameTime);
+            }
+            foreach (var item in coinList)
+            {
+                item.update(gameTime);
+            }
+            foreach (var item in doors)
+            {
+                if (item.level == NextLevelDoor.DoorLevel.Level1)
+                {
+                    item.Update(gameTime, hero);
+                }
+            }
+
+
+            if(hero.health <= 0)
+                {
+                currentState = GameStates.StartScreen;
+                hero.health = 5;
+                foreach (var item in coinList)
+                {
+                    item.isCollected = false;
+                }
+
+            }
+                else
+            {
+                foreach (var item in doors)
+                {
+                    item.CheckPlayerCoins(hero);
+                }
+            }
+            if (currentState == GameStates.GameOver)
+            {
+
+                foreach (var item in enemyList)
+                {
+                    item.isAlive = true;
+                    item.Update(gameTime);
+                }
+
+            }
+
+
+
+        }
     }
 }
