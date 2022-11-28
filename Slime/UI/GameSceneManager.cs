@@ -16,23 +16,6 @@ using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 
 namespace Slime.UI
 {
-    /*
-    public enum TextureType
-    {
-        Coin, Background, Hero, Map, Enemy,Health
-    }
-    
-    public class Texture
-    {
-        public Texture2D Texture2D { get; set; }
-        public TextureType TextureType { get; set; }
-
-        public Texture(Texture2D texture2D, TextureType textureType)
-        {
-            Texture2D = texture2D;
-            TextureType = textureType;
-        }
-    }*/
     static class GameSceneManager
     {
         public static Texture2D _coinTexture;
@@ -46,16 +29,15 @@ namespace Slime.UI
         public static Texture2D _doorTexture;
         public static Texture2D _gameOverScreenTexture;
 
-        //public static Dictionary<TextureType, Texture2D> textures = new Dictionary<TextureType, Texture2D>();
-
         public static List<Enemy> enemyList = new List<Enemy>();
         public static List<Coin> coinList = new List<Coin>();
 
 
-
+        
         public static void LoadContent(GraphicsDevice graphicsDevice, ContentManager content)
         {
             //textures.Add(TextureType.Enemy, content.Load<>)
+            
 
             //Enemy enemy1 = new Enemy(textures[TextureType.Enemy], new Vector2(850, 604), 100);
             Enemy enemy1 = new Enemy(_enemyTexture, new Vector2(850, 604), 100);
