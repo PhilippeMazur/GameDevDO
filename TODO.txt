@@ -8,3 +8,4 @@
 -Nieuwe background zoeken
 -Content folder ordelijker maken
 -Score tonen op scherm
+-Jumping UI maken // zoals ability bv
