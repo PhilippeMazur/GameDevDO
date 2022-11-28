@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Project1.Animations;
 using Slime.Characters;
+using Slime.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,7 +46,7 @@ namespace Slime.GameElements
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Game1._doorTexture, position, animation.CurrentFrame.sourceRectangle, Color.White);
+            spriteBatch.Draw(GameSceneManager._doorTexture, position, animation.CurrentFrame.sourceRectangle, Color.White);
 
         }
         public void Update(GameTime gameTime, Hero hero)

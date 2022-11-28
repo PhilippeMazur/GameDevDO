@@ -20,7 +20,7 @@ namespace Slime.UI
         public void Draw()
         {
             //Game1._spriteBatch.Draw(Game1._gameOverScreenTexture, new Vector2(0,0), animation.CurrentFrame.sourceRectangle, Color.White, 0, new Vector2(0,0),new Vector2(0,0), Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 0);
-            Game1._spriteBatch.Draw(Game1._gameOverScreenTexture, new Vector2(0, 0), animation.CurrentFrame.sourceRectangle, Color.White);
+            Game1._spriteBatch.Draw(GameSceneManager._gameOverScreenTexture, new Vector2(0, 0), animation.CurrentFrame.sourceRectangle, Color.White);
         }
         public void Update(GameTime gameTime)
         {

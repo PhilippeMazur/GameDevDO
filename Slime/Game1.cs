@@ -25,11 +25,6 @@ namespace Slime
         TileMap map = new TileMap();
         KeyboardReader kb = new KeyboardReader();
         HeroCollisionManager heroCollisionManager = new HeroCollisionManager();
-        private List<Enemy> enemyList = new List<Enemy>();
-        Enemy enemy1;
-        Enemy enemy2;
-        public static Texture2D _enemyTexture;
-        public static Texture2D _healthTexture;
         private HealthBar health;
         public enum GameStates
         {
@@ -40,17 +35,13 @@ namespace Slime
             GameOver
         }
         public static GameStates currentState;
-        public static Texture2D _backgroundTexture;
-        private static Texture2D _startButton;
         private Button startButton;
 
 
-        public static Texture2D _doorTexture;
         private NextLevelDoor doorLevel1;
         List<NextLevelDoor> doors = new List<NextLevelDoor>();
         TileMap map2 = new TileMap();
 
-        public static Texture2D _gameOverScreenTexture;
         private GameOverScreen gameOverScreen;
         public Game1()
         {
@@ -73,26 +64,26 @@ namespace Slime
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            _enemyTexture = Content.Load<Texture2D>("SlimeEnemy");
+            GameSceneManager._enemyTexture = Content.Load<Texture2D>("SlimeEnemy");
 
-            GameSceneManager.LoadContent(GraphicsDevice);
+            GameSceneManager.LoadContent(GraphicsDevice, Content);
 
             GameSceneManager._heroTexture = Content.Load<Texture2D>("SlimeHero");
             hero = new Hero(GameSceneManager._heroTexture, kb);
             hero.LoadContent(GraphicsDevice, _spriteBatch);
             GameSceneManager._mapTexture = Content.Load<Texture2D>("MapTiles");
             health = new HealthBar();
-            _healthTexture = Content.Load<Texture2D>("HealthHeart");
-            _backgroundTexture = Content.Load<Texture2D>("BackgroundWithLogo");
-            _startButton = Content.Load<Texture2D>("PressStart");
-            startButton = new Button(new Rectangle(0, 0, 500, 20), new Vector2(250, 450), _startButton);
+            GameSceneManager._healthTexture = Content.Load<Texture2D>("HealthHeart");
+            GameSceneManager._backgroundTexture = Content.Load<Texture2D>("BackgroundWithLogo");
+            GameSceneManager._startButton = Content.Load<Texture2D>("PressStart");
+            startButton = new Button(new Rectangle(0, 0, 500, 20), new Vector2(250, 450), GameSceneManager._startButton);
             GameSceneManager._levelBackground = Content.Load<Texture2D>("LevelBackground");
             currentState = GameStates.StartScreen;
             GameSceneManager._coinTexture = Content.Load<Texture2D>("CoinSpritesheet");
-            _doorTexture = Content.Load<Texture2D>("PortalDoor");
+            GameSceneManager._doorTexture = Content.Load<Texture2D>("PortalDoor");
             doorLevel1 = new NextLevelDoor(new Vector2(300, 150), NextLevelDoor.DoorLevel.Level1);
             doors.Add(doorLevel1);
-            _gameOverScreenTexture = Content.Load<Texture2D>("GameOverScreenAnimated");
+            GameSceneManager._gameOverScreenTexture = Content.Load<Texture2D>("GameOverScreenAnimated");
             gameOverScreen = new GameOverScreen();
         }
 

@@ -16,19 +16,48 @@ using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 
 namespace Slime.UI
 {
+    /*
+    public enum TextureType
+    {
+        Coin, Background, Hero, Map, Enemy,Health
+    }
+    
+    public class Texture
+    {
+        public Texture2D Texture2D { get; set; }
+        public TextureType TextureType { get; set; }
 
+        public Texture(Texture2D texture2D, TextureType textureType)
+        {
+            Texture2D = texture2D;
+            TextureType = textureType;
+        }
+    }*/
     static class GameSceneManager
     {
-        public static List<Enemy> enemyList = new List<Enemy>();
-        public static List<Coin> coinList = new List<Coin>();
         public static Texture2D _coinTexture;
         public static Texture2D _levelBackground;
         public static Texture2D _heroTexture;
         public static Texture2D _mapTexture;
+        public static Texture2D _enemyTexture;
+        public static Texture2D _backgroundTexture;
+        public static Texture2D _healthTexture;
+        public static Texture2D _startButton;
+        public static Texture2D _doorTexture;
+        public static Texture2D _gameOverScreenTexture;
+
+        //public static Dictionary<TextureType, Texture2D> textures = new Dictionary<TextureType, Texture2D>();
+
+        public static List<Enemy> enemyList = new List<Enemy>();
+        public static List<Coin> coinList = new List<Coin>();
 
 
-        public static void LoadContent(GraphicsDevice graphicsDevice)
+
+        public static void LoadContent(GraphicsDevice graphicsDevice, ContentManager content)
         {
+            //textures.Add(TextureType.Enemy, content.Load<>)
+
+            //Enemy enemy1 = new Enemy(textures[TextureType.Enemy], new Vector2(850, 604), 100);
             Enemy enemy1 = new Enemy(_enemyTexture, new Vector2(850, 604), 100);
             Enemy enemy2 = new Enemy(_enemyTexture, new Vector2(825, 254), 150);
             enemy1.LoadContent(graphicsDevice, _spriteBatch);
@@ -68,7 +97,7 @@ namespace Slime.UI
         {
             if (currentState == GameStates.StartScreen)
             {
-                Game1._spriteBatch.Draw(Game1._backgroundTexture, new Rectangle(0, 0, 1000, 700), Color.White);
+                Game1._spriteBatch.Draw(_backgroundTexture, new Rectangle(0, 0, 1000, 700), Color.White);
                 startButton.Draw(Game1._spriteBatch);
 
             }
@@ -81,7 +110,7 @@ namespace Slime.UI
                 {
                     item.Draw(Game1._spriteBatch, hero);
                 }
-                health.Draw(Game1._spriteBatch, Game1._healthTexture, hero);
+                health.Draw(Game1._spriteBatch, _healthTexture, hero);
 
                 foreach (var item in coinList)
                 {
@@ -108,7 +137,7 @@ namespace Slime.UI
                 {
                     item.Draw(Game1._spriteBatch, hero);
                 }
-                health.Draw(Game1._spriteBatch, Game1._healthTexture, hero);
+                health.Draw(Game1._spriteBatch, _healthTexture, hero);
 
                 foreach (var item in GameSceneManager.coinList)
                 {
