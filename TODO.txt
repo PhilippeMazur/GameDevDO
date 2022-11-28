@@ -1,3 +1,10 @@
--Jumping bug fixen
--Door bug fixen
--GameOverScreen fixen
+-jumping veranderen
+-healthTexture kleiner maken
+-Texture klasse maken om solid te maken
+-Game1 klasse refactoren
+-Interfaces gebruiken
+-Level 2 afwerken
+-TileSpriteSheet mooier maken
+-Nieuwe background zoeken
+-Content folder ordelijker maken
+-Score tonen op scherm
