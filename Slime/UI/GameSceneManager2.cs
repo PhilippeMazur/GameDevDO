@@ -48,7 +48,8 @@ namespace Slime.UI
         public void Update(GameTime gameTime, Button startButton, Hero hero, List<NextLevelDoor> doors, GameOverScreen gameOverScreen, TileMap map, KeyboardReader kb)
         {
             heroCollisionManager.Update(gameTime, map, hero, kb, doors, enemyList, coinList);
-
+            map.Update(gameTime);
+            Debug.WriteLine(map.backgroundPos);
             if (currentState == GameStates.StartScreen)
             {
                 startButton.Update(gameTime, hero);

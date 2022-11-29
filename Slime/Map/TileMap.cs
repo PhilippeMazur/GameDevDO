@@ -14,6 +14,8 @@ namespace Slime.Map
 {
     public class TileMap
     {
+        public Vector2 backgroundPos = new Vector2(0,0);
+        private double counter;
         public List<Block> blocks = new List<Block>();
         public List<Block> blocks2 = new List<Block>();
         public List<Block> allTiles = new List<Block>();
@@ -60,11 +62,25 @@ namespace Slime.Map
         }
 
         
-
+        public void Update(GameTime gameTime)
+        {
+            counter += gameTime.ElapsedGameTime.TotalMilliseconds;
+            if(counter > 50d)
+            {
+                backgroundPos.X -= 1;
+                counter = 0;
+            }
+            if(backgroundPos.X < -1000)
+            {
+                backgroundPos.X = 0;
+            }
+        }
         public void Draw(SpriteBatch spriteBatch, Texture2D texture, Texture2D LevelBackground)
         {
-            spriteBatch.Draw(LevelBackground, new Rectangle(0,0,1000,700), Color.White);
-            if(Game1.currentState == GameStates.Level1)
+            spriteBatch.Draw(LevelBackground, new Rectangle((int)backgroundPos.X,0,1000,700), Color.White);
+            spriteBatch.Draw(LevelBackground, new Rectangle((int)backgroundPos.X + 1000, 0, 1000, 700), Color.White);
+
+            if (Game1.currentState == GameStates.Level1)
             {
                 foreach (var item in blocks)
                 {

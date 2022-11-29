@@ -1,2 +1,2 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"D:/school/gamedev/Slime/Slime/Content/NewTileSet.png","D:/school/gamedev/Slime/Slime/Content/bin/Windows/NewTileSet.xnb","TextureProcessor","Texture2DContent",5844,70085,0,2900339
+"D:/school/gamedev/Slime/Slime/Content/LevelBackgroundSelfMade.png","D:/school/gamedev/Slime/Slime/Content/bin/Windows/LevelBackgroundSelfMade.xnb","TextureProcessor","Texture2DContent",23976,2800085,0,46438
