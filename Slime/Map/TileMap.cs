@@ -23,12 +23,12 @@ namespace Slime.Map
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0},
-            {0,0,0,2,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+            {0,6,0,0,2,2,2,0,0,0,0,0,0,0,0,6,0,0,0,0},
+            {0,5,0,2,1,1,0,0,0,0,0,0,0,0,0,5,0,0,0,0},
             {2,2,2,1,1,0,0,0,0,0,0,0,0,2,2,2,2,2,2,2},
             {1,1,1,1,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0,0,2,0,0,0,2,2,2,0,0,0},
+            {0,0,0,0,0,0,0,0,6,0,0,2,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,5,0,2,0,0,0,2,2,2,0,0,0},
             {0,0,0,0,0,0,0,2,2,0,0,0,0,2,1,0,0,0,0,0},
             {0,0,0,0,2,0,0,0,0,0,0,0,2,1,1,0,0,0,0,0},
             {0,0,0,2,1,0,0,0,0,0,0,2,1,1,1,0,0,0,0,0},
@@ -127,14 +127,14 @@ namespace Slime.Map
                     }
                     else if (level[l, c] == 5)
                     {
-                        blocks.Add(new Block(Block.typeBlock.CLOUD, new Vector2(c * 50, l * 50)));
-                        allTiles.Add(new Block(Block.typeBlock.CLOUD, new Vector2(c * 50, l * 50)));
+                        blocks.Add(new Block(Block.typeBlock.LAMP, new Vector2(c * 50, l * 50)));
+                        allTiles.Add(new Block(Block.typeBlock.LAMP, new Vector2(c * 50, l * 50)));
 
                     }
                     else if (level[l, c] == 6)
                     {
-                        blocks.Add(new Block(Block.typeBlock.CLOUD2, new Vector2(c * 50, l * 50)));
-                        allTiles.Add(new Block(Block.typeBlock.CLOUD2, new Vector2(c * 50, l * 50)));
+                        blocks.Add(new Block(Block.typeBlock.LAMP2, new Vector2(c * 50, l * 50)));
+                        allTiles.Add(new Block(Block.typeBlock.LAMP2, new Vector2(c * 50, l * 50)));
 
                     }
                     

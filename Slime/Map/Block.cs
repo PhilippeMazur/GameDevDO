@@ -26,7 +26,9 @@ namespace Slime.Map
             SPIKE,
             SPIKE2,
             CLOUD,
-            CLOUD2
+            CLOUD2,
+            LAMP,
+            LAMP2
             
 
         }
@@ -91,9 +93,9 @@ namespace Slime.Map
 
 
             }
-            else if (blockType == typeBlock.CLOUD)
+            else if (blockType == typeBlock.LAMP)
             {
-                myType = typeBlock.CLOUD;
+                myType = typeBlock.LAMP;
 
                 pos = rectIn;
                 textureRectangle = new Rectangle(250, 0, w, h);
@@ -102,9 +104,9 @@ namespace Slime.Map
 
 
             }
-            else if (blockType == typeBlock.CLOUD2)
+            else if (blockType == typeBlock.LAMP2)
             {
-                myType = typeBlock.CLOUD2;
+                myType = typeBlock.LAMP2;
 
                 pos = rectIn;
                 textureRectangle = new Rectangle(300, 0, w, h);

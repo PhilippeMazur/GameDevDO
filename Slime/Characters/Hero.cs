@@ -46,8 +46,7 @@ namespace Slime.Characters
             animation.AddFrame(new AnimationFrame(new Rectangle(50, 50, 50, 50)));
             animation.AddFrame(new AnimationFrame(new Rectangle(0, 100, 50, 50)));
             animation.AddFrame(new AnimationFrame(new Rectangle(50, 100, 50, 50)));
-            
-
+       
 
         }
         public void LoadContent(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
@@ -88,6 +87,7 @@ namespace Slime.Characters
             CheckHealth();
             Move();
             animation.Update(gameTime, kb);
+            
         }
         private void Move()
         {

@@ -53,7 +53,7 @@ namespace Slime.Input
             }
 
 
-
+            
             if (kbState.IsKeyDown(Keys.Space) && hasJumped == false && !isFalling)
             {
                 
@@ -87,6 +87,7 @@ namespace Slime.Input
 
                 }
             }
+            
             speed = 1;
             speedLeft = 1;
             speedRight = 1;

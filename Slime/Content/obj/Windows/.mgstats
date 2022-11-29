@@ -1,2 +1,2 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"D:/school/gamedev/Slime/Slime/Content/Fonts/File.spritefont","D:/school/gamedev/Slime/Slime/Content/bin/Windows/Fonts/File.xnb","FontDescriptionProcessor","SpriteFontContent",2068,21535,0,3254104
+"D:/school/gamedev/Slime/Slime/Content/NewTileSet.png","D:/school/gamedev/Slime/Slime/Content/bin/Windows/NewTileSet.xnb","TextureProcessor","Texture2DContent",5844,70085,0,2900339

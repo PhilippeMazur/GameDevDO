@@ -31,7 +31,7 @@ namespace Slime.UI
             textureDictionary.Add(TextureType.StartScreen, content.Load<Texture2D>("BackgroundWithLogo"));
             textureDictionary.Add(TextureType.LevelBackground, content.Load<Texture2D>("LevelBackground"));
             textureDictionary.Add(TextureType.GameOverScreen, content.Load<Texture2D>("GameOverScreenAnimated"));
-            textureDictionary.Add(TextureType.Map, content.Load<Texture2D>("MapTiles"));
+            textureDictionary.Add(TextureType.Map, content.Load<Texture2D>("NewTileSet"));
             textureDictionary.Add(TextureType.StartButton, content.Load<Texture2D>("PressStart"));
             textureDictionary.Add(TextureType.Health, content.Load<Texture2D>("HealthHeart"));
         }
