@@ -14,7 +14,7 @@ using Keyboard = Microsoft.Xna.Framework.Input.Keyboard;
 
 namespace Slime.Input
 {
-    public class KeyboardReader : IInputreader
+    public class KeyboardReader 
     {
 
         public enum states
@@ -25,14 +25,14 @@ namespace Slime.Input
             Jumping
         }
         public states AnimationState;
-        public bool hasJumped = false;
+        //public bool hasJumped = false;
         float i = 5;
-        public bool isFalling = true;
-        public bool isGrounded = false;
+        //public bool isFalling;
         public int speed = 1;
 
         public int speedLeft = 1;
         public int speedRight = 1;
+
         
         public Vector2 ReadInput(Vector2 pos, Hero hero)
         {
@@ -52,16 +52,16 @@ namespace Slime.Input
                 AnimationState = states.RunningRight;
             }
 
-
+            /*
             
             if (kbState.IsKeyDown(Keys.Space) && hasJumped == false && !isFalling)
             {
-                
+
                 AnimationState = states.Jumping;
-                hero.position.Y -= 0.4f * i;
-                direction.Y += -5f * i;
+                hero.position.Y -= 5f * i;
+                direction.Y = -3f * i;
                 hasJumped = true;
-                
+
             }
 
             /// <summary>GRAVITY</summary>
@@ -86,14 +86,56 @@ namespace Slime.Input
                     direction.Y = 1;
 
                 }
+            }*/
+            hero.position += hero.velocity;
+            if (Keyboard.GetState().IsKeyDown(Keys.Space) && !hero.hasJumped && !hero.isFalling)
+            {
+                hero.position.Y -= 10f;
+                hero.velocity.Y = -5f;
+                hero.hasJumped = true;
             }
-            
+            if (hero.hasJumped)
+            {
+                float i = 10;
+                hero.velocity.Y += 0.15f * 1;
+            }
+            if (!hero.hasJumped)
+            {
+                hero.velocity.Y = 0;
+            }
+            if (hero.hasJumped == true)
+            {
+                hero.isFalling = true;
+                //direction.Y += 0.15f * i;
+                AnimationState = states.Jumping;
+            }
+            if (hero.position.Y >= hero.currentFloorTile.Y)
+            {
+                hero.isFalling = false;
+                hero.hasJumped = false;
+
+            }
+
+            if (hero.hasJumped == false)
+            {
+                if(hero.position.Y >= hero.currentFloorTile.Y)
+                {
+                    hero.velocity.Y = 3;
+                }
+                if (hero.position.Y <= hero.currentFloorTile.Y)
+                {
+                    hero.isFalling = true;
+                    direction.Y = 1;
+
+                }
+            }
             speed = 1;
             speedLeft = 1;
             speedRight = 1;
             return direction;
             
         }
+
         
     }
 }

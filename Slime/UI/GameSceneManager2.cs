@@ -49,7 +49,6 @@ namespace Slime.UI
         {
             heroCollisionManager.Update(gameTime, map, hero, kb, doors, enemyList, coinList);
             map.Update(gameTime);
-            Debug.WriteLine(map.backgroundPos);
             if (currentState == GameStates.StartScreen)
             {
                 startButton.Update(gameTime, hero);
@@ -200,7 +199,6 @@ namespace Slime.UI
             }
             foreach (var item in coinList)
             {
-                Debug.WriteLine("inside coinlistUpdate");
                 if (item.level == Coin.CoinLevelType.Level2)
                 {
                     item.update(gameTime);
