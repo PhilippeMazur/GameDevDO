@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static SharpDX.Utilities;
 using static Slime.Game1;
+using static Slime.GameElements.NextLevelDoor;
 
 namespace Slime.UI
 {
@@ -23,6 +24,7 @@ namespace Slime.UI
         List<Enemy> enemyList = new List<Enemy>();
         List<Coin> coinList = new List<Coin>();
         HeroCollisionManager heroCollisionManager = new HeroCollisionManager();
+        List<NextLevelDoor> doors = new List<NextLevelDoor>();
         public GameSceneManager2()
         {
 
@@ -30,22 +32,25 @@ namespace Slime.UI
         public void LoadContent(GraphicsDevice graphicsDevice ,ContentManager content)
         {
             texture.LoadContent(content);
-            Enemy enemy1 = new Enemy(texture.textureDictionary[Texture.TextureType.Enemy], new Vector2(850, 604), 100);
-            Enemy enemy2 = new Enemy(texture.textureDictionary[Texture.TextureType.Enemy], new Vector2(825, 254), 150);
+            Enemy enemy1 = new Enemy(texture.textureDictionary[Texture.TextureType.Enemy], new Vector2(850, 604), 100, Enemy.Level.Level1);
+            Enemy enemy2 = new Enemy(texture.textureDictionary[Texture.TextureType.Enemy], new Vector2(825, 204), 150, Enemy.Level.Level1);
             enemy1.LoadContent(graphicsDevice, _spriteBatch);
             enemy2.LoadContent(graphicsDevice, _spriteBatch);
             enemyList.Add(enemy1);
             enemyList.Add(enemy2);
             Coin coin1 = new Coin(texture.textureDictionary[Texture.TextureType.Coin], new Vector2(750, 595), Coin.CoinLevelType.Level1);
             coinList.Add(coin1);
-            Coin coin2 = new Coin(texture.textureDictionary[Texture.TextureType.Coin], new Vector2(950, 245), Coin.CoinLevelType.Level1);
+            Coin coin2 = new Coin(texture.textureDictionary[Texture.TextureType.Coin], new Vector2(950, 195), Coin.CoinLevelType.Level1);
             coinList.Add(coin2);
-            Coin coin3 = new Coin(texture.textureDictionary[Texture.TextureType.Coin], new Vector2(750, 595), Coin.CoinLevelType.Level2);
+            Coin coin3 = new Coin(texture.textureDictionary[Texture.TextureType.Coin], new Vector2(750, 400), Coin.CoinLevelType.Level2);
             coinList.Add(coin3);
             Coin coin4 = new Coin(texture.textureDictionary[Texture.TextureType.Coin], new Vector2(950, 245), Coin.CoinLevelType.Level2);
             coinList.Add(coin4);
+            NextLevelDoor doorLevel1 = new NextLevelDoor(new Vector2(300, 150), NextLevelDoor.DoorLevel.Level1);
+            doors.Add(doorLevel1);
+
         }
-        public void Update(GameTime gameTime, Button startButton, Hero hero, List<NextLevelDoor> doors, GameOverScreen gameOverScreen, TileMap map, KeyboardReader kb)
+        public void Update(GameTime gameTime, Button startButton, Hero hero,GameOverScreen gameOverScreen, TileMap map, KeyboardReader kb)
         {
             heroCollisionManager.Update(gameTime, map, hero, kb, doors, enemyList, coinList);
             map.Update(gameTime);
@@ -66,7 +71,7 @@ namespace Slime.UI
                 UpdateGameOver(hero, doors, gameTime, gameOverScreen);
             }
         }
-        public void Draw(Hero hero, Button startButton, TileMap map, HealthBar health, List<NextLevelDoor> doors, GameOverScreen gameOverScreen)
+        public void Draw(Hero hero, Button startButton, TileMap map, HealthBar health, GameOverScreen gameOverScreen)
         {
             if (currentState == GameStates.StartScreen)
             {

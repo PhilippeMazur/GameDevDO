@@ -35,10 +35,16 @@ namespace Slime.Characters
         }
         public AnimationState animationState;
         public Rectangle hitboxBody;
+        public enum Level
+        {
+            Level1,
+            Level2
+        }
+        public Level level;
 
 
 
-        public Enemy(Texture2D texturein, Vector2 posin, int maxDistance)
+        public Enemy(Texture2D texturein, Vector2 posin, int maxDistance, Level level)
         {
             texture = texturein;
             position = posin;
@@ -46,6 +52,7 @@ namespace Slime.Characters
             startPosition.Y = (int)posin.Y;
             isAlive = true;
             maxMoveDinstance = maxDistance;
+            this.level = level;
 
             animation.AddFrame(new AnimationFrame(new Rectangle(0, 0, 50, 50)));
             animation.AddFrame(new AnimationFrame(new Rectangle(50, 0, 50, 50)));

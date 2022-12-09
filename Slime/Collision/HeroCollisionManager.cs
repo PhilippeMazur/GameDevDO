@@ -23,7 +23,11 @@ namespace Slime.Collision
         public void Update(GameTime gametime, TileMap map, Hero hero, KeyboardReader kb, List<NextLevelDoor> doors, List<Enemy> enemyList, List<Coin> coinList)
         {
             hero.floorTileDifference = hero.previousFloorTile.Y - hero.currentFloorTile.Y;
-
+            if(hero.floorTileDifference < 0)
+            {
+                hero.hasJumped = false;
+                hero.isFalling = true;
+            }
 
             if(hero.position.X > Game1.graphics.PreferredBackBufferWidth + 200)
             {
@@ -41,8 +45,8 @@ namespace Slime.Collision
                     if (item.recPos.Intersects(hero.hitboxBody) && (item.myType is Block.typeBlock.FLOOR || item.myType is Block.typeBlock.FLOOR2 || item.myType is Block.typeBlock.SPIKE || item.myType is Block.typeBlock.SPIKE2))
                     {
                         if (hero.position.X + 27 >= item.recPos.X || hero.position.X - 27 <= item.recPos.X && hero.position.Y + 13 >= item.recPos.Y)
-                        {                           
-                            if(hero.position.Y <= item.recPos.Y)
+                        {
+                            if (hero.position.Y <= item.recPos.Y && item.myType == Block.typeBlock.FLOOR2)
                             {
                                 hero.previousFloorTile = hero.currentFloorTile;
                             }
@@ -82,18 +86,31 @@ namespace Slime.Collision
                     if (item.recPos.Intersects(hero.hitbox) && (item.myType == Block.typeBlock.SKY))
                     {
 
-                        //hero.currentFloorTile.X = item.recPos.X;
-                        //hero.currentFloorTile.Y = item.recPos.Y - item.textureRectangle.Height + 50;
+                        hero.currentFloorTile.X = item.recPos.X;
+                        hero.currentFloorTile.Y = item.recPos.Y;
                         if (hero.floorTileDifference > 75)
                         {
-                            hero.position.Y = hero.previousFloorTile.Y;
+                            //hero.position.Y = hero.previousFloorTile.Y;
                         }
                     }
                 }
             }
             if (Game1.currentState == Game1.GameStates.Level2)
             {
-
+                foreach (var item in coinList)
+                {
+                    if(item.level == Coin.CoinLevelType.Level1)
+                    {
+                        item.isCollected = true;
+                    }
+                }
+                foreach (var item in enemyList)
+                {
+                    if(item.level == Enemy.Level.Level1)
+                    {
+                        item.isAlive = false;
+                    }
+                }
                 foreach (var item in map.blocks2)
                 {
 
@@ -106,8 +123,8 @@ namespace Slime.Collision
                                 hero.previousFloorTile = hero.currentFloorTile;
                             }
                             hero.position.Y = item.recPos.Y - 50;
-                            hero.isFalling = false;
-                            hero.hasJumped = false;
+                            //hero.isFalling = false;
+                            //hero.hasJumped = false;
                         }
 
                         if ((item.myType == Block.typeBlock.FLOOR2 || item.myType == Block.typeBlock.FLOOR) && item.recPos.Y < hero.hitboxBody.Y && item.recPos.X >= hero.hitboxBody.X)
@@ -142,8 +159,8 @@ namespace Slime.Collision
                     if (item.recPos.Intersects(hero.hitbox) && (item.myType == Block.typeBlock.SKY))
                     {
 
-                        //hero.currentFloorTile.X = item.recPos.X;
-                        //hero.currentFloorTile.Y = item.recPos.Y - item.textureRectangle.Height + 50;
+                        hero.currentFloorTile.X = item.recPos.X;
+                        hero.currentFloorTile.Y = item.recPos.Y - item.textureRectangle.Height + 50;
                         if (hero.floorTileDifference > 75)
                         {
                             hero.position.Y = hero.previousFloorTile.Y;
@@ -196,6 +213,7 @@ namespace Slime.Collision
                 if (item.hitbox.Intersects(hero.hitboxBody) && item.isOpened)
                 {
                     Game1.currentState = Game1.GameStates.Level2;
+                    hero.position = new Vector2(0, 150);
                     Debug.WriteLine("level2");
                     hero.coinsLevel1 = 0;
                 }

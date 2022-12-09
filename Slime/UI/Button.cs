@@ -65,6 +65,11 @@ namespace Slime.UI
             {
                 hero.coinsLevel1++;
             }
+            if (kbState.IsKeyDown(Keys.M))
+            {
+                currentState = GameStates.Level2;
+                hero.position = new Vector2(0, 150);
+            }
 
             counter += gameTime.ElapsedGameTime.TotalMilliseconds;
 

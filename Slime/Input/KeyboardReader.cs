@@ -25,9 +25,6 @@ namespace Slime.Input
             Jumping
         }
         public states AnimationState;
-        //public bool hasJumped = false;
-        float i = 5;
-        //public bool isFalling;
         public int speed = 1;
 
         public int speedLeft = 1;
@@ -52,67 +49,44 @@ namespace Slime.Input
                 AnimationState = states.RunningRight;
             }
 
-            /*
-            
-            if (kbState.IsKeyDown(Keys.Space) && hasJumped == false && !isFalling)
-            {
 
-                AnimationState = states.Jumping;
-                hero.position.Y -= 5f * i;
-                direction.Y = -3f * i;
-                hasJumped = true;
-
-            }
-
-            /// <summary>GRAVITY</summary>
-            if (hasJumped == true)
-            {
-                isFalling = true;
-                direction.Y += 0.15f * i;
-                AnimationState = states.Jumping;
-            }
-            if (hero.position.Y >= hero.currentFloorTile.Y)
-            {
-                //isFalling = false;
-                hasJumped = false;
-                
-            }
-
-            if (hasJumped == false)
-            {
-                if (hero.position.Y <= hero.currentFloorTile.Y)
-                {
-                    isFalling = true;
-                    direction.Y = 1;
-
-                }
-            }*/
             hero.position += hero.velocity;
-            if (Keyboard.GetState().IsKeyDown(Keys.Space) && !hero.hasJumped && !hero.isFalling)
+            if (Keyboard.GetState().IsKeyDown(Keys.Space) && !hero.isFalling && !hero.hasJumped && hero.position.Y >= hero.currentFloorTile.Y)
             {
                 hero.position.Y -= 10f;
                 hero.velocity.Y = -5f;
                 hero.hasJumped = true;
             }
+
             if (hero.hasJumped)
             {
+                AnimationState = states.Jumping;
                 float i = 10;
                 hero.velocity.Y += 0.15f * 1;
+                hero.hasJumped = false;
             }
+            /*
             if (!hero.hasJumped)
             {
                 hero.velocity.Y = 0;
             }
+            
             if (hero.hasJumped == true)
             {
                 hero.isFalling = true;
                 //direction.Y += 0.15f * i;
                 AnimationState = states.Jumping;
-            }
+            }*/
             if (hero.position.Y >= hero.currentFloorTile.Y)
             {
                 hero.isFalling = false;
                 hero.hasJumped = false;
+
+            }
+            if(hero.position.Y <= hero.currentFloorTile.Y)
+            {
+                hero.hasJumped = true;
+                hero.isFalling = true;
 
             }
 
