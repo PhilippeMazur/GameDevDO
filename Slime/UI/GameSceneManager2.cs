@@ -25,6 +25,8 @@ namespace Slime.UI
         List<Coin> coinList = new List<Coin>();
         HeroCollisionManager heroCollisionManager = new HeroCollisionManager();
         List<NextLevelDoor> doors = new List<NextLevelDoor>();
+        HealthBar health = new HealthBar();
+        TileMap map = new TileMap();
         public GameSceneManager2()
         {
 
@@ -48,9 +50,8 @@ namespace Slime.UI
             coinList.Add(coin4);
             NextLevelDoor doorLevel1 = new NextLevelDoor(new Vector2(300, 150), NextLevelDoor.DoorLevel.Level1);
             doors.Add(doorLevel1);
-
         }
-        public void Update(GameTime gameTime, Button startButton, Hero hero,GameOverScreen gameOverScreen, TileMap map, KeyboardReader kb)
+        public void Update(GameTime gameTime, Button startButton, Hero hero,GameOverScreen gameOverScreen, KeyboardReader kb)
         {
             heroCollisionManager.Update(gameTime, map, hero, kb, doors, enemyList, coinList);
             map.Update(gameTime);
@@ -71,7 +72,7 @@ namespace Slime.UI
                 UpdateGameOver(hero, doors, gameTime, gameOverScreen);
             }
         }
-        public void Draw(Hero hero, Button startButton, TileMap map, HealthBar health, GameOverScreen gameOverScreen)
+        public void Draw(Hero hero, Button startButton, GameOverScreen gameOverScreen)
         {
             if (currentState == GameStates.StartScreen)
             {

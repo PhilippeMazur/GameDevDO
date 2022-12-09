@@ -23,10 +23,7 @@ namespace Slime
         public static GraphicsDeviceManager graphics;
         public static SpriteBatch _spriteBatch;
         Hero hero;
-        TileMap map = new TileMap();
         KeyboardReader kb = new KeyboardReader();
-        HeroCollisionManager heroCollisionManager = new HeroCollisionManager();
-        private HealthBar health;
         public enum GameStates
         {
             StartScreen,
@@ -37,12 +34,6 @@ namespace Slime
         }
         public static GameStates currentState;
         private Button startButton;
-
-
-        //private NextLevelDoor doorLevel1;
-        //List<NextLevelDoor> doors = new List<NextLevelDoor>();
-        TileMap map2 = new TileMap();
-
         GameSceneManager2 gameSceneManager2 = new GameSceneManager2();
 
         private GameOverScreen gameOverScreen;
@@ -67,18 +58,11 @@ namespace Slime
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: use this.Content to load your game content here
-            //GameSceneManager.LoadContent(GraphicsDevice, Content);
             gameSceneManager2.LoadContent(GraphicsDevice ,Content);
-
             hero = new Hero(_heroTexture, kb);
             hero.LoadContent(GraphicsDevice, _spriteBatch);
-            health = new HealthBar();
             startButton = new Button(new Rectangle(0, 0, 500, 20), new Vector2(250, 450));
             currentState = GameStates.StartScreen;
-            //doorLevel1 = new NextLevelDoor(new Vector2(300, 150), NextLevelDoor.DoorLevel.Level1);
-            //doors.Add(doorLevel1);
             gameOverScreen = new GameOverScreen();
 
             sf = Content.Load<SpriteFont>("fonts/File");
@@ -92,10 +76,8 @@ namespace Slime
                 Exit();
 
             startButton.Update(gameTime, hero);
-            //heroCollisionManager.Update(gameTime, map, hero, kb, doors);
-            gameSceneManager2.Update(gameTime, startButton, hero, gameOverScreen, map, kb);
+            gameSceneManager2.Update(gameTime, startButton, hero, gameOverScreen, kb);
             hero.Update(gameTime, kb);
-            //GameSceneManager.Update(gameTime, startButton, hero, doors, gameOverScreen);
             base.Update(gameTime);           
         }
 
@@ -104,8 +86,7 @@ namespace Slime
             GraphicsDevice.Clear(Color.CornflowerBlue);
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
-            //GameSceneManager.Draw(hero, startButton, map, health, doors, gameOverScreen);
-            gameSceneManager2.Draw(hero, startButton, map, health, gameOverScreen);
+            gameSceneManager2.Draw(hero, startButton,gameOverScreen);
             _spriteBatch.DrawString(sf, $"{hero.position.X} : {string.Format("{0:F0}",hero.position.Y)}", new Vector2(500, 0), Color.Yellow);
             base.Draw(gameTime);
             _spriteBatch.End(); 

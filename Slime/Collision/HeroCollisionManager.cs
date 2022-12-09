@@ -213,7 +213,7 @@ namespace Slime.Collision
                 if (item.hitbox.Intersects(hero.hitboxBody) && item.isOpened)
                 {
                     Game1.currentState = Game1.GameStates.Level2;
-                    hero.position = new Vector2(0, 150);
+                    hero.position = new Vector2(0, 100);
                     Debug.WriteLine("level2");
                     hero.coinsLevel1 = 0;
                 }
