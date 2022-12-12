@@ -14,11 +14,7 @@ namespace Slime.UI
     public class HealthBar 
     {
         private Vector2 position = new Vector2(0, 0);
-        
-
-        public HealthBar()
-        {
-        }
+      
 
         public void Draw(SpriteBatch spriteBatch, Texture2D texture, Hero hero)
         {
@@ -30,9 +26,5 @@ namespace Slime.UI
             }
         }
 
-        public void Update()
-        {
-            
-        }
     }
 }

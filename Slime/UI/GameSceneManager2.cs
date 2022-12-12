@@ -20,26 +20,39 @@ namespace Slime.UI
 {
     public class GameSceneManager2
     {
-        Texture texture = new Texture();
+        public Texture texture = new Texture();
+
+        //Hero hero;
+        //KeyboardReader kb = new KeyboardReader();
+
         List<Enemy> enemyList = new List<Enemy>();
         List<Coin> coinList = new List<Coin>();
         HeroCollisionManager heroCollisionManager = new HeroCollisionManager();
         List<NextLevelDoor> doors = new List<NextLevelDoor>();
         HealthBar health = new HealthBar();
         TileMap map = new TileMap();
-        public GameSceneManager2()
-        {
 
-        }
         public void LoadContent(GraphicsDevice graphicsDevice ,ContentManager content)
         {
             texture.LoadContent(content);
-            Enemy enemy1 = new Enemy(texture.textureDictionary[Texture.TextureType.Enemy], new Vector2(850, 604), 100, Enemy.Level.Level1);
-            Enemy enemy2 = new Enemy(texture.textureDictionary[Texture.TextureType.Enemy], new Vector2(825, 204), 150, Enemy.Level.Level1);
+
+            //hero = hero = new Hero(texture.textureDictionary[Texture.TextureType.Hero], kb);
+
+            Enemy enemy1 = new Enemy(texture.textureDictionary[Texture.TextureType.Enemy], new Vector2(850, 604), 100, Enemy.Type.Ground, Enemy.Level.Level1);
+            Enemy enemy2 = new Enemy(texture.textureDictionary[Texture.TextureType.Enemy], new Vector2(825, 204), 150, Enemy.Type.Ground, Enemy.Level.Level1);
+
+            Enemy enemy3 = new Enemy(texture.textureDictionary[Texture.TextureType.Enemy2], new Vector2(500, 204), 100, Enemy.Type.Air, Enemy.Level.Level1);
+
             enemy1.LoadContent(graphicsDevice, _spriteBatch);
             enemy2.LoadContent(graphicsDevice, _spriteBatch);
+
+            enemy3.LoadContent(graphicsDevice, _spriteBatch);
+
             enemyList.Add(enemy1);
             enemyList.Add(enemy2);
+
+            enemyList.Add(enemy3);
+
             Coin coin1 = new Coin(texture.textureDictionary[Texture.TextureType.Coin], new Vector2(750, 595), Coin.CoinLevelType.Level1);
             coinList.Add(coin1);
             Coin coin2 = new Coin(texture.textureDictionary[Texture.TextureType.Coin], new Vector2(950, 195), Coin.CoinLevelType.Level1);
@@ -143,7 +156,7 @@ namespace Slime.UI
         {
             foreach (var item in enemyList)
             {
-                item.Update(gameTime);
+                item.Update(gameTime, hero);
             }
             foreach (var item in coinList)
             {
@@ -191,7 +204,7 @@ namespace Slime.UI
                     foreach (var item in enemyList)
                     {
                         item.isAlive = true;
-                        item.Update(gameTime);
+                        item.Update(gameTime, hero);
                     }
 
                 }
@@ -201,7 +214,7 @@ namespace Slime.UI
         {
             foreach (var item in enemyList)
             {
-                item.Update(gameTime);
+                item.Update(gameTime, hero);
             }
             foreach (var item in coinList)
             {
@@ -251,7 +264,7 @@ namespace Slime.UI
                     foreach (var item in enemyList)
                     {
                         item.isAlive = true;
-                        item.Update(gameTime);
+                        item.Update(gameTime, hero);
                     }
 
                 }
@@ -274,7 +287,7 @@ namespace Slime.UI
                 foreach (var item in enemyList)
                 {
                     item.isAlive = true;
-                    item.Update(gameTime);
+                    item.Update(gameTime, hero);
                 }
 
             }

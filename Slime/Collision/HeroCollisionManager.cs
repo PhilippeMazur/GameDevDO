@@ -15,17 +15,13 @@ namespace Slime.Collision
     internal class HeroCollisionManager
     {
 
-        public HeroCollisionManager()
-        {
-
-        }
 
         public void Update(GameTime gametime, TileMap map, Hero hero, KeyboardReader kb, List<NextLevelDoor> doors, List<Enemy> enemyList, List<Coin> coinList)
         {
             hero.floorTileDifference = hero.previousFloorTile.Y - hero.currentFloorTile.Y;
             if(hero.floorTileDifference < 0)
             {
-                hero.hasJumped = false;
+                hero.hasJumped = true;
                 hero.isFalling = true;
             }
 
@@ -168,12 +164,16 @@ namespace Slime.Collision
                     }
                 }
             }
-
+            //Check Enemy collision
             foreach (var item in enemyList)
             {
                 if(hero.hitboxBody.Intersects(item.hitbox) && hero.position.Y  <= item.position.Y - 40)
                 {
                     item.isAlive = false;
+                    /*
+                    score.score += item.scoreValue;
+                    item.scoreValue = 0;
+                    */
 
                 } else if(hero.hitboxBody.Intersects(item.hitbox) && hero.position.Y <= item.position.Y && item.isAlive)
                 {

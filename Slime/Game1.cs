@@ -9,12 +9,13 @@ using Slime.Input;
 using Slime.Map;
 using Slime.UI;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
-using static Slime.UI.Content;
 using Color = Microsoft.Xna.Framework.Color;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
+using Texture = Slime.UI.Texture;
 
 namespace Slime
 {
@@ -39,6 +40,8 @@ namespace Slime
         private GameOverScreen gameOverScreen;
 
         private SpriteFont sf;
+
+        Score scoreUI = new Score();
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -59,14 +62,13 @@ namespace Slime
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             gameSceneManager2.LoadContent(GraphicsDevice ,Content);
-            hero = new Hero(_heroTexture, kb);
+            hero = new Hero(gameSceneManager2.texture.textureDictionary[Texture.TextureType.Hero], kb);
             hero.LoadContent(GraphicsDevice, _spriteBatch);
             startButton = new Button(new Rectangle(0, 0, 500, 20), new Vector2(250, 450));
             currentState = GameStates.StartScreen;
             gameOverScreen = new GameOverScreen();
 
             sf = Content.Load<SpriteFont>("fonts/File");
-
 
         }
 
@@ -88,6 +90,9 @@ namespace Slime
             _spriteBatch.Begin();
             gameSceneManager2.Draw(hero, startButton,gameOverScreen);
             _spriteBatch.DrawString(sf, $"{hero.position.X} : {string.Format("{0:F0}",hero.position.Y)}", new Vector2(500, 0), Color.Yellow);
+
+            scoreUI.Draw(_spriteBatch, sf);
+
             base.Draw(gameTime);
             _spriteBatch.End(); 
             

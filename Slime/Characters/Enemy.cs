@@ -22,7 +22,8 @@ namespace Slime.Characters
         public Vector2 position;
         public Vector2 startPosition;
         private int maxMoveDinstance;
-        private int speed = 1;
+        private float speedGround = 1f;
+        private float speedAir = 1f;
         public bool isAlive = true;
         public Rectangle hitbox;
         private Texture2D hitboxTexture;
@@ -41,10 +42,15 @@ namespace Slime.Characters
             Level2
         }
         public Level level;
+        public enum Type
+        {
+            Ground, Air
+        }
+        public Type EnemyType;
 
+        public int scoreValue;
 
-
-        public Enemy(Texture2D texturein, Vector2 posin, int maxDistance, Level level)
+        public Enemy(Texture2D texturein, Vector2 posin, int maxDistance,Type enemyType,  Level level)
         {
             texture = texturein;
             position = posin;
@@ -53,6 +59,8 @@ namespace Slime.Characters
             isAlive = true;
             maxMoveDinstance = maxDistance;
             this.level = level;
+
+            EnemyType = enemyType;
 
             animation.AddFrame(new AnimationFrame(new Rectangle(0, 0, 50, 50)));
             animation.AddFrame(new AnimationFrame(new Rectangle(50, 0, 50, 50)));
@@ -102,10 +110,10 @@ namespace Slime.Characters
 
 
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, Hero hero)
         {
             animation.UpdateEnemy(gameTime ,this);
-            Move();
+            Move(hero);
             hitbox.X = (int)position.X;
             hitbox.Y = (int)position.Y;
 
@@ -114,19 +122,44 @@ namespace Slime.Characters
 
         }
 
-        public void Move()
+        public void Move(Hero hero)
         {
-            position.X -= speed;
-            if(position.X == startPosition.X - maxMoveDinstance)
+            if(EnemyType == Type.Ground)
             {
-                speed *= -1;
-                animationState = AnimationState.runningRight;
-            }
-            if(position.X == startPosition.X + maxMoveDinstance)
+                position.X -= speedGround;
+                if (position.X == startPosition.X - maxMoveDinstance)
+                {
+                    speedGround *= -1;
+                    animationState = AnimationState.runningRight;
+                }
+                if (position.X == startPosition.X + maxMoveDinstance)
+                {
+                    speedGround *= -1;
+                    animationState = AnimationState.runningLeft;
+                }
+            } else
             {
-                speed *= -1;
-                animationState = AnimationState.runningLeft;
+                if(position.X < hero.position.X)
+                {
+                    position.X += speedGround / 2;
+                    animationState = AnimationState.runningRight;
+                }
+                if (position.X > hero.position.X)
+                {
+                    position.X -= speedGround / 2;
+                    animationState = AnimationState.runningLeft;
+                }
+                if (position.Y < hero.position.Y)
+                {
+                    position.Y += speedGround / 2;
+                }
+                if (position.Y > hero.position.Y)
+                {
+                    position.Y -= speedGround / 2;
+                }
+
             }
+            
         }
 
     }

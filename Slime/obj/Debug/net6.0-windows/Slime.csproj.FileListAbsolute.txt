@@ -51,3 +51,5 @@ D:\school\gamedev\Slime\Slime\bin\Debug\net6.0-windows\Content\Fonts\File.xnb
 D:\school\gamedev\Slime\Slime\bin\Debug\net6.0-windows\Content\BurgerSpriteSheet.xnb
 D:\school\gamedev\Slime\Slime\bin\Debug\net6.0-windows\Content\NewTileSet.xnb
 D:\school\gamedev\Slime\Slime\bin\Debug\net6.0-windows\Content\LevelBackgroundSelfMade.xnb
+D:\school\gamedev\Slime\Slime\bin\Debug\net6.0-windows\Content\SlimeEnemy2.xnb
+D:\school\gamedev\Slime\Slime\bin\Debug\net6.0-windows\Content\SlimeEnemy3.xnb

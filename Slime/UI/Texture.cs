@@ -9,23 +9,19 @@ using System.Threading.Tasks;
 
 namespace Slime.UI
 {
-    internal class Texture
+    public class Texture
     {
         public Texture2D texture;
         public enum TextureType
         {
-            Hero,Enemy,Coin,Door,StartScreen,LevelBackground,GameOverScreen,Map,StartButton, Health
+            Hero,Enemy, Enemy2,Coin,Door,StartScreen,LevelBackground,GameOverScreen,Map,StartButton, Health
         }
         public Dictionary<TextureType, Texture2D> textureDictionary = new Dictionary<TextureType, Texture2D>();
-
-        public Texture()
-        {
-
-        }
         public void LoadContent(ContentManager content)
         {
             textureDictionary.Add(TextureType.Hero, content.Load<Texture2D>("SlimeHero"));
             textureDictionary.Add(TextureType.Enemy, content.Load<Texture2D>("SlimeEnemy"));
+            textureDictionary.Add(TextureType.Enemy2, content.Load<Texture2D>("SlimeEnemy3"));
             textureDictionary.Add(TextureType.Coin, content.Load<Texture2D>("CoinSpriteSheet"));
             textureDictionary.Add(TextureType.Door, content.Load<Texture2D>("PortalDoor"));
             textureDictionary.Add(TextureType.StartScreen, content.Load<Texture2D>("BackgroundWithLogo"));

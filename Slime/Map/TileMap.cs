@@ -8,7 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static Slime.Game1;
-using static Slime.UI.Content;
 
 namespace Slime.Map
 {
