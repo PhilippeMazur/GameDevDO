@@ -16,13 +16,13 @@ namespace Slime.Collision
     {
 
 
-        public void Update(GameTime gametime, TileMap map, Hero hero, KeyboardReader kb, List<NextLevelDoor> doors, List<Enemy> enemyList, List<Coin> coinList)
+        public void Update(GameTime gametime, TileMap map, Hero hero, KeyboardReader kb, List<NextLevelDoor> doors, List<Enemy> enemyList, List<Coin> coinList, Score score)
         {
             hero.floorTileDifference = hero.previousFloorTile.Y - hero.currentFloorTile.Y;
             if(hero.floorTileDifference < 0)
             {
-                hero.hasJumped = true;
-                hero.isFalling = true;
+                //hero.hasJumped = true;
+                //hero.isFalling = true;
             }
 
             if(hero.position.X > Game1.graphics.PreferredBackBufferWidth + 200)
@@ -34,7 +34,8 @@ namespace Slime.Collision
             }
             if(Game1.currentState == Game1.GameStates.Level1)
             {
-                
+
+
                 foreach (var item in map.blocks)
                 {
 
@@ -44,6 +45,9 @@ namespace Slime.Collision
                         {
                             if (hero.position.Y <= item.recPos.Y && item.myType == Block.typeBlock.FLOOR2)
                             {
+                                //hero.previousFloorTile = hero.currentFloorTile;
+                                hero.currentFloorTile.X = item.recPos.X + 50;
+                                hero.currentFloorTile.Y = item.recPos.Y - 50;
                                 hero.previousFloorTile = hero.currentFloorTile;
                             }
                             hero.position.Y = item.recPos.Y - 50;
@@ -75,18 +79,18 @@ namespace Slime.Collision
                         if (hero.position.Y < item.recPos.Bottom && hero.position.Y < hero.currentFloorTile.Y)
                         {
                             hero.currentFloorTile.X = item.recPos.X;
-                            hero.currentFloorTile.Y = item.recPos.Y - item.textureRectangle.Height;
+                            hero.currentFloorTile.Y = item.recPos.Y;
                         }
 
                     }
-                    if (item.recPos.Intersects(hero.hitbox) && (item.myType == Block.typeBlock.SKY))
+                    if (item.recPos.Intersects(hero.hitbox) && (item.myType == Block.typeBlock.SKY || item.myType == Block.typeBlock.CLOUD || item.myType == Block.typeBlock.CLOUD2))
                     {
 
                         hero.currentFloorTile.X = item.recPos.X;
                         hero.currentFloorTile.Y = item.recPos.Y;
                         if (hero.floorTileDifference > 75)
                         {
-                            //hero.position.Y = hero.previousFloorTile.Y;
+                            hero.position.Y = hero.previousFloorTile.Y;
                         }
                     }
                 }
@@ -100,13 +104,7 @@ namespace Slime.Collision
                         item.isCollected = true;
                     }
                 }
-                foreach (var item in enemyList)
-                {
-                    if(item.level == Enemy.Level.Level1)
-                    {
-                        item.isAlive = false;
-                    }
-                }
+
                 foreach (var item in map.blocks2)
                 {
 
@@ -114,13 +112,16 @@ namespace Slime.Collision
                     {
                         if (hero.position.X + 27 >= item.recPos.X || hero.position.X - 27 <= item.recPos.X && hero.position.Y + 13 >= item.recPos.Y)
                         {
-                            if (hero.position.Y <= item.recPos.Y)
+                            if (hero.position.Y <= item.recPos.Y && item.myType == Block.typeBlock.FLOOR2)
                             {
+                                //hero.previousFloorTile = hero.currentFloorTile;
+                                hero.currentFloorTile.X = item.recPos.X + 50;
+                                hero.currentFloorTile.Y = item.recPos.Y - 50;
                                 hero.previousFloorTile = hero.currentFloorTile;
                             }
                             hero.position.Y = item.recPos.Y - 50;
-                            //hero.isFalling = false;
-                            //hero.hasJumped = false;
+                            hero.isFalling = false;
+                            hero.hasJumped = false;
                         }
 
                         if ((item.myType == Block.typeBlock.FLOOR2 || item.myType == Block.typeBlock.FLOOR) && item.recPos.Y < hero.hitboxBody.Y && item.recPos.X >= hero.hitboxBody.X)
@@ -148,7 +149,7 @@ namespace Slime.Collision
                         if (hero.position.Y < item.recPos.Bottom && hero.position.Y < hero.currentFloorTile.Y)
                         {
                             hero.currentFloorTile.X = item.recPos.X;
-                            hero.currentFloorTile.Y = item.recPos.Y - item.textureRectangle.Height;
+                            hero.currentFloorTile.Y = item.recPos.Y;
                         }
 
                     }
@@ -156,7 +157,7 @@ namespace Slime.Collision
                     {
 
                         hero.currentFloorTile.X = item.recPos.X;
-                        hero.currentFloorTile.Y = item.recPos.Y - item.textureRectangle.Height + 50;
+                        hero.currentFloorTile.Y = item.recPos.Y;
                         if (hero.floorTileDifference > 75)
                         {
                             hero.position.Y = hero.previousFloorTile.Y;
@@ -164,24 +165,66 @@ namespace Slime.Collision
                     }
                 }
             }
+            
             //Check Enemy collision
             foreach (var item in enemyList)
             {
-                if(hero.hitboxBody.Intersects(item.hitbox) && hero.position.Y  <= item.position.Y - 40)
+                if(Game1.currentState == Game1.GameStates.Level1 && item.level == Enemy.Level.Level1)
                 {
-                    item.isAlive = false;
-                    /*
-                    score.score += item.scoreValue;
-                    item.scoreValue = 0;
-                    */
+                    if (hero.hitboxBody.Intersects(item.hitbox) && hero.position.Y <= item.position.Y - 40)
+                    {
+                        item.isAlive = false;
 
-                } else if(hero.hitboxBody.Intersects(item.hitbox) && hero.position.Y <= item.position.Y && item.isAlive)
+                        score.score += item.scoreValue;
+                        item.scoreValue = 0;
+
+
+                    }
+                    else if (hero.hitboxBody.Intersects(item.hitbox) && hero.position.Y <= item.position.Y && item.isAlive)
+                    {
+                        hero.position.X -= 100;
+                        hero.health -= 1;
+                    }
+                } 
+                if(Game1.currentState == Game1.GameStates.Level2 && item.level == Enemy.Level.Level2)
                 {
-                    hero.position.X -= 100;
-                    hero.health -= 1;
+                    if (hero.hitboxBody.Intersects(item.hitbox) && hero.position.Y <= item.position.Y - 40)
+                    {
+                        item.isAlive = false;
+
+                        score.score += item.scoreValue;
+                        item.scoreValue = 0;
+
+
+                    }
+                    else if (hero.hitboxBody.Intersects(item.hitbox) && hero.position.Y <= item.position.Y && item.isAlive)
+                    {
+                        hero.position.X -= 100;
+                        hero.health -= 1;
+                    }
+                }
+               
+            }
+
+            ///Check Coin Collision 
+            if(Game1.currentState == Game1.GameStates.StartScreen || Game1.currentState == Game1.GameStates.GameOver)
+            {
+                hero.coinsLevel1 = 0;
+                hero.coinsLevel2 = 0;
+                score.score = 0;
+                foreach (var item in enemyList)
+                {
+                    item.isAlive = true;
+                    item.scoreValue = 1;
+                }
+                foreach (var item in coinList)
+                {
+                    
+                   item.isCollected = false;
+                   item.value = 1;
+                   
                 }
             }
-            ///Check Coin Collision 
             if(Game1.currentState == Game1.GameStates.Level1)
             {
                 foreach (var item in coinList)
@@ -198,24 +241,37 @@ namespace Slime.Collision
             {
                 foreach (var item in coinList)
                 {
+                    
                     if (hero.hitbox.Intersects(item.hitbox) && item.level == Coin.CoinLevelType.Level2)
                     {
-                        item.isCollected = true;
-                        hero.coinsLevel1 += item.value;
-                        item.value = 0;
+                        if(item.level == Coin.CoinLevelType.Level2 && Game1.currentState == Game1.GameStates.Level2)
+                        {
+                            item.isCollected = true;
+                            hero.coinsLevel2 += item.value;
+                            item.value = 0;
+                        }
+                        
                     }
                 }
             }
 
             foreach (var item in doors)
             {
-
+                
                 if (item.hitbox.Intersects(hero.hitboxBody) && item.isOpened)
                 {
-                    Game1.currentState = Game1.GameStates.Level2;
-                    hero.position = new Vector2(0, 100);
-                    Debug.WriteLine("level2");
-                    hero.coinsLevel1 = 0;
+                    if (item.level == NextLevelDoor.DoorLevel.Level1)
+                    {
+                        Game1.currentState = Game1.GameStates.Level2;
+                        hero.position = new Vector2(0, 400);
+                        
+                    } 
+                    if(item.level == NextLevelDoor.DoorLevel.Level2 && item.isOpened)
+                    {
+                        Game1.currentState = Game1.GameStates.WinningScreen;
+                        
+                    }
+
                 }
             }
             

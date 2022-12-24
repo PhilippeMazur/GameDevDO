@@ -32,14 +32,15 @@ namespace Slime.Characters
         public Rectangle hitbox;
         public Rectangle hitboxBody;
         private Texture2D hitboxTexture;
-        public bool showHitbox = true;
+        public bool showHitbox = false;
         public int health = 5;
         public bool isAlive = true;
         public int coinsLevel1 = 0;
+        public int coinsLevel2 = 0;
 
         public Vector2 velocity;
         public bool hasJumped = false;
-        public bool isFalling;
+        public bool isFalling = false;
 
         public Hero(Texture2D heroTexture, KeyboardReader inputReader)
         {
@@ -55,12 +56,11 @@ namespace Slime.Characters
        
 
         }
-        public void LoadContent(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
+        public void LoadContent()
         {
             hitbox = new Rectangle((int)position.X, (int)position.Y, 50, 50);
             hitboxBody = new Rectangle((int)position.X, (int)position.Y, 30, 35);
-            hitboxTexture = new Texture2D(graphicsDevice, 1, 1);
-            hitboxTexture.SetData(new[] { Color.White });
+
         }
         public void Draw(SpriteBatch spriteBatch, Texture2D heroTexture)
         {

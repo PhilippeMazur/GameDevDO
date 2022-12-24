@@ -23,8 +23,6 @@ namespace Slime
     {
         public static GraphicsDeviceManager graphics;
         public static SpriteBatch _spriteBatch;
-        Hero hero;
-        KeyboardReader kb = new KeyboardReader();
         public enum GameStates
         {
             StartScreen,
@@ -36,12 +34,8 @@ namespace Slime
         public static GameStates currentState;
         private Button startButton;
         GameSceneManager2 gameSceneManager2 = new GameSceneManager2();
-
         private GameOverScreen gameOverScreen;
-
-        private SpriteFont sf;
-
-        Score scoreUI = new Score();
+        private WinningScreen winningScreen;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -61,25 +55,19 @@ namespace Slime
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            gameSceneManager2.LoadContent(GraphicsDevice ,Content);
-            hero = new Hero(gameSceneManager2.texture.textureDictionary[Texture.TextureType.Hero], kb);
-            hero.LoadContent(GraphicsDevice, _spriteBatch);
+            gameSceneManager2.LoadContent(GraphicsDevice ,Content, _spriteBatch);
             startButton = new Button(new Rectangle(0, 0, 500, 20), new Vector2(250, 450));
             currentState = GameStates.StartScreen;
             gameOverScreen = new GameOverScreen();
-
-            sf = Content.Load<SpriteFont>("fonts/File");
-
+            winningScreen = new WinningScreen();
         }
 
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
-            startButton.Update(gameTime, hero);
-            gameSceneManager2.Update(gameTime, startButton, hero, gameOverScreen, kb);
-            hero.Update(gameTime, kb);
+            startButton.Update(gameTime, gameSceneManager2.hero);
+            gameSceneManager2.Update(gameTime, startButton, gameOverScreen, winningScreen);
             base.Update(gameTime);           
         }
 
@@ -88,11 +76,8 @@ namespace Slime
             GraphicsDevice.Clear(Color.CornflowerBlue);
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
-            gameSceneManager2.Draw(hero, startButton,gameOverScreen);
-            _spriteBatch.DrawString(sf, $"{hero.position.X} : {string.Format("{0:F0}",hero.position.Y)}", new Vector2(500, 0), Color.Yellow);
-
-            scoreUI.Draw(_spriteBatch, sf);
-
+            gameSceneManager2.Draw(startButton,gameOverScreen);
+            _spriteBatch.DrawString(gameSceneManager2.texture.fontDictionary[Texture.TextureType.Font], $"{gameSceneManager2.hero.position.X} : {string.Format("{0:F0}", gameSceneManager2.hero.position.Y)}", new Vector2(500, 0), Color.Yellow);
             base.Draw(gameTime);
             _spriteBatch.End(); 
             

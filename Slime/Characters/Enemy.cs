@@ -48,7 +48,7 @@ namespace Slime.Characters
         }
         public Type EnemyType;
 
-        public int scoreValue;
+        public int scoreValue = 1;
 
         public Enemy(Texture2D texturein, Vector2 posin, int maxDistance,Type enemyType,  Level level)
         {
@@ -59,23 +59,22 @@ namespace Slime.Characters
             isAlive = true;
             maxMoveDinstance = maxDistance;
             this.level = level;
-
+            int width = 50;
+            int height = 50;
             EnemyType = enemyType;
 
-            animation.AddFrame(new AnimationFrame(new Rectangle(0, 0, 50, 50)));
-            animation.AddFrame(new AnimationFrame(new Rectangle(50, 0, 50, 50)));
-            animation.AddFrame(new AnimationFrame(new Rectangle(0, 50, 50, 50)));
-            animation.AddFrame(new AnimationFrame(new Rectangle(50, 50, 50, 50)));
-            animation.AddFrame(new AnimationFrame(new Rectangle(0, 0, 50, 50)));
-            animation.AddFrame(new AnimationFrame(new Rectangle(50, 0, 50, 50)));
+            animation.AddFrame(new AnimationFrame(new Rectangle(0, 1, width, height)));
+            animation.AddFrame(new AnimationFrame(new Rectangle(50, 1, width, height)));
+            animation.AddFrame(new AnimationFrame(new Rectangle(0, 51, width, height)));
+            animation.AddFrame(new AnimationFrame(new Rectangle(50, 51, width, height)));
+            animation.AddFrame(new AnimationFrame(new Rectangle(0, 1, width, height)));
+            animation.AddFrame(new AnimationFrame(new Rectangle(50, 1, width, height)));
 
         }
-        public void LoadContent(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
+        public void LoadContent()
         {
             hitbox = new Rectangle((int)position.X, (int)position.Y, 50, 50);
             hitboxBody = new Rectangle((int)position.X, (int)position.Y, 27, 30);
-            hitboxTexture = new Texture2D(graphicsDevice, 1, 1);
-            hitboxTexture.SetData(new[] { Color.White });
         }
         public void Draw(SpriteBatch spriteBatch, Hero hero)
         {

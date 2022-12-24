@@ -14,9 +14,11 @@ namespace Slime.UI
         public Texture2D texture;
         public enum TextureType
         {
-            Hero,Enemy, Enemy2,Coin,Door,StartScreen,LevelBackground,GameOverScreen,Map,StartButton, Health
+            Hero,Enemy, Enemy2,Coin,Door,StartScreen,LevelBackground,GameOverScreen, WinningScreen,Map,StartButton, Health, Font, AbilityBar, AbilityJump
         }
         public Dictionary<TextureType, Texture2D> textureDictionary = new Dictionary<TextureType, Texture2D>();
+        public Dictionary<TextureType, SpriteFont> fontDictionary = new Dictionary<TextureType, SpriteFont>();
+
         public void LoadContent(ContentManager content)
         {
             textureDictionary.Add(TextureType.Hero, content.Load<Texture2D>("SlimeHero"));
@@ -30,6 +32,11 @@ namespace Slime.UI
             textureDictionary.Add(TextureType.Map, content.Load<Texture2D>("NewTileSet"));
             textureDictionary.Add(TextureType.StartButton, content.Load<Texture2D>("PressStart"));
             textureDictionary.Add(TextureType.Health, content.Load<Texture2D>("HealthHeart"));
+            textureDictionary.Add(TextureType.WinningScreen, content.Load<Texture2D>("WinningScreenAnimated"));
+            textureDictionary.Add(TextureType.AbilityBar, content.Load<Texture2D>("AbilityBar"));
+            textureDictionary.Add(TextureType.AbilityJump, content.Load<Texture2D>("AbilityJump"));
+            fontDictionary.Add(TextureType.Font, content.Load<SpriteFont>("fonts/File"));
+
         }
     }
 }

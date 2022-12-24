@@ -29,6 +29,7 @@ namespace Slime.Input
 
         public int speedLeft = 1;
         public int speedRight = 1;
+        public bool canJump;
 
         
         public Vector2 ReadInput(Vector2 pos, Hero hero)
@@ -53,31 +54,21 @@ namespace Slime.Input
             hero.position += hero.velocity;
             if (Keyboard.GetState().IsKeyDown(Keys.Space) && !hero.isFalling && !hero.hasJumped && hero.position.Y >= hero.currentFloorTile.Y)
             {
+                Debug.WriteLine("test");
                 hero.position.Y -= 10f;
                 hero.velocity.Y = -5f;
                 hero.hasJumped = true;
             }
 
-            if (hero.hasJumped)
+            if (hero.isFalling)
             {
                 AnimationState = states.Jumping;
                 float i = 10;
                 hero.velocity.Y += 0.15f * 1;
-                hero.hasJumped = false;
+                //hero.hasJumped = false;
             }
-            /*
-            if (!hero.hasJumped)
-            {
-                hero.velocity.Y = 0;
-            }
-            
-            if (hero.hasJumped == true)
-            {
-                hero.isFalling = true;
-                //direction.Y += 0.15f * i;
-                AnimationState = states.Jumping;
-            }*/
-            if (hero.position.Y >= hero.currentFloorTile.Y)
+
+            if (hero.position.Y >= hero.currentFloorTile.Y + 50)
             {
                 hero.isFalling = false;
                 hero.hasJumped = false;
@@ -94,12 +85,12 @@ namespace Slime.Input
             {
                 if(hero.position.Y >= hero.currentFloorTile.Y)
                 {
-                    hero.velocity.Y = 3;
+                    hero.hasJumped = false;
+                    //hero.velocity.Y = 3;
                 }
                 if (hero.position.Y <= hero.currentFloorTile.Y)
                 {
                     hero.isFalling = true;
-                    direction.Y = 1;
 
                 }
             }

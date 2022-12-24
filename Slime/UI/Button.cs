@@ -52,12 +52,17 @@ namespace Slime.UI
         {
             KeyboardState kbState = Keyboard.GetState();
 
-            if (kbState.IsKeyDown(Keys.Enter))
+            if (kbState.IsKeyDown(Keys.Enter) && currentState == GameStates.StartScreen)
             {
                 
                 currentState = GameStates.Level1;
+                hero.position = new Vector2(100, 500f);
             }
-            if(kbState.IsKeyDown(Keys.P))
+            if(kbState.IsKeyDown(Keys.Enter) && currentState == GameStates.GameOver)
+            {
+                currentState = GameStates.StartScreen;
+            }
+            if (kbState.IsKeyDown(Keys.P))
             {
                 hero.coinsLevel1--;
             }
@@ -65,10 +70,18 @@ namespace Slime.UI
             {
                 hero.coinsLevel1++;
             }
-            if (kbState.IsKeyDown(Keys.M))
+            if (kbState.IsKeyDown(Keys.M) && currentState == GameStates.WinningScreen)
             {
-                currentState = GameStates.Level2;
+                currentState = GameStates.StartScreen;
                 hero.position = new Vector2(0, 150);
+            }
+            if (kbState.IsKeyDown(Keys.N))
+            {
+                currentState = GameStates.WinningScreen;
+            }
+            if (kbState.IsKeyDown(Keys.B))
+            {
+                currentState = GameStates.GameOver;
             }
 
             counter += gameTime.ElapsedGameTime.TotalMilliseconds;

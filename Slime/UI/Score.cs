@@ -13,11 +13,17 @@ namespace Slime.UI
 {
     public class Score
     {
+        public SpriteFont font;
         public int score = 0;
-
-        public void Draw(SpriteBatch spriteBatch, SpriteFont sf)
+        public Score()
         {
-            spriteBatch.DrawString(sf, $"Score : {score}", new Vector2(0, 50), Color.White);
+            
         }
+
+        public void Draw(SpriteBatch spriteBatch, SpriteFont font)
+        {
+            spriteBatch.DrawString(font, $"Score : {score}", new Vector2(10, 50), Color.White);
+        }
+
     }
 }
