@@ -18,16 +18,15 @@ namespace Slime.Characters
 {
     public class Enemy
     {
+
+        #region Variables
         private Texture2D texture;
         public Vector2 position;
         public Vector2 startPosition;
         private int maxMoveDinstance;
         private float speedGround = 1f;
-        private float speedAir = 1f;
         public bool isAlive = true;
         public Rectangle hitbox;
-        private Texture2D hitboxTexture;
-        private bool showHitbox = false;
         private Animation animation = new Animation();
         public enum AnimationState
         {
@@ -49,7 +48,9 @@ namespace Slime.Characters
         public Type EnemyType;
 
         public int scoreValue = 1;
+        #endregion
 
+        #region Constructor
         public Enemy(Texture2D texturein, Vector2 posin, int maxDistance,Type enemyType,  Level level)
         {
             texture = texturein;
@@ -71,6 +72,9 @@ namespace Slime.Characters
             animation.AddFrame(new AnimationFrame(new Rectangle(50, 1, width, height)));
 
         }
+        #endregion
+
+        #region Public methods
         public void LoadContent()
         {
             hitbox = new Rectangle((int)position.X, (int)position.Y, 50, 50);
@@ -80,7 +84,6 @@ namespace Slime.Characters
         {
             if(isAlive)
             {
-                drawHitbox(spriteBatch, showHitbox);
 
                 if (!animation.goingLeft)
                 {
@@ -96,19 +99,6 @@ namespace Slime.Characters
             }
             
         }
-
-        public void drawHitbox(SpriteBatch spriteBatch, bool b)
-        {
-            if (b)
-            {
-                spriteBatch.Draw(hitboxTexture, hitbox, Color.Pink);
-                spriteBatch.Draw(hitboxTexture, hitboxBody, Color.Yellow);
-
-            }
-        }
-
-
-
         public void Update(GameTime gameTime, Hero hero)
         {
             animation.UpdateEnemy(gameTime ,this);
@@ -120,8 +110,10 @@ namespace Slime.Characters
             hitboxBody.Y = (int)position.Y + 15;
 
         }
+        #endregion
 
-        public void Move(Hero hero)
+        #region Private methods
+        private void Move(Hero hero)
         {
             if(EnemyType == Type.Ground)
             {
@@ -158,7 +150,8 @@ namespace Slime.Characters
                 }
 
             }
-            
+            #endregion
+
         }
 
     }

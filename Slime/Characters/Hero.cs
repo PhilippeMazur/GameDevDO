@@ -21,27 +21,27 @@ namespace Slime.Characters
 {
     public class Hero
     {
-        public Texture2D heroTexture;
-        KeyboardReader inputReader;
+        #region Properties and Variables
+        public Texture2D heroTexture { get; set; }
+        public KeyboardReader inputReader { get; set; }
+        public Animation animation { get; set; } = new Animation();
         public Vector2 position = new Vector2(100, 500f);
-        Animation animation = new Animation();
         private Vector2 snelheid = new Vector2(5, 4);
         public Vector2 currentFloorTile = new Vector2(0, 500);
         public Vector2 previousFloorTile = new Vector2(0, 500);
         public float floorTileDifference;
         public Rectangle hitbox;
         public Rectangle hitboxBody;
-        private Texture2D hitboxTexture;
-        public bool showHitbox = false;
         public int health = 5;
         public bool isAlive = true;
         public int coinsLevel1 = 0;
         public int coinsLevel2 = 0;
-
         public Vector2 velocity;
         public bool hasJumped = false;
         public bool isFalling = false;
+        #endregion
 
+        #region Constructor
         public Hero(Texture2D heroTexture, KeyboardReader inputReader)
         {
             this.heroTexture = heroTexture;
@@ -56,6 +56,9 @@ namespace Slime.Characters
        
 
         }
+        #endregion
+
+        #region Public methods
         public void LoadContent()
         {
             hitbox = new Rectangle((int)position.X, (int)position.Y, 50, 50);
@@ -67,8 +70,6 @@ namespace Slime.Characters
 
             if(isAlive)
             {
-                drawHitbox(spriteBatch, showHitbox);
-
                 if (!animation.goingLeft)
                 {
                     spriteBatch.Draw(heroTexture, position, animation.CurrentFrame.sourceRectangle, Color.White);
@@ -96,6 +97,13 @@ namespace Slime.Characters
 
             
         }
+        public void Update(GameTime gameTime)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
+        #region Private methods
         private void Move(GameTime gameTime)
         {
             Vector2 direction = inputReader.ReadInput(position, this);
@@ -107,20 +115,7 @@ namespace Slime.Characters
             hitboxBody.X = (int)position.X + 10;
             hitboxBody.Y = (int)position.Y + 13;
         }
-        public void drawHitbox(SpriteBatch spriteBatch,bool b)
-        {
-            
-            if(b)
-            {
-                spriteBatch.Draw(hitboxTexture, hitbox, Color.Pink);
-                spriteBatch.Draw(hitboxTexture, hitboxBody, Color.Yellow);
-            }
-        }
-
-        public void Update(GameTime gameTime)
-        {
-            throw new NotImplementedException();
-        }
+        
         private void CheckHealth()
         {
             if(health <= 0)
@@ -130,5 +125,6 @@ namespace Slime.Characters
                 position = new Vector2(100, 500);
             }
         }
+        #endregion
     }
 }

@@ -14,17 +14,9 @@ namespace Slime.Collision
 {
     internal class HeroCollisionManager
     {
-
-
-        public void Update(GameTime gametime, TileMap map, Hero hero, KeyboardReader kb, List<NextLevelDoor> doors, List<Enemy> enemyList, List<Coin> coinList, Score score)
+        public void Update(TileMap map, Hero hero, KeyboardReader kb, List<NextLevelDoor> doors, List<Enemy> enemyList, List<Coin> coinList, Score score)
         {
-            hero.floorTileDifference = hero.previousFloorTile.Y - hero.currentFloorTile.Y;
-            if(hero.floorTileDifference < 0)
-            {
-                //hero.hasJumped = true;
-                //hero.isFalling = true;
-            }
-
+            //check if player goes out of bounds
             if(hero.position.X > Game1.graphics.PreferredBackBufferWidth + 200)
             {
                 hero.position.X = 0;
@@ -32,10 +24,9 @@ namespace Slime.Collision
             {
                 hero.position.X = 1000;
             }
+            //check collision in level1
             if(Game1.currentState == Game1.GameStates.Level1)
             {
-
-
                 foreach (var item in map.blocks)
                 {
 
@@ -45,7 +36,6 @@ namespace Slime.Collision
                         {
                             if (hero.position.Y <= item.recPos.Y && item.myType == Block.typeBlock.FLOOR2)
                             {
-                                //hero.previousFloorTile = hero.currentFloorTile;
                                 hero.currentFloorTile.X = item.recPos.X + 50;
                                 hero.currentFloorTile.Y = item.recPos.Y - 50;
                                 hero.previousFloorTile = hero.currentFloorTile;
@@ -95,6 +85,7 @@ namespace Slime.Collision
                     }
                 }
             }
+            //check collision in level2
             if (Game1.currentState == Game1.GameStates.Level2)
             {
                 foreach (var item in coinList)
@@ -254,7 +245,7 @@ namespace Slime.Collision
                     }
                 }
             }
-
+            //check door collision
             foreach (var item in doors)
             {
                 

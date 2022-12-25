@@ -14,6 +14,7 @@ namespace Slime.GameElements
 {
     public class Coin
     {
+
         public bool isCollected = false;
         public Vector2 position;
         public Rectangle hitbox;

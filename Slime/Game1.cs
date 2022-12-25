@@ -32,7 +32,7 @@ namespace Slime
             GameOver
         }
         public static GameStates currentState;
-        private Button startButton;
+        private GameKeyHandler startButton;
         GameSceneManager2 gameSceneManager2 = new GameSceneManager2();
         private GameOverScreen gameOverScreen;
         private WinningScreen winningScreen;
@@ -56,7 +56,7 @@ namespace Slime
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             gameSceneManager2.LoadContent(GraphicsDevice ,Content, _spriteBatch);
-            startButton = new Button(new Rectangle(0, 0, 500, 20), new Vector2(250, 450));
+            startButton = new GameKeyHandler(new Rectangle(0, 0, 500, 20), new Vector2(250, 450));
             currentState = GameStates.StartScreen;
             gameOverScreen = new GameOverScreen();
             winningScreen = new WinningScreen();

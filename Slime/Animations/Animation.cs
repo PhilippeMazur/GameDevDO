@@ -14,6 +14,7 @@ namespace Project1.Animations
 {
     public class Animation : Game1
     {
+        #region Variables
         public AnimationFrame CurrentFrame { get; set; }
         private List<AnimationFrame> frames;
         private int counter;
@@ -30,6 +31,9 @@ namespace Project1.Animations
             frames = new List<AnimationFrame>();
         }
 
+        #endregion
+
+        #region Public methods
         public void AddFrame(AnimationFrame frame)
         {
             frames.Add(frame);
@@ -126,22 +130,6 @@ namespace Project1.Animations
             }
             
         }
-
-        public void Update(GameTime gameTime)
-        {
-            secondCounter += gameTime.ElapsedGameTime.TotalMilliseconds;
-
-            if (secondCounter >= 1000d / fps)
-            {
-                secondCounter = 0;
-                CurrentFrame = frames[counter];
-                counter++;
-                if (counter >= frames.Count)
-                {
-                    counter = 0;
-                }
-            }
-        }
         public void Update(GameTime gameTime, int framesPerSecond)
         {
             secondCounter += gameTime.ElapsedGameTime.TotalMilliseconds;
@@ -190,6 +178,7 @@ namespace Project1.Animations
             }
             
         }
+        #endregion
 
     }
 }
