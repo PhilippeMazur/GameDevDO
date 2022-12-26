@@ -56,7 +56,8 @@ namespace Slime.Collision
                         {
                             if (hero.position.X >= item.recPos.X - 20)
                             {
-                                hero.position.X += 100;
+                                hero.position.Y -= 100;
+                                hero.position.X += 50;
 
                             }
                             else
@@ -72,16 +73,6 @@ namespace Slime.Collision
                             hero.currentFloorTile.Y = item.recPos.Y;
                         }
 
-                    }
-                    if (item.recPos.Intersects(hero.hitbox) && (item.myType == Block.typeBlock.SKY || item.myType == Block.typeBlock.CLOUD || item.myType == Block.typeBlock.CLOUD2))
-                    {
-
-                        hero.currentFloorTile.X = item.recPos.X;
-                        hero.currentFloorTile.Y = item.recPos.Y;
-                        if (hero.floorTileDifference > 75)
-                        {
-                            hero.position.Y = hero.previousFloorTile.Y;
-                        }
                     }
                 }
             }
@@ -143,16 +134,6 @@ namespace Slime.Collision
                             hero.currentFloorTile.Y = item.recPos.Y;
                         }
 
-                    }
-                    if (item.recPos.Intersects(hero.hitbox) && (item.myType == Block.typeBlock.SKY))
-                    {
-
-                        hero.currentFloorTile.X = item.recPos.X;
-                        hero.currentFloorTile.Y = item.recPos.Y;
-                        if (hero.floorTileDifference > 75)
-                        {
-                            hero.position.Y = hero.previousFloorTile.Y;
-                        }
                     }
                 }
             }
