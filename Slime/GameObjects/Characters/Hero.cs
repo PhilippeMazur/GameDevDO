@@ -9,6 +9,7 @@ using Slime.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing.Text;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
@@ -24,6 +25,7 @@ namespace Slime.Characters
         public Texture2D heroTexture { get; set; }
         public KeyboardReader inputReader { get; set; }
         public Animation animation { get; set; } = new Animation();
+        public Vector2 Position { get { return position; } set { position.X = value.X; position.Y = value.Y; } }
         public Vector2 position = new Vector2(100, 500f);
         private Vector2 snelheid = new Vector2(5, 4);
         public Vector2 currentFloorTile = new Vector2(0, 500);
@@ -38,9 +40,12 @@ namespace Slime.Characters
         public Vector2 velocity;
         public bool hasJumped = false;
         public bool isFalling = false;
-        
-
-        public Hero(Texture2D heroTexture, KeyboardReader inputReader)
+        public bool showHitbox;
+        GraphicsDevice graphicsDevice;
+        Texture2D textureHitbox;
+        double counter;
+        public bool hit;
+        public Hero(Texture2D heroTexture, KeyboardReader inputReader, GraphicsDevice graphicsDeviceIn)
         {
             this.heroTexture = heroTexture;
             this.inputReader = inputReader;
@@ -51,18 +56,32 @@ namespace Slime.Characters
             animation.AddFrame(new AnimationFrame(new Rectangle(50, 50, 50, 50)));
             animation.AddFrame(new AnimationFrame(new Rectangle(0, 100, 50, 50)));
             animation.AddFrame(new AnimationFrame(new Rectangle(50, 100, 50, 50)));
-       
+            animation.AddFrame(new AnimationFrame(new Rectangle(0, 150, 50, 50)));
+            animation.AddFrame(new AnimationFrame(new Rectangle(50, 150, 50, 50)));
+            animation.AddFrame(new AnimationFrame(new Rectangle(0, 200, 50, 50)));
+            animation.AddFrame(new AnimationFrame(new Rectangle(50, 200, 50, 50)));
+            animation.AddFrame(new AnimationFrame(new Rectangle(0, 250, 50, 50)));
+            animation.AddFrame(new AnimationFrame(new Rectangle(50, 250, 50, 50)));
 
+            graphicsDevice = graphicsDeviceIn;
         }
 
         public void LoadContent()
         {
-            hitbox = new Rectangle((int)position.X, (int)position.Y, 50, 50);
-            hitboxBody = new Rectangle((int)position.X, (int)position.Y, 30, 35);
+            hitbox = new Rectangle((int)Position.X, (int)Position.Y, 50, 50);
+            hitboxBody = new Rectangle((int)Position.X, (int)Position.Y, 30, 35);
 
+            textureHitbox = new Texture2D(graphicsDevice, 1, 1);
+            textureHitbox.SetData(new[] { Color.White });
         }
         public void Draw()
         {
+            if(showHitbox)
+            {
+                //Game1._spriteBatch.Draw(textureHitbox, hitbox, Color.Yellow);
+
+                Game1._spriteBatch.Draw(textureHitbox, hitboxBody, Color.Red);
+            }
 
             if(isAlive)
             {
@@ -76,7 +95,7 @@ namespace Slime.Characters
                 }
             } else
             {
-                position = new Vector2(100, 500f);
+                Position = new Vector2(100, 500f);
                 health = 5;
                 isAlive = true;
 
@@ -87,6 +106,11 @@ namespace Slime.Characters
 
         public void Update(GameTime gameTime)
         {
+            if(hit)
+            {
+                LostHealth(gameTime);
+            }
+
             CheckHealth();
             Move();
             animation.Update(gameTime, inputReader);
@@ -96,14 +120,14 @@ namespace Slime.Characters
 
         public void Move()
         {
-            Vector2 direction = inputReader.ReadInput(position, this);
+            Vector2 direction = inputReader.ReadInput(Position, this);
             direction *= snelheid;
-            position += direction;
-            hitbox.X = (int)position.X;
-            hitbox.Y = (int)position.Y;
+            Position += direction;
+            hitbox.X = (int)Position.X;
+            hitbox.Y = (int)Position.Y;
             
-            hitboxBody.X = (int)position.X + 10;
-            hitboxBody.Y = (int)position.Y + 13;
+            hitboxBody.X = (int)Position.X + 10;
+            hitboxBody.Y = (int)Position.Y + 13;
         }
         
         private void CheckHealth()
@@ -112,7 +136,23 @@ namespace Slime.Characters
             {
                 isAlive = false;
                 coinsLevel1 = 0;
-                position = new Vector2(100, 500);
+                Position = new Vector2(100, 500);
+            }
+        }
+        float timer = 0.3f;
+        const float TIMER = 0.3f;
+        public void LostHealth(GameTime gameTime)
+        {
+            float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            timer -= elapsed;
+            if (timer < 0)
+            {
+                showHitbox = false;
+                hit = false;
+                timer = TIMER;
+            } else
+            {
+                showHitbox = true;
             }
         }
     }

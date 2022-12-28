@@ -52,7 +52,7 @@ namespace Slime
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            gameSceneManager2.LoadContent(Content);
+            gameSceneManager2.LoadContent(Content, GraphicsDevice);
             currentState = GameStates.StartScreen;
         }
 

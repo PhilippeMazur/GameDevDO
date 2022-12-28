@@ -40,12 +40,12 @@ namespace Slime.UI
         #endregion
 
         #region Public methods
-        public void LoadContent(ContentManager content)
+        public void LoadContent(ContentManager content, GraphicsDevice graphicsDevicein)
         {
 
             texture.LoadContent(content);
             map = new TileMap(texture.textureDictionary[Texture.TextureType.LevelBackground], texture.textureDictionary[Texture.TextureType.Map]);
-            hero = hero = new Hero(texture.textureDictionary[Texture.TextureType.Hero], kb);
+            hero = hero = new Hero(texture.textureDictionary[Texture.TextureType.Hero], kb, graphicsDevicein);
             hero.LoadContent();
             health = new HealthBar(texture.textureDictionary[Texture.TextureType.Health]);
             startButton = new GameKeyHandler(new Rectangle(0, 0, 500, 20), new Vector2(250, 450));
@@ -285,7 +285,7 @@ namespace Slime.UI
 
             if (currentState == GameStates.GameOver)
             {
-                hero.position = new Vector2(100, 500);
+                hero.Position = new Vector2(100, 500);
 
                 foreach (var item in enemyList)
                 {
@@ -301,7 +301,7 @@ namespace Slime.UI
             {
                 item.isCollected = false;
             }
-            hero.position = new Vector2(100, 500);
+            hero.Position = new Vector2(100, 500);
 
             foreach (var item in enemyList)
             {

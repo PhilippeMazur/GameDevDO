@@ -19,7 +19,7 @@ namespace Slime.Collision
             //check if player goes out of bounds
             if(hero.position.X > Game1.graphics.PreferredBackBufferWidth + 200)
             {
-                hero.position.X = 0;
+                hero.position = new Vector2(0,hero.position.Y);
             } else if(hero.position.X < 0)
             {
                 hero.position.X = 1000;
@@ -66,6 +66,8 @@ namespace Slime.Collision
 
                             }
                             hero.health -= 1;
+                            hero.hit = true;
+
                         }
                         if (hero.position.Y < item.recPos.Bottom && hero.position.Y < hero.currentFloorTile.Y)
                         {
@@ -127,6 +129,8 @@ namespace Slime.Collision
 
                             }
                             hero.health -= 1;
+                            hero.hit = true;
+
                         }
                         if (hero.position.Y < item.recPos.Bottom && hero.position.Y < hero.currentFloorTile.Y)
                         {
@@ -143,7 +147,7 @@ namespace Slime.Collision
             {
                 if(Game1.currentState == Game1.GameStates.Level1 && item.level == Enemy.Level.Level1)
                 {
-                    if (hero.hitboxBody.Intersects(item.hitbox) && hero.position.Y <= item.position.Y - 40)
+                    if (hero.hitboxBody.Intersects(item.hitboxBody) && hero.position.Y <= item.position.Y - 15)
                     {
                         item.isAlive = false;
 
@@ -152,15 +156,16 @@ namespace Slime.Collision
 
 
                     }
-                    else if (hero.hitboxBody.Intersects(item.hitbox) && hero.position.Y <= item.position.Y && item.isAlive)
+                    else if (hero.hitboxBody.Intersects(item.hitboxBody) && hero.position.Y <= item.position.Y && item.isAlive)
                     {
                         hero.position.X -= 100;
                         hero.health -= 1;
+                        hero.hit = true;
                     }
                 } 
                 if(Game1.currentState == Game1.GameStates.Level2 && item.level == Enemy.Level.Level2)
                 {
-                    if (hero.hitboxBody.Intersects(item.hitbox) && hero.position.Y <= item.position.Y - 40)
+                    if (hero.hitboxBody.Intersects(item.hitboxBody) && hero.position.Y <= item.position.Y - 15)
                     {
                         item.isAlive = false;
 
@@ -169,10 +174,11 @@ namespace Slime.Collision
 
 
                     }
-                    else if (hero.hitboxBody.Intersects(item.hitbox) && hero.position.Y <= item.position.Y && item.isAlive)
+                    else if (hero.hitboxBody.Intersects(item.hitboxBody) && hero.position.Y <= item.position.Y && item.isAlive)
                     {
                         hero.position.X -= 100;
                         hero.health -= 1;
+                        hero.hit = true;
                     }
                 }
                
@@ -235,7 +241,7 @@ namespace Slime.Collision
                     if (item.level == NextLevelDoor.DoorLevel.Level1)
                     {
                         Game1.currentState = Game1.GameStates.Level2;
-                        hero.position = new Vector2(0, 400);
+                        hero.Position = new Vector2(0, 400);
                         
                     } 
                     if(item.level == NextLevelDoor.DoorLevel.Level2 && item.isOpened)

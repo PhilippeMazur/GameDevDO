@@ -22,7 +22,8 @@ namespace Slime.Input
             Idle,
             RunningLeft,
             RunningRight,
-            Jumping
+            Jumping, 
+            LostHealth
         }
         public states AnimationState;
         public int speed = 1;
@@ -51,7 +52,7 @@ namespace Slime.Input
             }
 
 
-            hero.position += hero.velocity;
+            hero.Position += hero.velocity;
             if (Keyboard.GetState().IsKeyDown(Keys.Space) && !hero.isFalling && !hero.hasJumped && hero.position.Y >= hero.currentFloorTile.Y)
             {
                 hero.position.Y -= 10f;
@@ -80,12 +81,11 @@ namespace Slime.Input
 
             if (hero.hasJumped == false)
             {
-                if(hero.position.Y >= hero.currentFloorTile.Y)
+                if(hero.Position.Y >= hero.currentFloorTile.Y)
                 {
                     hero.hasJumped = false;
-                    //hero.velocity.Y = 3;
                 }
-                if (hero.position.Y <= hero.currentFloorTile.Y)
+                if (hero.Position.Y <= hero.currentFloorTile.Y)
                 {
                     hero.isFalling = true;
 

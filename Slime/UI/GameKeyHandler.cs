@@ -51,7 +51,7 @@ namespace Slime.UI
             {
                 
                 currentState = GameStates.Level1;
-                hero.position = new Vector2(100, 500f);
+                hero.Position = new Vector2(100, 500f);
             }
             if(kbState.IsKeyDown(Keys.Enter) && currentState == GameStates.GameOver)
             {
@@ -68,7 +68,7 @@ namespace Slime.UI
             if (kbState.IsKeyDown(Keys.M) && currentState == GameStates.WinningScreen)
             {
                 currentState = GameStates.StartScreen;
-                hero.position = new Vector2(0, 150);
+                hero.Position = new Vector2(0, 150);
             }
             if (kbState.IsKeyDown(Keys.N))
             {

@@ -58,3 +58,4 @@ D:\school\gamedev\Slime\Slime\bin\Debug\net6.0-windows\Content\AbilityJump.xnb
 D:\school\gamedev\Slime\Slime\bin\Debug\net6.0-windows\Content\WinningScreenAnimated.xnb
 D:\school\gamedev\Slime\Slime\bin\Debug\net6.0-windows\Content\GameOverScreen1000x700.xnb
 D:\school\gamedev\Slime\Slime\bin\Debug\net6.0-windows\Content\WinningScreen1000x700.xnb
+D:\school\gamedev\Slime\Slime\bin\Debug\net6.0-windows\Content\SlimeHeroCompleet.xnb

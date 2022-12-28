@@ -14,15 +14,14 @@ namespace Project1.Animations
 {
     public class Animation : Game1
     {
-        #region Variables
         public AnimationFrame CurrentFrame { get; set; }
         private List<AnimationFrame> frames;
         private int counter;
         private int counter2 = 2;
         private int counter3 = 4;
+        private int counter4 = 6;
         private int doorCounter = 0;
         private int doorCounter2 = 1;
-        static Random r = new Random();
         private double secondCounter = 0;
         private int fps = 2;
         public bool goingLeft = false;
@@ -31,9 +30,7 @@ namespace Project1.Animations
             frames = new List<AnimationFrame>();
         }
 
-        #endregion
 
-        #region Public methods
         public void AddFrame(AnimationFrame frame)
         {
             frames.Add(frame);
@@ -58,6 +55,7 @@ namespace Project1.Animations
                     }
                 }
             }
+ 
             if (kb.AnimationState == KeyboardReader.states.RunningRight)
             {
                 goingLeft = false;                
@@ -178,7 +176,6 @@ namespace Project1.Animations
             }
             
         }
-        #endregion
 
     }
 }
