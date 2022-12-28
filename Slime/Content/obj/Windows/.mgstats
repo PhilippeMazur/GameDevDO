@@ -1,2 +1,2 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"D:/school/gamedev/Slime/Slime/Content/WinningScreenAnimated.png","D:/school/gamedev/Slime/Slime/Content/bin/Windows/WinningScreenAnimated.xnb","TextureProcessor","Texture2DContent",74163,5600085,0,3872793
+"D:/school/gamedev/Slime/Slime/Content/Fonts/File.spritefont","D:/school/gamedev/Slime/Slime/Content/bin/Windows/Fonts/File.xnb","FontDescriptionProcessor","SpriteFontContent",2070,70687,0,3134892

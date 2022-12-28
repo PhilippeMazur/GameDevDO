@@ -80,6 +80,10 @@ namespace Slime.UI
             }
             if (kbState.IsKeyDown(Keys.B))
             {
+                currentState = GameStates.WinningScreen;
+            }
+            if (kbState.IsKeyDown(Keys.V))
+            {
                 currentState = GameStates.GameOver;
             }
 

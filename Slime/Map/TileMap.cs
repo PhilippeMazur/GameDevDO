@@ -13,6 +13,8 @@ namespace Slime.Map
 {
     public class TileMap
     {
+        private Texture2D levelBackgroundTexture;
+        private Texture2D tilesetTexture;
         public Vector2 backgroundPos = new Vector2(0,0);
         private double counter;
         public List<Block> blocks = new List<Block>();
@@ -54,8 +56,10 @@ namespace Slime.Map
             {1,1,1,3,3,1,3,3,1,3,3,1,3,3,1,3,3,1,1,1}
 
         };
-        public TileMap()
+        public TileMap(Texture2D levelBackgroundTexturein, Texture2D tilesetTexturein)
         {
+            levelBackgroundTexture = levelBackgroundTexturein;
+            tilesetTexture = tilesetTexturein;
             CreateBlocks(level, blocks);            
             CreateBlocks(level2, blocks2);            
         }
@@ -74,18 +78,18 @@ namespace Slime.Map
                 backgroundPos.X = 0;
             }
         }
-        public void Draw(SpriteBatch spriteBatch, Texture2D texture, Texture2D LevelBackground)
+        public void Draw()
         {
-            spriteBatch.Draw(LevelBackground, new Rectangle((int)backgroundPos.X,0,1000,700), Color.White);
-            spriteBatch.Draw(LevelBackground, new Rectangle((int)backgroundPos.X + 1000, 0, 1000, 700), Color.White);
+            Game1._spriteBatch.Draw(levelBackgroundTexture, new Rectangle((int)backgroundPos.X,0,1000,700), Color.White);
+            Game1._spriteBatch.Draw(levelBackgroundTexture, new Rectangle((int)backgroundPos.X + 1000, 0, 1000, 700), Color.White);
 
             if (Game1.currentState == GameStates.Level1)
             {
                 foreach (var item in blocks)
                 {
-                    if (item.myType != Block.typeBlock.SKY)
+                    if (item.MyType != Block.typeBlock.SKY)
                     {
-                        spriteBatch.Draw(texture, item.pos, item.textureRectangle, Color.White);
+                        Game1._spriteBatch.Draw(tilesetTexture, item.pos, item.textureRectangle, Color.White);
 
                     }
                 }
@@ -93,9 +97,9 @@ namespace Slime.Map
             {
                 foreach (var item in blocks2)
                 {
-                    if (item.myType != Block.typeBlock.SKY)
+                    if (item.MyType != Block.typeBlock.SKY)
                     {
-                        spriteBatch.Draw(texture, item.pos, item.textureRectangle, Color.White);
+                        Game1._spriteBatch.Draw(tilesetTexture, item.pos, item.textureRectangle, Color.White);
 
                     }
                 }

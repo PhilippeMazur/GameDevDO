@@ -28,31 +28,42 @@ namespace Slime.UI
         List<Coin> coinList = new List<Coin>();
         HeroCollisionManager heroCollisionManager = new HeroCollisionManager();
         List<NextLevelDoor> doors = new List<NextLevelDoor>();
-        HealthBar health = new HealthBar();
-        TileMap map = new TileMap();
+        HealthBar health;
+        TileMap map;
         Score scoreUI = new Score();
+        private GameKeyHandler startButton;
+        Screen startMenuScreen;
+        Screen winningScreen;
+        Screen gameOverScreen;
+
+
         #endregion
 
         #region Public methods
-        public void LoadContent(GraphicsDevice graphicsDevice ,ContentManager content, SpriteBatch spriteBatch)
+        public void LoadContent(ContentManager content)
         {
 
             texture.LoadContent(content);
+            map = new TileMap(texture.textureDictionary[Texture.TextureType.LevelBackground], texture.textureDictionary[Texture.TextureType.Map]);
             hero = hero = new Hero(texture.textureDictionary[Texture.TextureType.Hero], kb);
             hero.LoadContent();
+            health = new HealthBar(texture.textureDictionary[Texture.TextureType.Health]);
+            startButton = new GameKeyHandler(new Rectangle(0, 0, 500, 20), new Vector2(250, 450));
+            generateScreens();
             generateEnemies();
             generateCoins();
             generateDoors();
         }
 
-        public void Update(GameTime gameTime, GameKeyHandler startButton, GameOverScreen gameOverScreen, WinningScreen winningScreen)
+        public void Update(GameTime gameTime)
         {
-            hero.Update(gameTime, kb);
+            hero.Update(gameTime);
             heroCollisionManager.Update(map, hero, kb, doors, enemyList, coinList, scoreUI);
             map.Update(gameTime);
+            startButton.Update(gameTime, hero);
             if (currentState == GameStates.StartScreen)
             {
-                startButton.Update(gameTime, hero);
+                startMenuScreen.Update(gameTime);
             }
             if (currentState == GameStates.Level1)
             {
@@ -64,92 +75,89 @@ namespace Slime.UI
             }
             if (currentState == GameStates.GameOver)
             {
-                UpdateGameOver(gameOverScreen, gameTime);
+                UpdateGameOver(gameTime);
             }
             if(currentState == GameStates.WinningScreen)
             {
-                UpdateWinningScreen(winningScreen, gameTime);
+                winningScreen.Update(gameTime);
+                ResetObjects(gameTime);
             }
         }
-        public void Draw(GameKeyHandler startButton, GameOverScreen gameOverScreen)
+        public void Draw()
         {
             if (currentState == GameStates.StartScreen)
             {
-                Game1._spriteBatch.Draw(texture.textureDictionary[Texture.TextureType.StartScreen], new Rectangle(0, 0, 1000, 700), Color.White);
-                startButton.Draw(Game1._spriteBatch, texture.textureDictionary[Texture.TextureType.StartButton]);
+                startMenuScreen.Draw(texture.fontDictionary[Texture.TextureType.Font]);
             }
 
             if (currentState == GameStates.Level1)
             {
-                map.Draw(Game1._spriteBatch, texture.textureDictionary[Texture.TextureType.Map], texture.textureDictionary[Texture.TextureType.LevelBackground]);
-                hero.Draw(Game1._spriteBatch, texture.textureDictionary[Texture.TextureType.Hero]);
+                map.Draw();
+                hero.Draw();
 
                 foreach (var item in enemyList)
                 {
                     if(item.level == Enemy.Level.Level1)
                     {
-                        item.Draw(Game1._spriteBatch, hero);
+                        item.Draw();
                     }
                 }
-                health.Draw(Game1._spriteBatch, texture.textureDictionary[Texture.TextureType.Health], hero);
+                health.Draw(hero);
 
                 foreach (var item in coinList)
                 {
                     if (item.level == Coin.CoinLevelType.Level1)
                     {
-                        item.Draw(_spriteBatch, texture.textureDictionary[Texture.TextureType.Coin]);
+                        item.Draw(_spriteBatch);
                     }
                 }
                 foreach (var item in doors)
                 {
                     if (item.level == NextLevelDoor.DoorLevel.Level1)
                     {
-                        item.Draw(_spriteBatch, texture.textureDictionary[Texture.TextureType.Door], this, hero);
+                        item.Draw(this, hero);
                     }
                 }
                 scoreUI.Draw(Game1._spriteBatch, texture.fontDictionary[Texture.TextureType.Font]);
                 _spriteBatch.Draw(texture.textureDictionary[Texture.TextureType.AbilityBar], new Rectangle(0, 700, 1000, 80), Color.White);
-
-                //abilityJump.Draw(Game1._spriteBatch, texture.textureDictionary[Texture.TextureType.AbilityJump]);
-
             }
 
             if (currentState == GameStates.Level2)
             {
-                map.Draw(Game1._spriteBatch, texture.textureDictionary[Texture.TextureType.Map], texture.textureDictionary[Texture.TextureType.LevelBackground]);
-                hero.Draw(Game1._spriteBatch, texture.textureDictionary[Texture.TextureType.Hero]);
+                map.Draw();
+                hero.Draw();
                 foreach (var item in enemyList)
                 {
                     if (item.level == Enemy.Level.Level2)
                     {
-                        item.Draw(Game1._spriteBatch, hero);
+                        item.Draw();
                     }
                 }
-                health.Draw(Game1._spriteBatch, texture.textureDictionary[Texture.TextureType.Health], hero);
+                health.Draw(hero);
 
                 foreach (var item in coinList)
                 {
                     if (item.level == Coin.CoinLevelType.Level2)
                     {
-                        item.Draw(_spriteBatch, texture.textureDictionary[Texture.TextureType.Coin]);
+                        item.Draw(_spriteBatch);
                     }
                 }
                 foreach (var item in doors)
                 {
                     if (item.level == NextLevelDoor.DoorLevel.Level2)
                     {
-                        item.Draw(_spriteBatch, texture.textureDictionary[Texture.TextureType.Door], this, hero);
+                        item.Draw(this, hero);
                     }
                 }
                 scoreUI.Draw(Game1._spriteBatch, texture.fontDictionary[Texture.TextureType.Font]);
             }
             if (currentState == GameStates.GameOver)
             {
-                gameOverScreen.Draw(texture.textureDictionary[Texture.TextureType.GameOverScreen]);
+                gameOverScreen.Draw();
             }
-            if(currentState == GameStates.WinningScreen)
+            if (currentState == GameStates.WinningScreen)
             {
-                gameOverScreen.Draw(texture.textureDictionary[Texture.TextureType.WinningScreen]);
+                winningScreen.Draw();
             }
         }
         #endregion
@@ -159,7 +167,7 @@ namespace Slime.UI
         {
             foreach (var item in enemyList)
             {
-                item.Update(gameTime, hero);
+                item.Update(gameTime);
             }
             foreach (var item in coinList)
             {
@@ -206,7 +214,7 @@ namespace Slime.UI
                     foreach (var item in enemyList)
                     {
                         item.isAlive = true;
-                        item.Update(gameTime, hero);
+                        item.Update(gameTime);
                     }
                 }
             }
@@ -215,7 +223,7 @@ namespace Slime.UI
         {
             foreach (var item in enemyList)
             {
-                item.Update(gameTime, hero);
+                item.Update(gameTime);
             }
             foreach (var item in coinList)
             {
@@ -226,7 +234,7 @@ namespace Slime.UI
             }
             foreach (var item in doors)
             {
-                if (item.level == NextLevelDoor.DoorLevel.Level2)
+                if (item.level == DoorLevel.Level2)
                 {
                     item.Update(gameTime, hero);
                 }
@@ -261,12 +269,12 @@ namespace Slime.UI
                     foreach (var item in enemyList)
                     {
                         item.isAlive = true;
-                        item.Update(gameTime, hero);
+                        item.Update(gameTime);
                     }
                 }
             }
         }
-        private void UpdateGameOver(GameOverScreen gameOverScreen, GameTime gameTime)
+        private void UpdateGameOver(GameTime gameTime)
         {
             gameOverScreen.Update(gameTime);
             hero.health = 5;
@@ -282,13 +290,12 @@ namespace Slime.UI
                 foreach (var item in enemyList)
                 {
                     item.isAlive = true;
-                    item.Update(gameTime, hero);
+                    item.Update(gameTime);
                 }
             }
         }
-        private void UpdateWinningScreen(WinningScreen winningScreen, GameTime gameTime)
+        private void ResetObjects(GameTime gameTime)
         {
-            winningScreen.Update(gameTime);
             hero.health = 5;
             foreach (var item in coinList)
             {
@@ -299,14 +306,27 @@ namespace Slime.UI
             foreach (var item in enemyList)
             {
                 item.isAlive = true;
-                item.Update(gameTime, hero);
+                item.Update(gameTime);
             }
+        }
+        private void generateScreens()
+        {
+            winningScreen = new Screen(texture.textureDictionary[Texture.TextureType.WinningScreen], new Rectangle(0, 0, 1000, 700), new Project1.Animations.Animation(), new Text("", new Vector2(0, 0)));
+            winningScreen.animation.AddFrame(new Project1.Animations.AnimationFrame(new Rectangle(0, 0, 1000, 700)));
+            winningScreen.animation.AddFrame(new Project1.Animations.AnimationFrame(new Rectangle(1000, 0, 1000, 700)));
+
+            gameOverScreen = new Screen(texture.textureDictionary[Texture.TextureType.GameOverScreen], new Rectangle(0, 0, 1000, 700), new Project1.Animations.Animation(), new Text("", new Vector2(0, 0)));
+            gameOverScreen.animation.AddFrame(new Project1.Animations.AnimationFrame(new Rectangle(0, 0, 1000, 700)));
+            gameOverScreen.animation.AddFrame(new Project1.Animations.AnimationFrame(new Rectangle(1000, 0, 1000, 700)));
+
+            startMenuScreen = new Screen(texture.textureDictionary[Texture.TextureType.StartScreen], new Rectangle(0, 0, 1000, 700), new Project1.Animations.Animation(), new Text("Press 'ENTER' to Start !", new Vector2(200, 450)));
+            startMenuScreen.animation.AddFrame(new Project1.Animations.AnimationFrame(new Rectangle(0, 0, 1000, 700)));
         }
         private void generateDoors()
         {
-            NextLevelDoor doorLevel1 = new NextLevelDoor(new Vector2(300, 150), DoorLevel.Level1);
+            NextLevelDoor doorLevel1 = new NextLevelDoor(new Vector2(300, 150), DoorLevel.Level1, texture.textureDictionary[Texture.TextureType.Door]);
             doors.Add(doorLevel1);
-            NextLevelDoor doorLevel2 = new NextLevelDoor(new Vector2(800, 50), DoorLevel.Level2);
+            NextLevelDoor doorLevel2 = new NextLevelDoor(new Vector2(800, 50), DoorLevel.Level2, texture.textureDictionary[Texture.TextureType.Door]);
             doors.Add(doorLevel2);
         }
         private void generateCoins()
@@ -326,26 +346,28 @@ namespace Slime.UI
         }
         private void generateEnemies()
         {
-            Enemy groundEnemy1 = new Enemy(texture.textureDictionary[Texture.TextureType.Enemy], new Vector2(850, 604), 100, Enemy.Type.Ground, Enemy.Level.Level1);
-            Enemy groundEnemy2 = new Enemy(texture.textureDictionary[Texture.TextureType.Enemy], new Vector2(825, 204), 150, Enemy.Type.Ground, Enemy.Level.Level1);
-            Enemy enemy3 = new Enemy(texture.textureDictionary[Texture.TextureType.Enemy2], new Vector2(500, 204), 100, Enemy.Type.Air, Enemy.Level.Level1);
+            Enemy groundEnemy1 = new Enemy(texture.textureDictionary[Texture.TextureType.Enemy], new Vector2(850, 604), 100, Enemy.Type.Ground, Enemy.Level.Level1, hero);
+            Enemy groundEnemy2 = new Enemy(texture.textureDictionary[Texture.TextureType.Enemy], new Vector2(825, 204), 150, Enemy.Type.Ground, Enemy.Level.Level1, hero);
+            Enemy enemy3 = new Enemy(texture.textureDictionary[Texture.TextureType.Enemy2], new Vector2(500, 204), 100, Enemy.Type.Air, Enemy.Level.Level1, hero);
             groundEnemy1.LoadContent();
             groundEnemy2.LoadContent();
             enemy3.LoadContent();
             enemyList.Add(groundEnemy1);
             enemyList.Add(groundEnemy2);
             enemyList.Add(enemy3);
-            Enemy groundEnemy3 = new Enemy(texture.textureDictionary[Texture.TextureType.Enemy], new Vector2(275, 300), 75, Enemy.Type.Ground, Enemy.Level.Level2);
+            Enemy groundEnemy3 = new Enemy(texture.textureDictionary[Texture.TextureType.Enemy], new Vector2(275, 300), 75, Enemy.Type.Ground, Enemy.Level.Level2, hero);
             groundEnemy3.LoadContent();
             enemyList.Add(groundEnemy3);
-            Enemy groundEnemy4 = new Enemy(texture.textureDictionary[Texture.TextureType.Enemy], new Vector2(650, 300), 125, Enemy.Type.Ground, Enemy.Level.Level2);
+            Enemy groundEnemy4 = new Enemy(texture.textureDictionary[Texture.TextureType.Enemy], new Vector2(650, 300), 125, Enemy.Type.Ground, Enemy.Level.Level2, hero);
             groundEnemy4.LoadContent();
             enemyList.Add(groundEnemy4);
-            Enemy groundEnemy5 = new Enemy(texture.textureDictionary[Texture.TextureType.Enemy], new Vector2(200, 50), 40, Enemy.Type.Ground, Enemy.Level.Level2);
+            Enemy groundEnemy5 = new Enemy(texture.textureDictionary[Texture.TextureType.Enemy], new Vector2(200, 50), 40, Enemy.Type.Ground, Enemy.Level.Level2, hero);
             groundEnemy5.LoadContent();
             enemyList.Add(groundEnemy5);
 
         }
+        
+        
         #endregion
     }
 }

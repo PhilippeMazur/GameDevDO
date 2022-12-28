@@ -30,11 +30,11 @@ namespace Slime.Collision
                 foreach (var item in map.blocks)
                 {
 
-                    if (item.recPos.Intersects(hero.hitboxBody) && (item.myType is Block.typeBlock.FLOOR || item.myType is Block.typeBlock.FLOOR2 || item.myType is Block.typeBlock.SPIKE || item.myType is Block.typeBlock.SPIKE2))
+                    if (item.recPos.Intersects(hero.hitboxBody) && (item.MyType is Block.typeBlock.FLOOR || item.MyType is Block.typeBlock.FLOOR2 || item.MyType is Block.typeBlock.SPIKE || item.MyType is Block.typeBlock.SPIKE2))
                     {
                         if (hero.position.X + 27 >= item.recPos.X || hero.position.X - 27 <= item.recPos.X && hero.position.Y + 13 >= item.recPos.Y)
                         {
-                            if (hero.position.Y <= item.recPos.Y && item.myType == Block.typeBlock.FLOOR2)
+                            if (hero.position.Y <= item.recPos.Y && item.MyType == Block.typeBlock.FLOOR2)
                             {
                                 hero.currentFloorTile.X = item.recPos.X + 50;
                                 hero.currentFloorTile.Y = item.recPos.Y - 50;
@@ -45,14 +45,14 @@ namespace Slime.Collision
                             hero.hasJumped = false;
                         }
 
-                        if((item.myType == Block.typeBlock.FLOOR2 || item.myType == Block.typeBlock.FLOOR) && item.recPos.Y < hero.hitboxBody.Y && item.recPos.X >= hero.hitboxBody.X)
+                        if((item.MyType == Block.typeBlock.FLOOR2 || item.MyType == Block.typeBlock.FLOOR) && item.recPos.Y < hero.hitboxBody.Y && item.recPos.X >= hero.hitboxBody.X)
                         {
                             kb.speedRight = 0;
-                        } else if((item.myType == Block.typeBlock.FLOOR2 || item.myType == Block.typeBlock.FLOOR) && item.recPos.Y < hero.hitboxBody.Y && item.recPos.X <= hero.hitboxBody.X)
+                        } else if((item.MyType == Block.typeBlock.FLOOR2 || item.MyType == Block.typeBlock.FLOOR) && item.recPos.Y < hero.hitboxBody.Y && item.recPos.X <= hero.hitboxBody.X)
                         {
                             kb.speedLeft = 0;
                         }
-                        if (item.myType == Block.typeBlock.SPIKE)
+                        if (item.MyType == Block.typeBlock.SPIKE)
                         {
                             if (hero.position.X >= item.recPos.X - 20)
                             {
@@ -90,11 +90,11 @@ namespace Slime.Collision
                 foreach (var item in map.blocks2)
                 {
 
-                    if (item.recPos.Intersects(hero.hitboxBody) && (item.myType is Block.typeBlock.FLOOR || item.myType is Block.typeBlock.FLOOR2 || item.myType is Block.typeBlock.SPIKE || item.myType is Block.typeBlock.SPIKE2))
+                    if (item.recPos.Intersects(hero.hitboxBody) && (item.MyType is Block.typeBlock.FLOOR || item.MyType is Block.typeBlock.FLOOR2 || item.MyType is Block.typeBlock.SPIKE || item.MyType is Block.typeBlock.SPIKE2))
                     {
                         if (hero.position.X + 27 >= item.recPos.X || hero.position.X - 27 <= item.recPos.X && hero.position.Y + 13 >= item.recPos.Y)
                         {
-                            if (hero.position.Y <= item.recPos.Y && item.myType == Block.typeBlock.FLOOR2)
+                            if (hero.position.Y <= item.recPos.Y && item.MyType == Block.typeBlock.FLOOR2)
                             {
                                 //hero.previousFloorTile = hero.currentFloorTile;
                                 hero.currentFloorTile.X = item.recPos.X + 50;
@@ -106,15 +106,15 @@ namespace Slime.Collision
                             hero.hasJumped = false;
                         }
 
-                        if ((item.myType == Block.typeBlock.FLOOR2 || item.myType == Block.typeBlock.FLOOR) && item.recPos.Y < hero.hitboxBody.Y && item.recPos.X >= hero.hitboxBody.X)
+                        if ((item.MyType == Block.typeBlock.FLOOR2 || item.MyType == Block.typeBlock.FLOOR) && item.recPos.Y < hero.hitboxBody.Y && item.recPos.X >= hero.hitboxBody.X)
                         {
                             kb.speedRight = 0;
                         }
-                        else if ((item.myType == Block.typeBlock.FLOOR2 || item.myType == Block.typeBlock.FLOOR) && item.recPos.Y < hero.hitboxBody.Y && item.recPos.X <= hero.hitboxBody.X)
+                        else if ((item.MyType == Block.typeBlock.FLOOR2 || item.MyType == Block.typeBlock.FLOOR) && item.recPos.Y < hero.hitboxBody.Y && item.recPos.X <= hero.hitboxBody.X)
                         {
                             kb.speedLeft = 0;
                         }
-                        if (item.myType == Block.typeBlock.SPIKE)
+                        if (item.MyType == Block.typeBlock.SPIKE)
                         {
                             if (hero.position.X >= item.recPos.X - 20)
                             {

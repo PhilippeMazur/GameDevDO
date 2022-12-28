@@ -32,10 +32,7 @@ namespace Slime
             GameOver
         }
         public static GameStates currentState;
-        private GameKeyHandler startButton;
         GameSceneManager2 gameSceneManager2 = new GameSceneManager2();
-        private GameOverScreen gameOverScreen;
-        private WinningScreen winningScreen;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -55,19 +52,15 @@ namespace Slime
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            gameSceneManager2.LoadContent(GraphicsDevice ,Content, _spriteBatch);
-            startButton = new GameKeyHandler(new Rectangle(0, 0, 500, 20), new Vector2(250, 450));
+            gameSceneManager2.LoadContent(Content);
             currentState = GameStates.StartScreen;
-            gameOverScreen = new GameOverScreen();
-            winningScreen = new WinningScreen();
         }
 
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            startButton.Update(gameTime, gameSceneManager2.hero);
-            gameSceneManager2.Update(gameTime, startButton, gameOverScreen, winningScreen);
+            gameSceneManager2.Update(gameTime);
             base.Update(gameTime);           
         }
 
@@ -76,7 +69,7 @@ namespace Slime
             GraphicsDevice.Clear(Color.CornflowerBlue);
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
-            gameSceneManager2.Draw(startButton,gameOverScreen);
+            gameSceneManager2.Draw();
             _spriteBatch.DrawString(gameSceneManager2.texture.fontDictionary[Texture.TextureType.Font], $"{gameSceneManager2.hero.position.X} : {string.Format("{0:F0}", gameSceneManager2.hero.position.Y)}", new Vector2(500, 0), Color.Yellow);
             base.Draw(gameTime);
             _spriteBatch.End(); 

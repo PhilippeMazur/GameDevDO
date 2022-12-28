@@ -16,6 +16,7 @@ namespace Slime.GameElements
 {
     public class NextLevelDoor
     {
+        Texture2D texture;
         public bool isOpened = false;
         public Vector2 position;
         public Vector2 positionText;
@@ -34,8 +35,9 @@ namespace Slime.GameElements
         public DoorLevel level;
         public AnimationState state = AnimationState.Closed;
 
-        public NextLevelDoor(Vector2 position, DoorLevel level)
+        public NextLevelDoor(Vector2 position, DoorLevel level, Texture2D texturein)
         {
+            texture = texturein;
             this.position = position;
             this.positionText = new Vector2((float)position.X + 6, (float)position.Y - 30);
             hitbox = new Rectangle((int)position.X, (int)position.Y, 51, 50);
@@ -49,17 +51,17 @@ namespace Slime.GameElements
             this.level = level;
         }
 
-        public void Draw(SpriteBatch spriteBatch, Texture2D doorTexture, GameSceneManager2 gameSceneManager2, Hero hero)
+        public void Draw(GameSceneManager2 gameSceneManager2, Hero hero)
         {
             if(Game1.currentState == Game1.GameStates.Level1 && hero.coinsLevel1 < 2)
             {
-                spriteBatch.DrawString(gameSceneManager2.texture.fontDictionary[Texture.TextureType.Font], $"{hero.coinsLevel1} / 2", positionText, Color.White, 0, new Vector2(0, 0), 0.5f, SpriteEffects.None, 0);
+                Game1._spriteBatch.DrawString(gameSceneManager2.texture.fontDictionary[Texture.TextureType.Font], $"{hero.coinsLevel1} / 2", positionText, Color.White, 0, new Vector2(0, 0), 0.5f, SpriteEffects.None, 0);
             }
             if (Game1.currentState == Game1.GameStates.Level2 && hero.coinsLevel2 < 4)
             {
-                spriteBatch.DrawString(gameSceneManager2.texture.fontDictionary[Texture.TextureType.Font], $"{hero.coinsLevel2} / 4", positionText, Color.White, 0, new Vector2(0, 0), 0.5f, SpriteEffects.None, 0);
+                Game1._spriteBatch.DrawString(gameSceneManager2.texture.fontDictionary[Texture.TextureType.Font], $"{hero.coinsLevel2} / 4", positionText, Color.White, 0, new Vector2(0, 0), 0.5f, SpriteEffects.None, 0);
             }
-            spriteBatch.Draw(doorTexture, position, animation.CurrentFrame.sourceRectangle, Color.White);
+            Game1._spriteBatch.Draw(texture, position, animation.CurrentFrame.sourceRectangle, Color.White);
 
         }
         public void Update(GameTime gameTime, Hero hero)

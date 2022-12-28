@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using Project1.Animations;
+using Slime.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,20 +13,23 @@ namespace Slime.UI
 {
     public class WinningScreen
     {
-        public Animation animation = new Animation();
+        Texture2D texture;
+        private Rectangle position = new Rectangle(0, 0, 1000, 700);
+        Text winningScreenText = new Text("Press 'M' to go to the MENU", new Vector2(250, 450));
 
-        public WinningScreen()
+        public WinningScreen(Texture2D texturein, Rectangle positionin)
         {
-            animation.AddFrame(new AnimationFrame(new Rectangle(0, 0, 1000, 700)));
-            animation.AddFrame(new AnimationFrame(new Rectangle(1000, 0, 1000, 700)));
+            texture = texturein;
+            position = positionin;
         }
-        public void Draw(Texture2D texture)
+        public void Draw(SpriteFont font)
         {
-            Game1._spriteBatch.Draw(texture, new Vector2(0, 0), animation.CurrentFrame.sourceRectangle, Color.White);
+            Game1._spriteBatch.Draw(texture, position, Color.White);
+            winningScreenText.Draw(font);
         }
         public void Update(GameTime gameTime)
         {
-            animation.Update(gameTime, 3);
+            winningScreenText.Update(gameTime);
         }
     }
 }

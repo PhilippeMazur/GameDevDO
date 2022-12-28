@@ -28,6 +28,7 @@ namespace Slime.Characters
         public bool isAlive = true;
         public Rectangle hitbox;
         private Animation animation = new Animation();
+        private Hero hero;
         public enum AnimationState
         {
             runningLeft,
@@ -51,7 +52,7 @@ namespace Slime.Characters
         #endregion
 
         #region Constructor
-        public Enemy(Texture2D texturein, Vector2 posin, int maxDistance,Type enemyType,  Level level)
+        public Enemy(Texture2D texturein, Vector2 posin, int maxDistance,Type enemyType,  Level level, Hero heroin)
         {
             texture = texturein;
             position = posin;
@@ -63,6 +64,7 @@ namespace Slime.Characters
             int width = 50;
             int height = 50;
             EnemyType = enemyType;
+            hero = heroin;
 
             animation.AddFrame(new AnimationFrame(new Rectangle(0, 1, width, height)));
             animation.AddFrame(new AnimationFrame(new Rectangle(50, 1, width, height)));
@@ -80,18 +82,18 @@ namespace Slime.Characters
             hitbox = new Rectangle((int)position.X, (int)position.Y, 50, 50);
             hitboxBody = new Rectangle((int)position.X, (int)position.Y, 27, 30);
         }
-        public void Draw(SpriteBatch spriteBatch, Hero hero)
+        public void Draw()
         {
             if(isAlive)
             {
 
                 if (!animation.goingLeft)
                 {
-                    spriteBatch.Draw(texture, position, animation.CurrentFrame.sourceRectangle, Color.White);
+                    Game1._spriteBatch.Draw(texture, position, animation.CurrentFrame.sourceRectangle, Color.White);
                 }
                 else
                 {
-                    spriteBatch.Draw(texture, position, animation.CurrentFrame.sourceRectangle, Color.White, 0, new Vector2(0, 0), new Vector2(1, 1), SpriteEffects.FlipHorizontally, 0);
+                    Game1._spriteBatch.Draw(texture, position, animation.CurrentFrame.sourceRectangle, Color.White, 0, new Vector2(0, 0), new Vector2(1, 1), SpriteEffects.FlipHorizontally, 0);
                 }
             } else
             {
@@ -99,10 +101,10 @@ namespace Slime.Characters
             }
             
         }
-        public void Update(GameTime gameTime, Hero hero)
+        public void Update(GameTime gameTime)
         {
             animation.UpdateEnemy(gameTime ,this);
-            Move(hero);
+            Move();
             hitbox.X = (int)position.X;
             hitbox.Y = (int)position.Y;
 
@@ -113,7 +115,7 @@ namespace Slime.Characters
         #endregion
 
         #region Private methods
-        private void Move(Hero hero)
+        private void Move()
         {
             if(EnemyType == Type.Ground)
             {
@@ -130,24 +132,28 @@ namespace Slime.Characters
                 }
             } else
             {
-                if(position.X < hero.position.X)
+                if(hero.health > 0 && currentState == GameStates.Level1)
                 {
-                    position.X += speedGround / 2;
-                    animationState = AnimationState.runningRight;
+                    if (position.X < hero.position.X)
+                    {
+                        position.X += speedGround / 2;
+                        animationState = AnimationState.runningRight;
+                    }
+                    if (position.X > hero.position.X)
+                    {
+                        position.X -= speedGround / 2;
+                        animationState = AnimationState.runningLeft;
+                    }
+                    if (position.Y < hero.position.Y)
+                    {
+                        position.Y += speedGround / 2;
+                    }
+                    if (position.Y > hero.position.Y)
+                    {
+                        position.Y -= speedGround / 2;
+                    }
                 }
-                if (position.X > hero.position.X)
-                {
-                    position.X -= speedGround / 2;
-                    animationState = AnimationState.runningLeft;
-                }
-                if (position.Y < hero.position.Y)
-                {
-                    position.Y += speedGround / 2;
-                }
-                if (position.Y > hero.position.Y)
-                {
-                    position.Y -= speedGround / 2;
-                }
+                
 
             }
             #endregion

@@ -65,18 +65,18 @@ namespace Slime.Characters
             hitboxBody = new Rectangle((int)position.X, (int)position.Y, 30, 35);
 
         }
-        public void Draw(SpriteBatch spriteBatch, Texture2D heroTexture)
+        public void Draw()
         {
 
             if(isAlive)
             {
                 if (!animation.goingLeft)
                 {
-                    spriteBatch.Draw(heroTexture, position, animation.CurrentFrame.sourceRectangle, Color.White);
+                    Game1._spriteBatch.Draw(heroTexture, position, animation.CurrentFrame.sourceRectangle, Color.White);
                 }
                 else
                 {
-                    spriteBatch.Draw(heroTexture, position, animation.CurrentFrame.sourceRectangle, Color.White, 0, new Vector2(0, 0), new Vector2(1, 1), SpriteEffects.FlipHorizontally, 0);
+                    Game1._spriteBatch.Draw(heroTexture, position, animation.CurrentFrame.sourceRectangle, Color.White, 0, new Vector2(0, 0), new Vector2(1, 1), SpriteEffects.FlipHorizontally, 0);
                 }
             } else
             {
@@ -89,17 +89,13 @@ namespace Slime.Characters
             
         }
 
-        public void Update(GameTime gameTime, KeyboardReader kb)
+        public void Update(GameTime gameTime)
         {
             CheckHealth();
             Move(gameTime);
-            animation.Update(gameTime, kb);
+            animation.Update(gameTime, inputReader);
 
             
-        }
-        public void Update(GameTime gameTime)
-        {
-            throw new NotImplementedException();
         }
         #endregion
 

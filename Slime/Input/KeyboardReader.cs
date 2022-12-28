@@ -63,9 +63,7 @@ namespace Slime.Input
             if (hero.isFalling)
             {
                 AnimationState = states.Jumping;
-                float i = 10;
                 hero.velocity.Y += 0.15f * 1;
-                //hero.hasJumped = false;
             }
 
             if (hero.position.Y >= hero.currentFloorTile.Y + 50)

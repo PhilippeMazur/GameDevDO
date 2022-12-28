@@ -14,7 +14,7 @@ namespace Slime.GameElements
 {
     public class Coin
     {
-
+        private Texture2D texture;
         public bool isCollected = false;
         public Vector2 position;
         public Rectangle hitbox;
@@ -27,11 +27,10 @@ namespace Slime.GameElements
         }
         public CoinLevelType level;
 
-        public Coin(Texture2D texture, Vector2 position, CoinLevelType level)
+        public Coin(Texture2D texturein, Vector2 positionin, CoinLevelType levelin)
         {
-            texture = texture;
-            this.position = position;
-            this.hitbox = hitbox;
+            this.texture= texturein;
+            this.position = positionin;
             hitbox = new Rectangle((int)position.X, (int)position.Y, 16, 16);
 
             animation.AddFrame(new AnimationFrame(new Rectangle(0, 0, 16, 16)));
@@ -49,14 +48,14 @@ namespace Slime.GameElements
             animation.AddFrame(new AnimationFrame(new Rectangle(192, 0, 16, 16)));
             animation.AddFrame(new AnimationFrame(new Rectangle(208, 0, 16, 16)));
             animation.AddFrame(new AnimationFrame(new Rectangle(224, 0, 16, 16)));
-            this.level = level;
+            this.level = levelin;
         }
 
-        public void Draw(SpriteBatch spriteBatch, Texture2D coinTexture)
+        public void Draw(SpriteBatch spriteBatch)
         {
             if(!isCollected)
             {
-                spriteBatch.Draw(coinTexture, position, animation.CurrentFrame.sourceRectangle, Color.White, 0, new Vector2(0, 0), new Vector2(3, 3), SpriteEffects.None, 0);
+                spriteBatch.Draw(texture, position, animation.CurrentFrame.sourceRectangle, Color.White, 0, new Vector2(0, 0), new Vector2(3, 3), SpriteEffects.None, 0);
             }
         }
 
