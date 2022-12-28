@@ -54,7 +54,6 @@ namespace Slime.Input
             hero.position += hero.velocity;
             if (Keyboard.GetState().IsKeyDown(Keys.Space) && !hero.isFalling && !hero.hasJumped && hero.position.Y >= hero.currentFloorTile.Y)
             {
-                Debug.WriteLine("test");
                 hero.position.Y -= 10f;
                 hero.velocity.Y = -5f;
                 hero.hasJumped = true;

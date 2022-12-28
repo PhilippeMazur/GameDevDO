@@ -12,10 +12,6 @@ namespace Slime.Interfaces
     internal interface IGameObject
     {
         void Draw();
-        void Update();
-        
-        
-
-
+        void Update(GameTime gameTime);
     }
 }

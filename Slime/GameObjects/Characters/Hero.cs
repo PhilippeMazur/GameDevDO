@@ -19,9 +19,8 @@ using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 
 namespace Slime.Characters
 {
-    public class Hero
+    public class Hero : IGameObject, IMovable
     {
-        #region Properties and Variables
         public Texture2D heroTexture { get; set; }
         public KeyboardReader inputReader { get; set; }
         public Animation animation { get; set; } = new Animation();
@@ -39,9 +38,8 @@ namespace Slime.Characters
         public Vector2 velocity;
         public bool hasJumped = false;
         public bool isFalling = false;
-        #endregion
+        
 
-        #region Constructor
         public Hero(Texture2D heroTexture, KeyboardReader inputReader)
         {
             this.heroTexture = heroTexture;
@@ -56,9 +54,7 @@ namespace Slime.Characters
        
 
         }
-        #endregion
 
-        #region Public methods
         public void LoadContent()
         {
             hitbox = new Rectangle((int)position.X, (int)position.Y, 50, 50);
@@ -92,15 +88,13 @@ namespace Slime.Characters
         public void Update(GameTime gameTime)
         {
             CheckHealth();
-            Move(gameTime);
+            Move();
             animation.Update(gameTime, inputReader);
 
             
         }
-        #endregion
 
-        #region Private methods
-        private void Move(GameTime gameTime)
+        public void Move()
         {
             Vector2 direction = inputReader.ReadInput(position, this);
             direction *= snelheid;
@@ -121,6 +115,5 @@ namespace Slime.Characters
                 position = new Vector2(100, 500);
             }
         }
-        #endregion
     }
 }

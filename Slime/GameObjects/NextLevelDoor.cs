@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Project1.Animations;
 using SharpDX.Direct2D1;
 using Slime.Characters;
+using Slime.Interfaces;
 using Slime.UI;
 using System;
 using System.Collections.Generic;
@@ -14,14 +15,16 @@ using Texture = Slime.UI.Texture;
 
 namespace Slime.GameElements
 {
-    public class NextLevelDoor
+    public class NextLevelDoor : IGameObject
     {
         Texture2D texture;
+        SpriteFont font;
         public bool isOpened = false;
         public Vector2 position;
         public Vector2 positionText;
         public Rectangle hitbox;
         public Animation animation = new Animation();
+        private Hero hero;
         public enum DoorLevel
         {
             Level1,
@@ -35,12 +38,14 @@ namespace Slime.GameElements
         public DoorLevel level;
         public AnimationState state = AnimationState.Closed;
 
-        public NextLevelDoor(Vector2 position, DoorLevel level, Texture2D texturein)
+        public NextLevelDoor(Vector2 position, DoorLevel level, Texture2D texturein, Hero heroin, SpriteFont fontin)
         {
             texture = texturein;
             this.position = position;
             this.positionText = new Vector2((float)position.X + 6, (float)position.Y - 30);
             hitbox = new Rectangle((int)position.X, (int)position.Y, 51, 50);
+            hero = heroin;
+            font = fontin;
 
             animation.AddFrame(new AnimationFrame(new Rectangle(0, 0, 51, 50)));
             animation.AddFrame(new AnimationFrame(new Rectangle(51, 0, 51, 50)));
@@ -49,28 +54,29 @@ namespace Slime.GameElements
             animation.AddFrame(new AnimationFrame(new Rectangle(204, 0, 51, 50)));
             animation.AddFrame(new AnimationFrame(new Rectangle(255, 0, 51, 50)));
             this.level = level;
+            this.hero = hero;
         }
 
-        public void Draw(GameSceneManager2 gameSceneManager2, Hero hero)
+        public void Draw()
         {
             if(Game1.currentState == Game1.GameStates.Level1 && hero.coinsLevel1 < 2)
             {
-                Game1._spriteBatch.DrawString(gameSceneManager2.texture.fontDictionary[Texture.TextureType.Font], $"{hero.coinsLevel1} / 2", positionText, Color.White, 0, new Vector2(0, 0), 0.5f, SpriteEffects.None, 0);
+                Game1._spriteBatch.DrawString(font, $"{hero.coinsLevel1} / 2", positionText, Color.White, 0, new Vector2(0, 0), 0.5f, SpriteEffects.None, 0);
             }
             if (Game1.currentState == Game1.GameStates.Level2 && hero.coinsLevel2 < 4)
             {
-                Game1._spriteBatch.DrawString(gameSceneManager2.texture.fontDictionary[Texture.TextureType.Font], $"{hero.coinsLevel2} / 4", positionText, Color.White, 0, new Vector2(0, 0), 0.5f, SpriteEffects.None, 0);
+                Game1._spriteBatch.DrawString(font, $"{hero.coinsLevel2} / 4", positionText, Color.White, 0, new Vector2(0, 0), 0.5f, SpriteEffects.None, 0);
             }
             Game1._spriteBatch.Draw(texture, position, animation.CurrentFrame.sourceRectangle, Color.White);
 
         }
-        public void Update(GameTime gameTime, Hero hero)
+        public void Update(GameTime gameTime)
         {
-            CheckPlayerCoins(hero);
+            CheckPlayerCoins();
             animation.Update(gameTime, this);
         }
 
-        public void CheckPlayerCoins(Hero hero)
+        public void CheckPlayerCoins()
         {
             if(Game1.currentState == Game1.GameStates.Level1 && level == DoorLevel.Level1)
             {

@@ -108,14 +108,14 @@ namespace Slime.UI
                 {
                     if (item.level == Coin.CoinLevelType.Level1)
                     {
-                        item.Draw(_spriteBatch);
+                        item.Draw();
                     }
                 }
                 foreach (var item in doors)
                 {
                     if (item.level == NextLevelDoor.DoorLevel.Level1)
                     {
-                        item.Draw(this, hero);
+                        item.Draw();
                     }
                 }
                 scoreUI.Draw(Game1._spriteBatch, texture.fontDictionary[Texture.TextureType.Font]);
@@ -139,14 +139,14 @@ namespace Slime.UI
                 {
                     if (item.level == Coin.CoinLevelType.Level2)
                     {
-                        item.Draw(_spriteBatch);
+                        item.Draw();
                     }
                 }
                 foreach (var item in doors)
                 {
                     if (item.level == NextLevelDoor.DoorLevel.Level2)
                     {
-                        item.Draw(this, hero);
+                        item.Draw();
                     }
                 }
                 scoreUI.Draw(Game1._spriteBatch, texture.fontDictionary[Texture.TextureType.Font]);
@@ -173,7 +173,7 @@ namespace Slime.UI
             {
                 if (item.level == Coin.CoinLevelType.Level1)
                 {
-                    item.update(gameTime);
+                    item.Update(gameTime);
 
                 }
             }
@@ -181,7 +181,7 @@ namespace Slime.UI
             {
                 if (item.level == NextLevelDoor.DoorLevel.Level1)
                 {
-                    item.Update(gameTime, hero);
+                    item.Update(gameTime);
                 }
             }
 
@@ -205,7 +205,7 @@ namespace Slime.UI
                 {
                     foreach (var item in doors)
                     {
-                        item.CheckPlayerCoins(hero);
+                        item.CheckPlayerCoins();
                     }
                 }
                 if (currentState == GameStates.StartScreen)
@@ -229,19 +229,19 @@ namespace Slime.UI
             {
                 if (item.level == Coin.CoinLevelType.Level2)
                 {
-                    item.update(gameTime);
+                    item.Update(gameTime);
                 }
             }
             foreach (var item in doors)
             {
                 if (item.level == DoorLevel.Level2)
                 {
-                    item.Update(gameTime, hero);
+                    item.Update(gameTime);
                 }
             }
             foreach (var item in doors)
             {
-                item.Update(gameTime, hero);
+                item.Update(gameTime);
             }
 
             if (currentState == GameStates.Level1 || currentState == GameStates.Level2)
@@ -261,7 +261,7 @@ namespace Slime.UI
                 {
                     foreach (var item in doors)
                     {
-                        item.CheckPlayerCoins(hero);
+                        item.CheckPlayerCoins();
                     }
                 }
                 if (currentState == GameStates.StartScreen)
@@ -324,9 +324,9 @@ namespace Slime.UI
         }
         private void generateDoors()
         {
-            NextLevelDoor doorLevel1 = new NextLevelDoor(new Vector2(300, 150), DoorLevel.Level1, texture.textureDictionary[Texture.TextureType.Door]);
+            NextLevelDoor doorLevel1 = new NextLevelDoor(new Vector2(300, 150), DoorLevel.Level1, texture.textureDictionary[Texture.TextureType.Door], hero, texture.fontDictionary[Texture.TextureType.Font]);
             doors.Add(doorLevel1);
-            NextLevelDoor doorLevel2 = new NextLevelDoor(new Vector2(800, 50), DoorLevel.Level2, texture.textureDictionary[Texture.TextureType.Door]);
+            NextLevelDoor doorLevel2 = new NextLevelDoor(new Vector2(800, 50), DoorLevel.Level2, texture.textureDictionary[Texture.TextureType.Door], hero, texture.fontDictionary[Texture.TextureType.Font]);
             doors.Add(doorLevel2);
         }
         private void generateCoins()

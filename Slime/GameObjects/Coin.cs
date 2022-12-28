@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Project1.Animations;
 using SharpDX.Direct2D1;
+using Slime.Interfaces;
 using Slime.UI;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 
 namespace Slime.GameElements
 {
-    public class Coin
+    public class Coin : IGameObject
     {
         private Texture2D texture;
         public bool isCollected = false;
@@ -51,15 +52,15 @@ namespace Slime.GameElements
             this.level = levelin;
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw()
         {
             if(!isCollected)
             {
-                spriteBatch.Draw(texture, position, animation.CurrentFrame.sourceRectangle, Color.White, 0, new Vector2(0, 0), new Vector2(3, 3), SpriteEffects.None, 0);
+                Game1._spriteBatch.Draw(texture, position, animation.CurrentFrame.sourceRectangle, Color.White, 0, new Vector2(0, 0), new Vector2(3, 3), SpriteEffects.None, 0);
             }
         }
 
-        public void update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
             animation.Update(gameTime, 20);
         }

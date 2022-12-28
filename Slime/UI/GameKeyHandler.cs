@@ -20,16 +20,12 @@ namespace Slime.UI
     public class GameKeyHandler
     {
         private Rectangle recPos;
-        //private Texture2D texture;
         private Vector2 position;
         private double counter;
         private double counter2;
         private int randNumber = 1000;
         private int xValue;
         private int yValue;        
-
-
-
         public GameKeyHandler(Rectangle recPosIn, Vector2 positionin)
         {
             recPos = recPosIn;

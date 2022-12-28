@@ -16,10 +16,9 @@ using Texture2D = Microsoft.Xna.Framework.Graphics.Texture2D;
 
 namespace Slime.Characters
 {
-    public class Enemy
+    public class Enemy : IGameObject, IMovable
     {
 
-        #region Variables
         private Texture2D texture;
         public Vector2 position;
         public Vector2 startPosition;
@@ -49,9 +48,7 @@ namespace Slime.Characters
         public Type EnemyType;
 
         public int scoreValue = 1;
-        #endregion
 
-        #region Constructor
         public Enemy(Texture2D texturein, Vector2 posin, int maxDistance,Type enemyType,  Level level, Hero heroin)
         {
             texture = texturein;
@@ -74,9 +71,7 @@ namespace Slime.Characters
             animation.AddFrame(new AnimationFrame(new Rectangle(50, 1, width, height)));
 
         }
-        #endregion
 
-        #region Public methods
         public void LoadContent()
         {
             hitbox = new Rectangle((int)position.X, (int)position.Y, 50, 50);
@@ -112,10 +107,8 @@ namespace Slime.Characters
             hitboxBody.Y = (int)position.Y + 15;
 
         }
-        #endregion
 
-        #region Private methods
-        private void Move()
+        public void Move()
         {
             if(EnemyType == Type.Ground)
             {
@@ -156,8 +149,6 @@ namespace Slime.Characters
                 
 
             }
-            #endregion
-
         }
 
     }
