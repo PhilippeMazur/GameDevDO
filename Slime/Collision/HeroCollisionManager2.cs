@@ -28,58 +28,53 @@ namespace Slime.Collision
             //check collision in level1
             if (Game1.currentState == Game1.GameStates.Level1)
             {
-                foreach (var item in map.blocks)
+                foreach (var item in map.Blocks)
                 {
 
-                    if (item.recPos.Intersects(hero.HitboxBody) && (item.MyType is Block.typeBlock.FLOOR || item.MyType is Block.typeBlock.FLOOR2 || item.MyType is Block.typeBlock.SPIKE || item.MyType is Block.typeBlock.SPIKE2))
+                    if (item.RecPos.Intersects(hero.HitboxBody) && (item.MyType is Block.typeBlock.FLOOR || item.MyType is Block.typeBlock.FLOOR2 || item.MyType is Block.typeBlock.SPIKE || item.MyType is Block.typeBlock.SPIKE2))
                     {
-                        if (hero.Position.X + 27 >= item.recPos.X || hero.Position.X - 27 <= item.recPos.X && hero.Position.Y + 13 >= item.recPos.Y)
+                        if (hero.Position.X + 27 >= item.RecPos.X || hero.Position.X - 27 <= item.RecPos.X && hero.Position.Y + 13 >= item.RecPos.Y)
                         {
-                            if (hero.Position.Y <= item.recPos.Y && item.MyType == Block.typeBlock.FLOOR2)
+                            if (hero.Position.Y <= item.RecPos.Y && item.MyType == Block.typeBlock.FLOOR2)
                             {
                                 //hero.currentFloorTile.X = item.recPos.X + 50;
                                 //hero.currentFloorTile.Y = item.recPos.Y - 50;
                                 //hero.previousFloorTile = hero.currentFloorTile;
-                                hero.CurrentFloorTile = new Vector2(item.recPos.X + 50, item.recPos.Y - 50);
+                                hero.CurrentFloorTile = new Vector2(item.RecPos.X + 50, item.RecPos.Y - 50);
                                 hero.PreviousFloorTile = hero.CurrentFloorTile;
                             }
-                            hero.Position = new Vector2(hero.Position.X, item.recPos.Y - 50);
+                            hero.Position = new Vector2(hero.Position.X, item.RecPos.Y - 50);
                             hero.IsFalling = false;
                             hero.HasJumped = false;
                         }
 
-                        if ((item.MyType == Block.typeBlock.FLOOR2 || item.MyType == Block.typeBlock.FLOOR) && item.recPos.Y < hero.HitboxBody.Y && item.recPos.X >= hero.HitboxBody.X)
+                        if ((item.MyType == Block.typeBlock.FLOOR2 || item.MyType == Block.typeBlock.FLOOR) && item.RecPos.Y < hero.HitboxBody.Y && item.RecPos.X >= hero.HitboxBody.X)
                         {
                             kb.SpeedRight = 0;
                         }
-                        else if ((item.MyType == Block.typeBlock.FLOOR2 || item.MyType == Block.typeBlock.FLOOR) && item.recPos.Y < hero.HitboxBody.Y && item.recPos.X <= hero.HitboxBody.X)
+                        else if ((item.MyType == Block.typeBlock.FLOOR2 || item.MyType == Block.typeBlock.FLOOR) && item.RecPos.Y < hero.HitboxBody.Y && item.RecPos.X <= hero.HitboxBody.X)
                         {
                             kb.SpeedLeft = 0;
                         }
                         if (item.MyType == Block.typeBlock.SPIKE)
                         {
-                            if (hero.Position.X >= item.recPos.X - 20)
+                            if (hero.Position.X >= item.RecPos.X - 20)
                             {
-                                //hero.position.Y -= 100;
                                 hero.Position -= new Vector2(0, 100);
-                                //hero.position.X += 50;
                                 hero.Position += new Vector2(50, 0);
 
                             }
                             else
                             {
-                                //hero.position.X -= 100;
                                 hero.Position -= new Vector2(100, 0);
                             }
                             hero.Health -= 1;
                             hero.Hit = true;
 
                         }
-                        if (hero.Position.Y < item.recPos.Bottom && hero.Position.Y < hero.CurrentFloorTile.Y)
+                        if (hero.Position.Y < item.RecPos.Bottom && hero.Position.Y < hero.CurrentFloorTile.Y)
                         {
-                            //hero.currentFloorTile.X = item.recPos.X;
-                            //hero.currentFloorTile.Y = item.recPos.Y;
-                            hero.CurrentFloorTile = new Vector2(item.recPos.X, item.recPos.Y);
+                            hero.CurrentFloorTile = new Vector2(item.RecPos.X, item.RecPos.Y);
                         }
 
                     }
@@ -96,67 +91,54 @@ namespace Slime.Collision
                     }
                 }
 
-                foreach (var item in map.blocks2)
+                foreach (var item in map.Blocks2)
                 {
 
-                    if (item.recPos.Intersects(hero.HitboxBody) && (item.MyType is Block.typeBlock.FLOOR || item.MyType is Block.typeBlock.FLOOR2 || item.MyType is Block.typeBlock.SPIKE || item.MyType is Block.typeBlock.SPIKE2))
+                    if (item.RecPos.Intersects(hero.HitboxBody) && (item.MyType is Block.typeBlock.FLOOR || item.MyType is Block.typeBlock.FLOOR2 || item.MyType is Block.typeBlock.SPIKE || item.MyType is Block.typeBlock.SPIKE2))
                     {
-                        if (hero.Position.X + 27 >= item.recPos.X || hero.Position.X - 27 <= item.recPos.X && hero.Position.Y + 13 >= item.recPos.Y)
+                        if (hero.Position.X + 27 >= item.RecPos.X || hero.Position.X - 27 <= item.RecPos.X && hero.Position.Y + 13 >= item.RecPos.Y)
                         {
-                            if (hero.Position.Y <= item.recPos.Y && item.MyType == Block.typeBlock.FLOOR2)
+                            if (hero.Position.Y <= item.RecPos.Y && item.MyType == Block.typeBlock.FLOOR2)
                             {
-                                //hero.previousFloorTile = hero.currentFloorTile;
-                                //hero.currentFloorTile.X = item.recPos.X + 50;
-                                //hero.currentFloorTile.Y = item.recPos.Y - 50;
-                                //hero.previousFloorTile = hero.currentFloorTile;
-                                hero.CurrentFloorTile = new Vector2(item.recPos.X + 50, item.recPos.Y - 50);
+
+                                hero.CurrentFloorTile = new Vector2(item.RecPos.X + 50, item.RecPos.Y - 50);
                                 hero.PreviousFloorTile = hero.CurrentFloorTile;
                             }
-                            //hero.position.Y = item.recPos.Y - 50;
-                            hero.Position = new Vector2(hero.Position.X, item.recPos.Y - 50);
+                            hero.Position = new Vector2(hero.Position.X, item.RecPos.Y - 50);
 
                             hero.IsFalling = false;
                             hero.HasJumped = false;
                         }
 
-                        if ((item.MyType == Block.typeBlock.FLOOR2 || item.MyType == Block.typeBlock.FLOOR) && item.recPos.Y < hero.HitboxBody.Y && item.recPos.X >= hero.HitboxBody.X)
+                        if ((item.MyType == Block.typeBlock.FLOOR2 || item.MyType == Block.typeBlock.FLOOR) && item.RecPos.Y < hero.HitboxBody.Y && item.RecPos.X >= hero.HitboxBody.X)
                         {
                             kb.SpeedRight = 0;
                         }
-                        else if ((item.MyType == Block.typeBlock.FLOOR2 || item.MyType == Block.typeBlock.FLOOR) && item.recPos.Y < hero.HitboxBody.Y && item.recPos.X <= hero.HitboxBody.X)
+                        else if ((item.MyType == Block.typeBlock.FLOOR2 || item.MyType == Block.typeBlock.FLOOR) && item.RecPos.Y < hero.HitboxBody.Y && item.RecPos.X <= hero.HitboxBody.X)
                         {
                             kb.SpeedLeft = 0;
                         }
                         if (item.MyType == Block.typeBlock.SPIKE)
                         {
-                            if (hero.Position.X >= item.recPos.X - 20)
+                            if (hero.Position.X >= item.RecPos.X - 20)
                             {
-                                //hero.position.X += 100;
                                 hero.Position += new Vector2(100, 0);
-
-
                             }
                             else
                             {
-                                //hero.position.X -= 100;
                                 hero.Position -= new Vector2(100, 0);
-
                             }
                             hero.Health -= 1;
                             hero.Hit = true;
-
                         }
-                        if (hero.Position.Y < item.recPos.Bottom && hero.Position.Y < hero.CurrentFloorTile.Y)
+                        if (hero.Position.Y < item.RecPos.Bottom && hero.Position.Y < hero.CurrentFloorTile.Y)
                         {
-                            //hero.currentFloorTile.X = item.recPos.X;
-                            //hero.currentFloorTile.Y = item.recPos.Y;
-                            hero.CurrentFloorTile = new Vector2(item.recPos.X, item.recPos.Y);
+                            hero.CurrentFloorTile = new Vector2(item.RecPos.X, item.RecPos.Y);
                         }
 
                     }
                 }
             }
-
             //Check Enemy collision
             foreach (var item in enemyList)
             {
@@ -168,14 +150,10 @@ namespace Slime.Collision
 
                         score.ScoreValue += item.scoreValue;
                         item.scoreValue = 0;
-
-
                     }
                     else if (hero.HitboxBody.Intersects(item.hitboxBody) && hero.Position.Y <= item.Position.Y && item.IsAlive)
                     {
-                        //hero.position.X -= 100;
                         hero.Position -= new Vector2(100, 0);
-
                         hero.Health -= 1;
                         hero.Hit = true;
                     }
@@ -188,14 +166,10 @@ namespace Slime.Collision
 
                         score.ScoreValue += item.scoreValue;
                         item.scoreValue = 0;
-
-
                     }
                     else if (hero.HitboxBody.Intersects(item.hitboxBody) && hero.Position.Y <= item.Position.Y && item.IsAlive)
                     {
-                        //hero.position.X -= 100;
                         hero.Position -= new Vector2(100, 0);
-
                         hero.Health -= 1;
                         hero.Hit = true;
                     }
@@ -266,7 +240,6 @@ namespace Slime.Collision
                     if (item.Level == NextLevelDoor.DoorLevel.Level2 && item.IsOpened)
                     {
                         Game1.currentState = Game1.GameStates.WinningScreen;
-
                     }
 
                 }

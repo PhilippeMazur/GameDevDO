@@ -10,12 +10,15 @@ namespace Slime.Map
 {
     public class Block
     {
-        public Vector2 pos;
-        public Rectangle recPos;
-        public Rectangle recPosV2;
-        public Rectangle textureRectangle;
-        public int w = 50;
-        public int h = 50;
+        public Vector2 Pos { get { return pos; } set { pos = value; } }
+        private Vector2 pos;
+        public Rectangle RecPos { get { return recPos; } set { recPos = value; } }
+        private Rectangle recPos;
+        private Rectangle recPosV2;
+        public Rectangle TextureRectangle { get { return textureRectangle; } set { textureRectangle = value; } }
+        private Rectangle textureRectangle;
+        private int w = 50;
+        private int h = 50;
         public typeBlock MyType { get; set; }
         public enum typeBlock
         {

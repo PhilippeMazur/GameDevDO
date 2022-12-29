@@ -15,12 +15,14 @@ namespace Slime.Map
     {
         private Texture2D levelBackgroundTexture;
         private Texture2D tilesetTexture;
-        public Vector2 backgroundPos = new Vector2(0,0);
+        private Vector2 backgroundPos = new Vector2(0,0);
         private double counter;
-        public List<Block> blocks = new List<Block>();
-        public List<Block> blocks2 = new List<Block>();
-        public List<Block> allTiles = new List<Block>();
-        int[,] level = new int[,]
+        public List<Block> Blocks { get { return blocks; } set { blocks = value; } }
+        private List<Block> blocks = new List<Block>();
+        public List<Block> Blocks2 { get { return blocks2; } set { blocks2 = value; } }
+        private List<Block> blocks2 = new List<Block>();
+        private List<Block> allTiles = new List<Block>();
+        private int[,] level = new int[,]
         {
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -38,7 +40,7 @@ namespace Slime.Map
             {2,2,2,1,1,3,3,3,2,2,2,1,1,1,1,2,2,2,2,2}
 
         };
-        int[,] level2 = new int[,]
+        private int[,] level2 = new int[,]
         {
             {0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
             {0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -89,7 +91,7 @@ namespace Slime.Map
                 {
                     if (item.MyType != Block.typeBlock.SKY)
                     {
-                        Game1._spriteBatch.Draw(tilesetTexture, item.pos, item.textureRectangle, Color.White);
+                        Game1._spriteBatch.Draw(tilesetTexture, item.Pos, item.TextureRectangle, Color.White);
 
                     }
                 }
@@ -99,7 +101,7 @@ namespace Slime.Map
                 {
                     if (item.MyType != Block.typeBlock.SKY)
                     {
-                        Game1._spriteBatch.Draw(tilesetTexture, item.pos, item.textureRectangle, Color.White);
+                        Game1._spriteBatch.Draw(tilesetTexture, item.Pos, item.TextureRectangle, Color.White);
 
                     }
                 }
