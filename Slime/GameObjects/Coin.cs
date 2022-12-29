@@ -16,11 +16,14 @@ namespace Slime.GameElements
     public class Coin : IGameObject
     {
         private Texture2D texture;
-        public bool isCollected = false;
-        public Vector2 position;
-        public Rectangle hitbox;
-        public Animation animation = new Animation();
-        public int value = 1;
+        public bool IsCollected { get { return isCollected; } set { isCollected = value; } }
+        private bool isCollected = false;
+        private Vector2 position;
+        public Rectangle Hitbox { get { return hitbox; } set { hitbox = value; } }
+        private Rectangle hitbox;
+        private Animation animation = new Animation();
+        public int CoinValue { get { return coinValue; } set { coinValue = value; } }
+        private int coinValue = 1;
         public enum CoinLevelType
         {
             Level1,

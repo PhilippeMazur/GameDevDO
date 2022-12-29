@@ -13,16 +13,17 @@ namespace Slime.UI
 {
     public class Score
     {
-        public SpriteFont font;
-        public int score = 0;
-        public Score()
+        private SpriteFont font;
+        public int ScoreValue { get { return scoreValue; } set { scoreValue = value; } }
+        private int scoreValue = 0;
+        public Score(SpriteFont fontin)
         {
-            
+            font = fontin;
         }
 
-        public void Draw(SpriteBatch spriteBatch, SpriteFont font)
+        public void Draw()
         {
-            spriteBatch.DrawString(font, $"Score : {score}", new Vector2(10, 50), Color.White);
+            Game1._spriteBatch.DrawString(font, $"Score : {scoreValue}", new Vector2(10, 50), Color.White);
         }
 
     }

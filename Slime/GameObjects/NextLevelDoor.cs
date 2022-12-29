@@ -17,26 +17,23 @@ namespace Slime.GameElements
 {
     public class NextLevelDoor : IGameObject
     {
-        Texture2D texture;
-        SpriteFont font;
-        public bool isOpened = false;
-        public Vector2 position;
-        public Vector2 positionText;
-        public Rectangle hitbox;
-        public Animation animation = new Animation();
+        private Texture2D texture;
+        private SpriteFont font;
+        public bool IsOpened { get { return isOpened; } set { isOpened = value; } }
+        private bool isOpened = false;
+        private Vector2 position;
+        private Vector2 positionText;
+        public Rectangle Hitbox { get { return hitbox; } set { hitbox = value; } }
+        private Rectangle hitbox;
+        private Animation animation = new Animation();
         private Hero hero;
         public enum DoorLevel
         {
             Level1,
             Level2
         }
-        public enum AnimationState
-        {
-            Closed,
-            Open
-        }
-        public DoorLevel level;
-        public AnimationState state = AnimationState.Closed;
+        public DoorLevel Level { get { return level; } set { level = value; } }
+        private DoorLevel level;
 
         public NextLevelDoor(Vector2 position, DoorLevel level, Texture2D texturein, Hero heroin, SpriteFont fontin)
         {
@@ -54,18 +51,17 @@ namespace Slime.GameElements
             animation.AddFrame(new AnimationFrame(new Rectangle(204, 0, 51, 50)));
             animation.AddFrame(new AnimationFrame(new Rectangle(255, 0, 51, 50)));
             this.level = level;
-            this.hero = hero;
         }
 
         public void Draw()
         {
-            if(Game1.currentState == Game1.GameStates.Level1 && hero.coinsLevel1 < 2)
+            if(Game1.currentState == Game1.GameStates.Level1 && hero.CoinsLevel1 < 2)
             {
-                Game1._spriteBatch.DrawString(font, $"{hero.coinsLevel1} / 2", positionText, Color.White, 0, new Vector2(0, 0), 0.5f, SpriteEffects.None, 0);
+                Game1._spriteBatch.DrawString(font, $"{hero.CoinsLevel1} / 2", positionText, Color.White, 0, new Vector2(0, 0), 0.5f, SpriteEffects.None, 0);
             }
-            if (Game1.currentState == Game1.GameStates.Level2 && hero.coinsLevel2 < 4)
+            if (Game1.currentState == Game1.GameStates.Level2 && hero.CoinsLevel2 < 4)
             {
-                Game1._spriteBatch.DrawString(font, $"{hero.coinsLevel2} / 4", positionText, Color.White, 0, new Vector2(0, 0), 0.5f, SpriteEffects.None, 0);
+                Game1._spriteBatch.DrawString(font, $"{hero.CoinsLevel2} / 4", positionText, Color.White, 0, new Vector2(0, 0), 0.5f, SpriteEffects.None, 0);
             }
             Game1._spriteBatch.Draw(texture, position, animation.CurrentFrame.sourceRectangle, Color.White);
 
@@ -80,7 +76,7 @@ namespace Slime.GameElements
         {
             if(Game1.currentState == Game1.GameStates.Level1 && level == DoorLevel.Level1)
             {
-                if (hero.coinsLevel1 >= 2)
+                if (hero.CoinsLevel1 >= 2)
                 {
                     isOpened = true;
                 }
@@ -91,7 +87,7 @@ namespace Slime.GameElements
             }
             if(Game1.currentState == Game1.GameStates.Level2 && level == DoorLevel.Level2)
             {
-                if (hero.coinsLevel2 >= 4)
+                if (hero.CoinsLevel2 >= 4)
                 {
                     isOpened = true;
                 }

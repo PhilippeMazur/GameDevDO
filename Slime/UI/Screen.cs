@@ -14,7 +14,8 @@ namespace Slime.UI
     {
         private Texture2D texture;
         private Rectangle Position;
-        public Animation animation;
+        public Animation Animation { get { return animation; } set { animation = value; } }
+        private Animation animation;
         private Text text;
         public Screen(Texture2D texturein, Rectangle positionin, Animation Animationin, Text textin)
         {

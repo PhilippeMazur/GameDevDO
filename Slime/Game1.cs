@@ -70,7 +70,6 @@ namespace Slime
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
             gameSceneManager2.Draw();
-            _spriteBatch.DrawString(gameSceneManager2.texture.fontDictionary[Texture.TextureType.Font], $"{gameSceneManager2.hero.position.X} : {string.Format("{0:F0}", gameSceneManager2.hero.position.Y)}", new Vector2(500, 0), Color.Yellow);
             base.Draw(gameTime);
             _spriteBatch.End(); 
             

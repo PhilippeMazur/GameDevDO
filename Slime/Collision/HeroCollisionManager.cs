@@ -14,6 +14,7 @@ namespace Slime.Collision
 {
     internal class HeroCollisionManager
     {
+        /*
         public void Update(TileMap map, Hero hero, KeyboardReader kb, List<NextLevelDoor> doors, List<Enemy> enemyList, List<Coin> coinList, Score score)
         {
             //check if player goes out of bounds
@@ -251,10 +252,11 @@ namespace Slime.Collision
                     }
 
                 }
+
             }
             
             
             
-        }
+        }*/
     }
 }

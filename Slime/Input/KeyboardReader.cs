@@ -25,12 +25,13 @@ namespace Slime.Input
             Jumping, 
             LostHealth
         }
-        public states AnimationState;
-        public int speed = 1;
+        public states AnimationState { get { return animationState; } set { animationState = value; } }
+        private states animationState;
 
-        public int speedLeft = 1;
-        public int speedRight = 1;
-        public bool canJump;
+        public int SpeedLeft { get { return speedLeft; } set { speedLeft = value; } }
+        private int speedLeft = 1;
+        public int SpeedRight { get { return speedRight; } set { speedRight = value; } }
+        private int speedRight = 1;
 
         
         public Vector2 ReadInput(Vector2 pos, Hero hero)
@@ -52,46 +53,48 @@ namespace Slime.Input
             }
 
 
-            hero.Position += hero.velocity;
-            if (Keyboard.GetState().IsKeyDown(Keys.Space) && !hero.isFalling && !hero.hasJumped && hero.position.Y >= hero.currentFloorTile.Y)
+            hero.Position += hero.Velocity;
+            if (Keyboard.GetState().IsKeyDown(Keys.Space) && !hero.IsFalling && !hero.HasJumped && hero.Position.Y >= hero.CurrentFloorTile.Y)
             {
-                hero.position.Y -= 10f;
-                hero.velocity.Y = -5f;
-                hero.hasJumped = true;
+                hero.Position -= new Vector2(0, 10f);
+                //hero.velocity.Y = -5f;
+                hero.Velocity = new Vector2(hero.Velocity.X, -5f);
+                hero.HasJumped = true;
             }
 
-            if (hero.isFalling)
+            if (hero.IsFalling)
             {
                 AnimationState = states.Jumping;
-                hero.velocity.Y += 0.15f * 1;
-            }
-
-            if (hero.position.Y >= hero.currentFloorTile.Y + 50)
-            {
-                hero.isFalling = false;
-                hero.hasJumped = false;
-
-            }
-            if(hero.position.Y <= hero.currentFloorTile.Y)
-            {
-                hero.hasJumped = true;
-                hero.isFalling = true;
+                //hero.velocity.Y += 0.15f * 1;
+                hero.Velocity += new Vector2(0, 0.15f * 1);
 
             }
 
-            if (hero.hasJumped == false)
+            if (hero.Position.Y >= hero.CurrentFloorTile.Y + 50)
             {
-                if(hero.Position.Y >= hero.currentFloorTile.Y)
+                hero.IsFalling = false;
+                hero.HasJumped = false;
+
+            }
+            if(hero.Position.Y <= hero.CurrentFloorTile.Y)
+            {
+                hero.HasJumped = true;
+                hero.IsFalling = true;
+
+            }
+
+            if (hero.HasJumped == false)
+            {
+                if(hero.Position.Y >= hero.CurrentFloorTile.Y)
                 {
-                    hero.hasJumped = false;
+                    hero.HasJumped = false;
                 }
-                if (hero.Position.Y <= hero.currentFloorTile.Y)
+                if (hero.Position.Y <= hero.CurrentFloorTile.Y)
                 {
-                    hero.isFalling = true;
+                    hero.IsFalling = true;
 
                 }
             }
-            speed = 1;
             speedLeft = 1;
             speedRight = 1;
             return direction;

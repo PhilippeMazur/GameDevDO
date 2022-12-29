@@ -23,7 +23,7 @@ namespace Slime.UI
 
         public void Draw(Hero hero)
         {
-            for (int i = 0; i < hero.health * 50; i+=50)
+            for (int i = 0; i < hero.Health * 50; i+=50)
             {
                 
                 Game1._spriteBatch.Draw(texture, new Vector2(i, 0), new Rectangle(0, 0, 100, 100), Color.White, 0,new Vector2(0,0), 0.5f, SpriteEffects.None, 0 );

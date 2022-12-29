@@ -20,30 +20,28 @@ namespace Slime.UI
 {
     public class GameSceneManager2
     {
-        #region Variables
-        public Texture texture = new Texture();
-        public Hero hero;
-        KeyboardReader kb = new KeyboardReader();
-        List<Enemy> enemyList = new List<Enemy>();
-        List<Coin> coinList = new List<Coin>();
-        HeroCollisionManager heroCollisionManager = new HeroCollisionManager();
-        List<NextLevelDoor> doors = new List<NextLevelDoor>();
-        HealthBar health;
-        TileMap map;
-        Score scoreUI = new Score();
+        private Texture texture = new Texture();
+        private Hero hero;
+        private KeyboardReader kb = new KeyboardReader();
+        private List<Enemy> enemyList = new List<Enemy>();
+        private List<Coin> coinList = new List<Coin>();
+        private HeroCollisionManager2 heroCollisionManager = new HeroCollisionManager2();
+        private List<NextLevelDoor> doors = new List<NextLevelDoor>();
+        private HealthBar health;
+        private TileMap map;
+        private Score scoreUI;
         private GameKeyHandler startButton;
-        Screen startMenuScreen;
-        Screen winningScreen;
-        Screen gameOverScreen;
+        private Screen startMenuScreen;
+        private Screen winningScreen;
+        private Screen gameOverScreen;
 
 
-        #endregion
 
-        #region Public methods
         public void LoadContent(ContentManager content, GraphicsDevice graphicsDevicein)
         {
 
             texture.LoadContent(content);
+            scoreUI = new Score(texture.fontDictionary[Texture.TextureType.Font]);
             map = new TileMap(texture.textureDictionary[Texture.TextureType.LevelBackground], texture.textureDictionary[Texture.TextureType.Map]);
             hero = hero = new Hero(texture.textureDictionary[Texture.TextureType.Hero], kb, graphicsDevicein);
             hero.LoadContent();
@@ -113,12 +111,12 @@ namespace Slime.UI
                 }
                 foreach (var item in doors)
                 {
-                    if (item.level == NextLevelDoor.DoorLevel.Level1)
+                    if (item.Level == NextLevelDoor.DoorLevel.Level1)
                     {
                         item.Draw();
                     }
                 }
-                scoreUI.Draw(Game1._spriteBatch, texture.fontDictionary[Texture.TextureType.Font]);
+                scoreUI.Draw();
                 _spriteBatch.Draw(texture.textureDictionary[Texture.TextureType.AbilityBar], new Rectangle(0, 700, 1000, 80), Color.White);
             }
 
@@ -144,12 +142,12 @@ namespace Slime.UI
                 }
                 foreach (var item in doors)
                 {
-                    if (item.level == NextLevelDoor.DoorLevel.Level2)
+                    if (item.Level == NextLevelDoor.DoorLevel.Level2)
                     {
                         item.Draw();
                     }
                 }
-                scoreUI.Draw(Game1._spriteBatch, texture.fontDictionary[Texture.TextureType.Font]);
+                scoreUI.Draw();
             }
             if (currentState == GameStates.GameOver)
             {
@@ -160,9 +158,7 @@ namespace Slime.UI
                 winningScreen.Draw();
             }
         }
-        #endregion
 
-        #region Private methods
         private void UpdateLevel1(Hero hero, List<NextLevelDoor> doors, GameTime gameTime)
         {
             foreach (var item in enemyList)
@@ -179,7 +175,7 @@ namespace Slime.UI
             }
             foreach (var item in doors)
             {
-                if (item.level == NextLevelDoor.DoorLevel.Level1)
+                if (item.Level == NextLevelDoor.DoorLevel.Level1)
                 {
                     item.Update(gameTime);
                 }
@@ -187,16 +183,16 @@ namespace Slime.UI
 
             if (currentState == GameStates.Level1)
             {
-                if (hero.health <= 0)
+                if (hero.Health <= 0)
                 {
                     currentState = GameStates.GameOver;
-                    hero.health = 5;
+                    hero.Health = 5;
                     foreach (var item in coinList)
                     {
                         if (item.level == Coin.CoinLevelType.Level1)
                         {
-                            item.isCollected = false;
-                            item.value = 1;
+                            item.IsCollected = false;
+                            item.CoinValue = 1;
                         }
                     }
 
@@ -213,7 +209,7 @@ namespace Slime.UI
 
                     foreach (var item in enemyList)
                     {
-                        item.isAlive = true;
+                        item.IsAlive = true;
                         item.Update(gameTime);
                     }
                 }
@@ -234,7 +230,7 @@ namespace Slime.UI
             }
             foreach (var item in doors)
             {
-                if (item.level == DoorLevel.Level2)
+                if (item.Level == DoorLevel.Level2)
                 {
                     item.Update(gameTime);
                 }
@@ -246,15 +242,15 @@ namespace Slime.UI
 
             if (currentState == GameStates.Level1 || currentState == GameStates.Level2)
             {
-                if (hero.health <= 0)
+                if (hero.Health <= 0)
                 {
                     currentState = GameStates.GameOver;
-                    hero.health = 5;
+                    hero.Health = 5;
 
                     foreach (var item in coinList)
                     {
-                        item.isCollected = false;
-                        item.value = 1;
+                        item.IsCollected = false;
+                        item.CoinValue = 1;
                     }
                 }
                 else
@@ -268,7 +264,7 @@ namespace Slime.UI
                 {
                     foreach (var item in enemyList)
                     {
-                        item.isAlive = true;
+                        item.IsAlive = true;
                         item.Update(gameTime);
                     }
                 }
@@ -277,10 +273,10 @@ namespace Slime.UI
         private void UpdateGameOver(GameTime gameTime)
         {
             gameOverScreen.Update(gameTime);
-            hero.health = 5;
+            hero.Health = 5;
             foreach (var item in coinList)
             {
-                item.isCollected = false;
+                item.IsCollected = false;
             }
 
             if (currentState == GameStates.GameOver)
@@ -289,38 +285,38 @@ namespace Slime.UI
 
                 foreach (var item in enemyList)
                 {
-                    item.isAlive = true;
+                    item.IsAlive = true;
                     item.Update(gameTime);
                 }
             }
         }
         private void ResetObjects(GameTime gameTime)
         {
-            hero.health = 5;
+            hero.Health = 5;
             foreach (var item in coinList)
             {
-                item.isCollected = false;
+                item.IsCollected = false;
             }
             hero.Position = new Vector2(100, 500);
 
             foreach (var item in enemyList)
             {
-                item.isAlive = true;
+                item.IsAlive = true;
                 item.Update(gameTime);
             }
         }
         private void generateScreens()
         {
-            winningScreen = new Screen(texture.textureDictionary[Texture.TextureType.WinningScreen], new Rectangle(0, 0, 1000, 700), new Project1.Animations.Animation(), new Text("", new Vector2(0, 0)));
-            winningScreen.animation.AddFrame(new Project1.Animations.AnimationFrame(new Rectangle(0, 0, 1000, 700)));
-            winningScreen.animation.AddFrame(new Project1.Animations.AnimationFrame(new Rectangle(1000, 0, 1000, 700)));
+            winningScreen = new Screen(texture.textureDictionary[Texture.TextureType.WinningScreen], new Rectangle(0, 0, 1000, 700), new Project1.Animations.Animation(), new Text("", new Vector2(0, 0), texture.fontDictionary[Texture.TextureType.Font]));
+            winningScreen.Animation.AddFrame(new Project1.Animations.AnimationFrame(new Rectangle(0, 0, 1000, 700)));
+            winningScreen.Animation.AddFrame(new Project1.Animations.AnimationFrame(new Rectangle(1000, 0, 1000, 700)));
 
-            gameOverScreen = new Screen(texture.textureDictionary[Texture.TextureType.GameOverScreen], new Rectangle(0, 0, 1000, 700), new Project1.Animations.Animation(), new Text("", new Vector2(0, 0)));
-            gameOverScreen.animation.AddFrame(new Project1.Animations.AnimationFrame(new Rectangle(0, 0, 1000, 700)));
-            gameOverScreen.animation.AddFrame(new Project1.Animations.AnimationFrame(new Rectangle(1000, 0, 1000, 700)));
+            gameOverScreen = new Screen(texture.textureDictionary[Texture.TextureType.GameOverScreen], new Rectangle(0, 0, 1000, 700), new Project1.Animations.Animation(), new Text("", new Vector2(0, 0), texture.fontDictionary[Texture.TextureType.Font]));
+            gameOverScreen.Animation.AddFrame(new Project1.Animations.AnimationFrame(new Rectangle(0, 0, 1000, 700)));
+            gameOverScreen.Animation.AddFrame(new Project1.Animations.AnimationFrame(new Rectangle(1000, 0, 1000, 700)));
 
-            startMenuScreen = new Screen(texture.textureDictionary[Texture.TextureType.StartScreen], new Rectangle(0, 0, 1000, 700), new Project1.Animations.Animation(), new Text("Press 'ENTER' to Start !", new Vector2(200, 450)));
-            startMenuScreen.animation.AddFrame(new Project1.Animations.AnimationFrame(new Rectangle(0, 0, 1000, 700)));
+            startMenuScreen = new Screen(texture.textureDictionary[Texture.TextureType.StartScreen], new Rectangle(0, 0, 1000, 700), new Project1.Animations.Animation(), new Text("Press 'ENTER' to Start !", new Vector2(200, 450), texture.fontDictionary[Texture.TextureType.Font]));
+            startMenuScreen.Animation.AddFrame(new Project1.Animations.AnimationFrame(new Rectangle(0, 0, 1000, 700)));
         }
         private void generateDoors()
         {
@@ -368,6 +364,5 @@ namespace Slime.UI
         }
         
         
-        #endregion
     }
 }

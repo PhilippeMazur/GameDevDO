@@ -11,14 +11,12 @@ namespace Slime.UI
 {
     public class Texture
     {
-        public Texture2D texture;
         public enum TextureType
         {
             Hero,Enemy, Enemy2,Coin,Door,StartScreen,LevelBackground,GameOverScreen, WinningScreen,Map,StartButton, Health, Font, AbilityBar, AbilityJump
         }
         public Dictionary<TextureType, Texture2D> textureDictionary = new Dictionary<TextureType, Texture2D>();
         public Dictionary<TextureType, SpriteFont> fontDictionary = new Dictionary<TextureType, SpriteFont>();
-
         public void LoadContent(ContentManager content)
         {
             textureDictionary.Add(TextureType.Hero, content.Load<Texture2D>("SlimeHero"));

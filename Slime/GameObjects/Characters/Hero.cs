@@ -22,29 +22,38 @@ namespace Slime.Characters
 {
     public class Hero : IGameObject, IMovable
     {
-        public Texture2D heroTexture { get; set; }
-        public KeyboardReader inputReader { get; set; }
-        public Animation animation { get; set; } = new Animation();
-        public Vector2 Position { get { return position; } set { position.X = value.X; position.Y = value.Y; } }
-        public Vector2 position = new Vector2(100, 500f);
+        private Texture2D heroTexture;
+        private KeyboardReader inputReader;
+        private Animation animation = new Animation();
+        public Vector2 Position { get { return position; } set { position = value; } }
+        private Vector2 position = new Vector2(100, 500f);
         private Vector2 snelheid = new Vector2(5, 4);
-        public Vector2 currentFloorTile = new Vector2(0, 500);
-        public Vector2 previousFloorTile = new Vector2(0, 500);
-        public float floorTileDifference;
-        public Rectangle hitbox;
-        public Rectangle hitboxBody;
-        public int health = 5;
-        public bool isAlive = true;
-        public int coinsLevel1 = 0;
-        public int coinsLevel2 = 0;
-        public Vector2 velocity;
-        public bool hasJumped = false;
-        public bool isFalling = false;
-        public bool showHitbox;
-        GraphicsDevice graphicsDevice;
-        Texture2D textureHitbox;
-        double counter;
-        public bool hit;
+        public Vector2 CurrentFloorTile { get { return currentFloorTile; } set { currentFloorTile = value; } }
+        private Vector2 currentFloorTile = new Vector2(0, 500);
+        public Vector2 PreviousFloorTile { get { return previousFloorTile; } set { previousFloorTile = value; } }
+        private Vector2 previousFloorTile = new Vector2(0, 500);
+        public Rectangle Hitbox { get { return hitbox; } set { hitbox = value; } }
+        private Rectangle hitbox;
+        public Rectangle HitboxBody { get { return hitboxBody; } set { hitboxBody = value; } }
+        private Rectangle hitboxBody;
+        public int Health { get { return health; } set { health = value; } }
+        private int health = 5;
+        private bool isAlive = true;
+        public int CoinsLevel1 { get { return coinsLevel1; } set { coinsLevel1 = value; } }
+        private int coinsLevel1 = 0;
+        public int CoinsLevel2 { get { return coinsLevel2; } set { coinsLevel2 = value; } }
+        private int coinsLevel2 = 0;
+        public Vector2 Velocity { get { return velocity; } set { velocity = value; } }
+        private Vector2 velocity;
+        public bool HasJumped { get { return hasJumped; } set { hasJumped = value; } }
+        private bool hasJumped = false;
+        public bool IsFalling { get { return isFalling; } set { isFalling = value; } }
+        private bool isFalling = false;
+        private bool showHitbox;
+        private GraphicsDevice graphicsDevice;
+        private Texture2D textureHitbox;
+        public bool Hit { get { return hit; } set { hit = value; } }
+        private bool hit;
         public Hero(Texture2D heroTexture, KeyboardReader inputReader, GraphicsDevice graphicsDeviceIn)
         {
             this.heroTexture = heroTexture;

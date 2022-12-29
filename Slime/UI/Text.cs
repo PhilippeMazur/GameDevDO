@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SharpDX.Direct3D9;
 using Slime.Characters;
 using System;
 using System.Collections.Generic;
@@ -19,30 +20,30 @@ namespace Slime.UI
         private int randNumber = 1000;
         private float xValue;
         private float yValue;
-
+        private SpriteFont font;
         private string message;
         
-        public Text(string messagein, Vector2 positionin)
+        public Text(string messagein, Vector2 positionin, SpriteFont fontin)
         {
             message = messagein;
             position = positionin;
             xValue = position.X;
             yValue = position.Y;
-            
+            font = fontin;
 
         }
-        public void Draw(SpriteBatch spriteBatch, Texture2D texture, SpriteFont font)
+        public void Draw()
         {
             if (currentState == GameStates.StartScreen)
             {
-                _spriteBatch.DrawString(font, message, position, Color.White);
+                Game1._spriteBatch.DrawString(font, message, position, Color.White);
             }
         }
         public void Draw(SpriteFont font)
         {
             if (currentState == GameStates.StartScreen)
             {
-                _spriteBatch.DrawString(font, message, position, Color.White);
+                Game1._spriteBatch.DrawString(font, message, position, Color.White);
             }
         }
         public void Update(GameTime gameTime)

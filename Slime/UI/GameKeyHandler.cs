@@ -59,11 +59,11 @@ namespace Slime.UI
             }
             if (kbState.IsKeyDown(Keys.P))
             {
-                hero.coinsLevel1--;
+                hero.CoinsLevel1--;
             }
             if(kbState.IsKeyDown(Keys.O))
             {
-                hero.coinsLevel1++;
+                hero.CoinsLevel1++;
             }
             if (kbState.IsKeyDown(Keys.M) && currentState == GameStates.WinningScreen)
             {

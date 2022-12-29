@@ -105,7 +105,7 @@ namespace Project1.Animations
         {
             secondCounter += gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            if (!door.isOpened)
+            if (!door.IsOpened)
             {
                 secondCounter = 0;
                 CurrentFrame = frames[doorCounter];
