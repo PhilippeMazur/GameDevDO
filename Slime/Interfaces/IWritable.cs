@@ -11,6 +11,5 @@ namespace Slime.Interfaces
     internal interface IWritable
     {
         public Text Text { get; set; }
-        public void DrawText();
     }
 }

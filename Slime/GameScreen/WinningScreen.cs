@@ -15,6 +15,5 @@ namespace Slime.GameScreen
         public WinningScreen(Texture2D texturein, Rectangle positionin, Animation Animationin) : base(texturein, positionin, Animationin)
         {
         }
-
     }
 }

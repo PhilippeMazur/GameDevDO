@@ -21,16 +21,12 @@ namespace Slime.GameScreen
         public override void Draw()
         {
             base.Draw();
-            DrawText();
+            Text.Draw();
         }
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
             Text.Update(gameTime);
-        }
-        public void DrawText()
-        {
-            Text.Draw();
         }
     }
 }
