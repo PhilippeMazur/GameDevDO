@@ -12,7 +12,7 @@ namespace Slime.GameScreen
 {
     internal class GameOverScreen : Screen
     {
-        public GameOverScreen(Texture2D texturein, Rectangle positionin, Animation Animationin, Text textin) : base(texturein, positionin, Animationin, textin)
+        public GameOverScreen(Texture2D texturein, Rectangle positionin, Animation Animationin) : base(texturein, positionin, Animationin)
         {
         }
     }

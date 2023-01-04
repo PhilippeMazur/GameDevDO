@@ -84,7 +84,8 @@ namespace Slime.UI
         {
             if (currentState == GameStates.StartScreen)
             {
-                startMenuScreen.Draw(texture.fontDictionary[Texture.TextureType.Font]);
+                //startMenuScreen.Draw(texture.fontDictionary[Texture.TextureType.Font]);
+                startMenuScreen.Draw();
             }
 
             if (currentState == GameStates.Level1)
@@ -308,11 +309,11 @@ namespace Slime.UI
         }
         private void generateScreens()
         {
-            winningScreen = new WinningScreen(texture.textureDictionary[Texture.TextureType.WinningScreen], new Rectangle(0, 0, 1000, 700), new Project1.Animations.Animation(), new Text("", new Vector2(0, 0), texture.fontDictionary[Texture.TextureType.Font]));
+            winningScreen = new WinningScreen(texture.textureDictionary[Texture.TextureType.WinningScreen], new Rectangle(0, 0, 1000, 700), new Project1.Animations.Animation());
             winningScreen.Animation.AddFrame(new Project1.Animations.AnimationFrame(new Rectangle(0, 0, 1000, 700)));
             winningScreen.Animation.AddFrame(new Project1.Animations.AnimationFrame(new Rectangle(1000, 0, 1000, 700)));
 
-            gameOverScreen = new GameOverScreen(texture.textureDictionary[Texture.TextureType.GameOverScreen], new Rectangle(0, 0, 1000, 700), new Project1.Animations.Animation(), new Text("", new Vector2(0, 0), texture.fontDictionary[Texture.TextureType.Font]));
+            gameOverScreen = new GameOverScreen(texture.textureDictionary[Texture.TextureType.GameOverScreen], new Rectangle(0, 0, 1000, 700), new Project1.Animations.Animation());
             gameOverScreen.Animation.AddFrame(new Project1.Animations.AnimationFrame(new Rectangle(0, 0, 1000, 700)));
             gameOverScreen.Animation.AddFrame(new Project1.Animations.AnimationFrame(new Rectangle(1000, 0, 1000, 700)));
 

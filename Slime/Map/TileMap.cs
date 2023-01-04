@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Slime.Interfaces;
 using Slime.UI;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ using static Slime.Game1;
 
 namespace Slime.Map
 {
-    public class TileMap
+    public class TileMap : IGameObject
     {
         private Texture2D levelBackgroundTexture;
         private Texture2D tilesetTexture;

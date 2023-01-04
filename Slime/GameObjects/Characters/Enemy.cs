@@ -16,13 +16,14 @@ using Texture2D = Microsoft.Xna.Framework.Graphics.Texture2D;
 
 namespace Slime.Characters
 {
-    public abstract class Enemy : IGameObject, IMovable
+    public abstract class Enemy : IGameObject
     {
         private Texture2D texture;
         public Vector2 Position { get { return position; } set { position = value; } }
         private Vector2 position;
         public Vector2 StartPosition { get { return startPosition; } set { startPosition = value; } }
         private Vector2 startPosition;
+        public int MaxMoveDistance { get { return maxMoveDinstance; } set { maxMoveDinstance = value; } }
         private int maxMoveDinstance;
         public float SpeedGround { get { return speedGround; } set { speedGround = value; } }
         private float speedGround = 1;
@@ -37,7 +38,7 @@ namespace Slime.Characters
             runningLeft,
             runningRight
         }
-        public AnimationState animationState;
+        public AnimationState animationState = AnimationState.runningRight;
         public Rectangle hitboxBody;
         public enum Level
         {
@@ -66,14 +67,12 @@ namespace Slime.Characters
             int height = 50;
             EnemyType = enemyType;
             hero = heroin;
-
             animation.AddFrame(new AnimationFrame(new Rectangle(0, 1, width, height)));
             animation.AddFrame(new AnimationFrame(new Rectangle(50, 1, width, height)));
             animation.AddFrame(new AnimationFrame(new Rectangle(0, 51, width, height)));
             animation.AddFrame(new AnimationFrame(new Rectangle(50, 51, width, height)));
             animation.AddFrame(new AnimationFrame(new Rectangle(0, 1, width, height)));
             animation.AddFrame(new AnimationFrame(new Rectangle(50, 1, width, height)));
-
         }
 
         public void LoadContent()
@@ -103,7 +102,6 @@ namespace Slime.Characters
         public virtual void Update(GameTime gameTime)
         {
             animation.UpdateEnemy(gameTime ,this);
-            Move();
             hitbox.X = (int)position.X;
             hitbox.Y = (int)position.Y;
 
@@ -112,23 +110,7 @@ namespace Slime.Characters
 
         }
 
-        public void Move()
-        {
-            if(EnemyType == Type.Ground)
-            {
-                position.X -= speedGround;
-                if (position.X == startPosition.X - maxMoveDinstance)
-                {
-                    speedGround *= -1;
-                    animationState = AnimationState.runningRight;
-                }
-                if (position.X == startPosition.X + maxMoveDinstance)
-                {
-                    speedGround *= -1;
-                    animationState = AnimationState.runningLeft;
-                }
-            } 
-        }
+        
 
     }
 }

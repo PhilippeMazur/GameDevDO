@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Project1.Animations;
+using Slime.Interfaces;
 using Slime.UI;
 using System;
 using System.Collections.Generic;
@@ -10,10 +11,26 @@ using System.Threading.Tasks;
 
 namespace Slime.GameScreen
 {
-    internal class StartScreen : Screen
+    internal class StartScreen : Screen, IWritable
     {
-        public StartScreen(Texture2D texturein, Rectangle positionin, Animation Animationin, Text textin) : base(texturein, positionin, Animationin, textin)
+        public Text Text { get; set; }
+        public StartScreen(Texture2D texturein, Rectangle positionin, Animation Animationin, Text textin) : base(texturein, positionin, Animationin)
         {
+            Text  = textin;
+        }
+        public override void Draw()
+        {
+            base.Draw();
+            DrawText();
+        }
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+            Text.Update(gameTime);
+        }
+        public void DrawText()
+        {
+            Text.Draw();
         }
     }
 }
