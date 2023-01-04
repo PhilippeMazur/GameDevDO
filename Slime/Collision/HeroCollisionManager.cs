@@ -31,7 +31,7 @@ namespace Slime.Collision
                 foreach (var block in map.Blocks)
                 {
 
-                    if (block.RecPos.Intersects(hero.HitboxBody) && (block.MyType is Block.typeBlock.FLOOR || block.MyType is Block.typeBlock.FLOOR2 || block.MyType is Block.typeBlock.SPIKE || block.MyType is Block.typeBlock.SPIKE2))
+                    if (block.RecPos.Intersects(hero.HitboxBody) && (block.MyType is Block.typeBlock.FLOOR ||block.MyType is Block.typeBlock.FLOOR2 || block.MyType is Block.typeBlock.SPIKE || block.MyType is Block.typeBlock.SPIKE2))
                     {
                         if (hero.Position.X + 27 >= block.RecPos.X || hero.Position.X - 27 <= block.RecPos.X && hero.Position.Y + 13 >= block.RecPos.Y)
                         {
