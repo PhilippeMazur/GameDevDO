@@ -14,7 +14,6 @@ namespace Slime.Map
         private Vector2 pos;
         public Rectangle RecPos { get { return recPos; } set { recPos = value; } }
         private Rectangle recPos;
-        private Rectangle recPosV2;
         public Rectangle TextureRectangle { get { return textureRectangle; } set { textureRectangle = value; } }
         private Rectangle textureRectangle;
         private int w = 50;
@@ -31,11 +30,7 @@ namespace Slime.Map
             CLOUD2,
             LAMP,
             LAMP2
-            
-
         }
-
-        
         public Block(typeBlock blockType, Vector2 rectIn)
         {
             
@@ -45,10 +40,6 @@ namespace Slime.Map
                 pos = rectIn;
                 textureRectangle = new Rectangle(0, 0, w, h);
                 recPos = new Rectangle((int)pos.X, (int)pos.Y, w, h);
-                recPosV2 = new Rectangle((int)pos.X, (int)pos.Y, w, h);
-
-
-
             }
             else if (blockType == typeBlock.FLOOR)
             {
@@ -57,7 +48,6 @@ namespace Slime.Map
                 pos = rectIn;
                 textureRectangle = new Rectangle(50, 0, w, h);
                 recPos = new Rectangle((int)pos.X, (int)pos.Y, w, h);
-                recPosV2 = new Rectangle((int)pos.X, (int)pos.Y, w, h);
 
 
             }
@@ -68,7 +58,6 @@ namespace Slime.Map
                 pos = rectIn;
                 textureRectangle = new Rectangle(100, 0, w, h);
                 recPos = new Rectangle((int)pos.X, (int)pos.Y, w, h);
-                recPosV2 = new Rectangle((int)pos.X, (int)pos.Y, w, h - 20);
 
 
 
@@ -80,7 +69,6 @@ namespace Slime.Map
                 pos = rectIn;
                 textureRectangle = new Rectangle(150, 0, w, h);
                 recPos = new Rectangle((int)pos.X, (int)pos.Y, w, h);
-                recPosV2 = new Rectangle((int)pos.X, (int)pos.Y, w, h - 20);
 
 
             }
@@ -91,7 +79,6 @@ namespace Slime.Map
                 pos = rectIn;
                 textureRectangle = new Rectangle(200, 0, w, h);
                 recPos = new Rectangle((int)pos.X, (int)pos.Y, w, h);
-                recPosV2 = new Rectangle((int)pos.X, (int)pos.Y, w, h - 20);
 
 
             }
@@ -102,7 +89,6 @@ namespace Slime.Map
                 pos = rectIn;
                 textureRectangle = new Rectangle(250, 0, w, h);
                 recPos = new Rectangle((int)pos.X, (int)pos.Y, w, h);
-                recPosV2 = new Rectangle((int)pos.X, (int)pos.Y, w, h - 20);
 
 
             }
@@ -113,7 +99,6 @@ namespace Slime.Map
                 pos = rectIn;
                 textureRectangle = new Rectangle(300, 0, w, h);
                 recPos = new Rectangle((int)pos.X, (int)pos.Y, w, h);
-                recPosV2 = new Rectangle((int)pos.X, (int)pos.Y, w, h - 20);
 
 
             }

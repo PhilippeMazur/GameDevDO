@@ -32,7 +32,7 @@ namespace Slime
             GameOver
         }
         public static GameStates currentState;
-        GameSceneManager2 gameSceneManager2 = new GameSceneManager2();
+        GameSceneManager gameSceneManager2 = new GameSceneManager();
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);

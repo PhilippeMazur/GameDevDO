@@ -17,7 +17,7 @@ namespace Slime.Input
     public class KeyboardReader 
     {
 
-        public enum states
+        public enum States
         {
             Idle,
             RunningLeft,
@@ -25,8 +25,8 @@ namespace Slime.Input
             Jumping, 
             LostHealth
         }
-        public states AnimationState { get { return animationState; } set { animationState = value; } }
-        private states animationState;
+        public States AnimationState { get { return animationState; } set { animationState = value; } }
+        private States animationState;
 
         public int SpeedLeft { get { return speedLeft; } set { speedLeft = value; } }
         private int speedLeft = 1;
@@ -36,7 +36,7 @@ namespace Slime.Input
         
         public Vector2 ReadInput(Vector2 pos, Hero hero)
         {
-            AnimationState = states.Idle;
+            AnimationState = States.Idle;
             Vector2 direction = Vector2.Zero;
             KeyboardState kbState = Keyboard.GetState();
             
@@ -44,12 +44,12 @@ namespace Slime.Input
             {
                 
                 direction.X = -1 * speedLeft;
-                AnimationState = states.RunningLeft;
+                AnimationState = States.RunningLeft;
             }
             if (kbState.IsKeyDown(Keys.Right))
             {
                 direction.X = 1 * speedRight;
-                AnimationState = states.RunningRight;
+                AnimationState = States.RunningRight;
             }
 
 
@@ -64,7 +64,7 @@ namespace Slime.Input
 
             if (hero.IsFalling)
             {
-                AnimationState = states.Jumping;
+                AnimationState = States.Jumping;
                 //hero.velocity.Y += 0.15f * 1;
                 hero.Velocity += new Vector2(0, 0.15f * 1);
 

@@ -16,20 +16,21 @@ using Texture2D = Microsoft.Xna.Framework.Graphics.Texture2D;
 
 namespace Slime.Characters
 {
-    public class Enemy : IGameObject, IMovable
+    public abstract class Enemy : IGameObject, IMovable
     {
-
-        public Vector2 Position { get { return position; } set { position = value; } }
-        public bool IsAlive { get { return isAlive; } set { isAlive = value; } }
-
         private Texture2D texture;
+        public Vector2 Position { get { return position; } set { position = value; } }
         private Vector2 position;
+        public Vector2 StartPosition { get { return startPosition; } set { startPosition = value; } }
         private Vector2 startPosition;
         private int maxMoveDinstance;
-        private float speedGround = 1f;
+        public float SpeedGround { get { return speedGround; } set { speedGround = value; } }
+        private float speedGround = 1;
+        public bool IsAlive { get { return isAlive; } set { isAlive = value; } }
         private bool isAlive = true;
         private Rectangle hitbox;
         private Animation animation = new Animation();
+        public Hero Hero { get { return hero; } set { hero = value; } }
         private Hero hero;
         public enum AnimationState
         {
@@ -99,7 +100,7 @@ namespace Slime.Characters
             }
             
         }
-        public void Update(GameTime gameTime)
+        public virtual void Update(GameTime gameTime)
         {
             animation.UpdateEnemy(gameTime ,this);
             Move();
@@ -126,32 +127,7 @@ namespace Slime.Characters
                     speedGround *= -1;
                     animationState = AnimationState.runningLeft;
                 }
-            } else
-            {
-                if(hero.Health > 0 && currentState == GameStates.Level1)
-                {
-                    if (position.X < hero.Position.X)
-                    {
-                        position.X += speedGround / 2;
-                        animationState = AnimationState.runningRight;
-                    }
-                    if (position.X > hero.Position.X)
-                    {
-                        position.X -= speedGround / 2;
-                        animationState = AnimationState.runningLeft;
-                    }
-                    if (position.Y < hero.Position.Y)
-                    {
-                        position.Y += speedGround / 2;
-                    }
-                    if (position.Y > hero.Position.Y)
-                    {
-                        position.Y -= speedGround / 2;
-                    }
-                }
-                
-
-            }
+            } 
         }
 
     }

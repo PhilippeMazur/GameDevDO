@@ -26,23 +26,6 @@ namespace Slime.UI
         private int randNumber = 1000;
         private int xValue;
         private int yValue;        
-        public GameKeyHandler(Rectangle recPosIn, Vector2 positionin)
-        {
-            recPos = recPosIn;
-            position = positionin;
-            xValue = recPos.X;
-            yValue = recPos.Y;
-        }
-
-        public void Draw(SpriteBatch spriteBatch, Texture2D texture)
-        {
-            if(currentState == GameStates.StartScreen)
-            {
-                spriteBatch.Draw(texture, position, recPos, Color.White);
-
-            }
-        }
-
         public void Update(GameTime gameTime, Hero hero)
         {
             KeyboardState kbState = Keyboard.GetState();

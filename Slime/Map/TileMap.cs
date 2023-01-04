@@ -39,12 +39,12 @@ namespace Slime.Map
             {0,0,0,2,1,0,0,0,0,0,0,2,1,1,1,0,0,0,0,0},
             {2,2,2,1,1,3,3,3,2,2,2,1,1,1,1,2,2,2,2,2}
 
-        };
+        };       
         private int[,] level2 = new int[,]
         {
             {0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
             {0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-            {0,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2},
+            {0,0,0,2,2,2,3,3,3,3,2,2,2,2,2,2,2,2,2,2},
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
             {2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
             {1,1,2,0,0,0,0,0,0,0,0,0,0,0,6,0,0,0,0,0},
@@ -64,9 +64,7 @@ namespace Slime.Map
             tilesetTexture = tilesetTexturein;
             CreateBlocks(level, blocks);            
             CreateBlocks(level2, blocks2);            
-        }
-
-        
+        }     
         public void Update(GameTime gameTime)
         {
             counter += gameTime.ElapsedGameTime.TotalMilliseconds;
@@ -102,14 +100,9 @@ namespace Slime.Map
                     if (item.MyType != Block.typeBlock.SKY)
                     {
                         Game1._spriteBatch.Draw(tilesetTexture, item.Pos, item.TextureRectangle, Color.White);
-
                     }
                 }
             }
-
-
-            
-
         }
         private void CreateBlocks(int[,] level, List<Block> blocks)
         {

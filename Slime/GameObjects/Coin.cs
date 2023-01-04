@@ -30,7 +30,6 @@ namespace Slime.GameElements
             Level2
         }
         public CoinLevelType level;
-
         public Coin(Texture2D texturein, Vector2 positionin, CoinLevelType levelin)
         {
             this.texture= texturein;
@@ -54,7 +53,6 @@ namespace Slime.GameElements
             animation.AddFrame(new AnimationFrame(new Rectangle(224, 0, 16, 16)));
             this.level = levelin;
         }
-
         public void Draw()
         {
             if(!isCollected)
@@ -62,7 +60,6 @@ namespace Slime.GameElements
                 Game1._spriteBatch.Draw(texture, position, animation.CurrentFrame.sourceRectangle, Color.White, 0, new Vector2(0, 0), new Vector2(3, 3), SpriteEffects.None, 0);
             }
         }
-
         public void Update(GameTime gameTime)
         {
             animation.Update(gameTime, 20);

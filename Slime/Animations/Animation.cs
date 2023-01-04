@@ -19,7 +19,6 @@ namespace Project1.Animations
         private int counter;
         private int counter2 = 2;
         private int counter3 = 4;
-        private int counter4 = 6;
         private int doorCounter = 0;
         private int doorCounter2 = 1;
         private double secondCounter = 0;
@@ -41,7 +40,7 @@ namespace Project1.Animations
         {
             secondCounter += gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            if (kb.AnimationState == KeyboardReader.states.Idle)
+            if (kb.AnimationState == KeyboardReader.States.Idle)
             {
                 goingLeft = false;               
                 if (secondCounter >= 1000d / fps)
@@ -56,7 +55,7 @@ namespace Project1.Animations
                 }
             }
  
-            if (kb.AnimationState == KeyboardReader.states.RunningRight)
+            if (kb.AnimationState == KeyboardReader.States.RunningRight)
             {
                 goingLeft = false;                
                 if (secondCounter >= 1000d / fps)
@@ -70,7 +69,7 @@ namespace Project1.Animations
                     }
                 }
             }
-            if(kb.AnimationState == KeyboardReader.states.RunningLeft)
+            if(kb.AnimationState == KeyboardReader.States.RunningLeft)
             {
                 goingLeft = true;
                 
@@ -86,9 +85,9 @@ namespace Project1.Animations
                     }
                 }
             }
-            if (kb.AnimationState == KeyboardReader.states.Jumping)
+            if (kb.AnimationState == KeyboardReader.States.Jumping)
             {
-                goingLeft = false;                
+                goingLeft = false;
                 if (secondCounter >= 1000d / fps)
                 {
                     secondCounter = 0;
@@ -99,9 +98,9 @@ namespace Project1.Animations
                         counter3 = 4;
                     }
                 }
-            }     
+            }
         }
-        public void Update(GameTime gameTime, NextLevelDoor door)
+        public void Update(GameTime gameTime, Door door)
         {
             secondCounter += gameTime.ElapsedGameTime.TotalMilliseconds;
 

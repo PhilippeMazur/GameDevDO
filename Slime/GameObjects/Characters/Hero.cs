@@ -54,11 +54,13 @@ namespace Slime.Characters
         private Texture2D textureHitbox;
         public bool Hit { get { return hit; } set { hit = value; } }
         private bool hit;
+        public bool Vulnerable { get { return vulnerable; } set { vulnerable = value; } }
+        private bool vulnerable = true;
+
         public Hero(Texture2D heroTexture, KeyboardReader inputReader, GraphicsDevice graphicsDeviceIn)
         {
             this.heroTexture = heroTexture;
             this.inputReader = inputReader;
-            
             animation.AddFrame(new AnimationFrame(new Rectangle(0, 0, 50, 50)));
             animation.AddFrame(new AnimationFrame(new Rectangle(50, 0, 50, 50)));
             animation.AddFrame(new AnimationFrame(new Rectangle(0, 50, 50, 50)));
@@ -148,20 +150,47 @@ namespace Slime.Characters
                 Position = new Vector2(100, 500);
             }
         }
-        float timer = 0.3f;
-        const float TIMER = 0.3f;
+        float timer = 3f;
+        const float TIMER = 3f;
         public void LostHealth(GameTime gameTime)
         {
+            
+            vulnerable = false;
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
             timer -= elapsed;
             if (timer < 0)
             {
+                vulnerable = true;
                 showHitbox = false;
                 hit = false;
                 timer = TIMER;
             } else
             {
-                showHitbox = true;
+                if(timer > 2.5f && timer < 3f)
+                {
+                    showHitbox = true;
+                }
+                if(timer > 2f && timer < 2.5f)
+                {
+                    showHitbox = false;
+                }
+                if(timer > 1.5f && timer < 2f)
+                {
+                    showHitbox = true;
+                }
+                if(timer > 1f && timer < 1.5f)
+                {
+                    showHitbox = false;
+                }
+                if(timer > 0.5f && timer < 1f)
+                {
+                    showHitbox = true;
+                }
+                if(timer > 0f && timer < 0.5f)
+                {
+                    showHitbox = false;
+                }
+                Debug.WriteLine(timer);
             }
         }
     }

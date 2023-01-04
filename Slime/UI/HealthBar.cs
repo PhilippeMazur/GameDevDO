@@ -13,15 +13,30 @@ namespace Slime.UI
 {
     public class HealthBar 
     {
-        private Vector2 position = new Vector2(0, 0);
+        public static HealthBar Instance => instance ??= new HealthBar(); // deze lijn code vervangt lijn 23 tem 30
+        private static HealthBar instance;
         private Texture2D texture;
-
-        public HealthBar(Texture2D texturein)
+        private Hero hero;
+        private HealthBar()
         {
+        }
+        /*
+        public static HealthBar getInstance()
+        {
+            if (instance == null)
+                instance = new HealthBar();
+
+            return instance;
+        }
+        */
+
+        public void Initialise(Hero heroin,Texture2D texturein)
+        {
+            hero = heroin;
             texture = texturein;
         }
 
-        public void Draw(Hero hero)
+        public void Draw()
         {
             for (int i = 0; i < hero.Health * 50; i+=50)
             {
